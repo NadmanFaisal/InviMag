@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div>
     <b-container fluid>
       <h1 class="display-5 fw-bold">DIT342 Frontend</h1>
