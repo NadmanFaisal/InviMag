@@ -62,7 +62,6 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
 Our system is an inventory mangement system that can be used by organisations like: grocery stores, fashion brands, and electronic stores. The main idea behind our system is to help these organisation keep track of all of their inventory (what all products they have in stock), and for these organisations to be directly connected to the suppliers who provide them with their inventory. Our system will allow for inventory to be displayed and to be sorted based on various different attibutes like: price, quantity, date of purchase, etc. Our system will also be able to list suppliers and all the products that each supplier sells.
 
 Our advanced feature would be a smart suggestor that looks at a resources that are currently in the organisations inventory and uses sorting and comparions to find other suppliers that offer the same resource for a cheaper value, hence helping the organisation cut on their cost in a smart manner. 
