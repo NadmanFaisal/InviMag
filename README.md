@@ -80,7 +80,7 @@ Our advanced feature would be a smart suggestor that looks at a resources that a
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/InvManageSys_ERdiagram.drawio.png)
+![ER Diagram](./images/Upd1_InvManageSys_ERdiagram.drawio.png)
 
 ## Teaser (MS3)
 
