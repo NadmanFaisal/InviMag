@@ -16,5 +16,8 @@ businessOwnerSchema.virtual('loginCredentials').get(function(){
     return '${this.email} ${this.password}'; 
 });
 
-const BusinessOwner = mongoose.model('BusinessOwner', businessOwnerSchema);
 // Compiles the model from the defined schema
+const BusinessOwner = mongoose.model('BusinessOwner', businessOwnerSchema);
+
+// Export function to crreate "BusinessOwner" model class
+module.exports = BusinessOwner;
