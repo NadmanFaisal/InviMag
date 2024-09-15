@@ -35,20 +35,8 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
-// var businessOwners = [];
-// app.post('/businessOwners', function(req, res) {
-//     var newBusinessOwner = {
-//         "name": "Nadman",
-//         "total_budget": "1000",
-//         "email": "fuckthis",
-//         "password": "shit"
-//     };
-
-//     businessOwners.push(newBusinessOwner);
-//     res.status(201).json(newBusinessOwner);
-// });
-
-app.use(businessOwnerController);
+// Uses every endpoints specified inside the Controller class
+app.use('/api', businessOwnerController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
