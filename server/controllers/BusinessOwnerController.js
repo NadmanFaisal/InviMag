@@ -73,4 +73,27 @@ router.delete('/businessOwners', async function (req, res) {
     }
 });
 
+router.put('/businessOwners/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        var updatedBusinessOwner = {
+            name: req.body.name,
+            total_budget: req.body.total_budget,
+            email: req.body.email,
+            password: req.body.password
+        };
+
+        // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it
+        var businessOwner = await BusinessOwner.findByIdAndUpdate(id, updatedBusinessOwner, { new: true });
+        if (!businessOwner) {
+            return res.status(404).json({ message: 'Business owner was not found' });
+        }
+        // Return the new and updated business owner
+        res.status(200).json(businessOwner);
+    } catch (error) {
+        // Any error is mentioned as Server error
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 module.exports = router;
