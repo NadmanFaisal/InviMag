@@ -65,3 +65,25 @@ router.delete('/Products/:id', function (req, res){
 
 });
 
+router.patch('/Products/:id', function (req, res){
+    try{
+        var productID = req.params.id;
+        const product = Product.findById(productID);
+        if(!product){
+            res.status(404).json({"message" : "did not find product"})
+        }
+        var updated_product ={
+            "name": (req.params.name || product.name),
+            "quantity": (req.params.quantity || product.quantity),
+            "buying_price": (req.params.buying_price || product.buying_price),
+            "selling_price": (req.params.selling_price || product.selling_price),
+            "category": (req.params.category || product.category),
+            "in_stock": (req.params.in_stock || product.in_stock),
+            "businessOwner":(req.params.businessOwner || product.businessOwner)
+        };
+        product = updated_product;
+        res.json(product);
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+    }
+});
