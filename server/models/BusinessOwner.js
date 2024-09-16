@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
 // Defines schema
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // No id required, mongoose does this automatically
-const  businessOwnerSchema = new schema ({
+const  businessOwnerSchema = new Schema ({
     name: String,
     total_budget: String,
     email: String,
     password: String,
+    products: [{type: Schema.Types.ObjectId, ref: "Product", required: true}]
 });
 
 businessOwnerSchema.virtual('loginCredentials').get(function(){ 
