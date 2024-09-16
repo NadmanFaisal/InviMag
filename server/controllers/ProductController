@@ -35,11 +35,11 @@ router.get('/Products/', async function (req, res){
 })
 
 router.get('/Products/:id', async function (req, res){
-    var productID = req.body.id;
-    const product = Product.findById(productID);
+    var productID = req.params.id;
+    const products = Product.findById(productID);
     try{
     if(!product){
-        res.status(404).json({"message: did not find product"})
+        res.status(404).json({"message" : "did not find product"})
     }
     res.status(200).json(product);
     } catch (error){
@@ -47,3 +47,21 @@ router.get('/Products/:id', async function (req, res){
     }
 
 })
+
+router.delete('/Products/:id', function (req, res){
+    try{
+        
+        var productID = req.params.id;
+        const product = Product.findById(productID);
+        if(!product){
+            res.status(404).json({"message" : "did not find product"})
+        }
+        delete product;
+        res.json(product);
+
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+    }
+
+});
+
