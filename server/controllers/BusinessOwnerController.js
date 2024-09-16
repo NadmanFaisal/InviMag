@@ -45,9 +45,19 @@ router.get('/businessOwners/:id', async function (req, res) {
 
 // Will delete business owner according to its id
 router.delete('/businessOwners/:id', async function (req, res) {
-    const id = req.params.id;
-    const businessOwner = await BusinessOwner.findByIdAndDelete(id);
-    res.json(businessOwner);
+    try {
+        // Var instead of const cause i want to re-declare it if required in future.
+        var id = req.params.id;
+        var businessOwner = await BusinessOwner.findByIdAndDelete(id);
+
+        if (!businessOwner) {
+            return res.status(404).json({ message: 'Business owner not found' });
+        }
+        // Returns the details of the deleted business owner
+        res.status(200).json(businessOwner);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
 });
 
 module.exports = router;
