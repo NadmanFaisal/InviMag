@@ -43,4 +43,11 @@ router.get('/businessOwners/:id', async function (req, res) {
     }
 });
 
+// Will delete business owner according to its id
+router.delete('/businessOwners/:id', async function (req, res) {
+    const id = req.params.id;
+    const businessOwner = await BusinessOwner.findByIdAndDelete(id);
+    res.json(businessOwner);
+});
+
 module.exports = router;
