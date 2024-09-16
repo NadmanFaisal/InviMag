@@ -6,11 +6,11 @@ const ProductSchema = new Schema({
 
     name: String,
     quantity: String,
-    buying_Price: String,
-    selling_Price: String,
+    buying_price: String,
+    selling_price: String,
     category: String,
-    in_stock: Boolean
-
+    in_stock: Boolean,
+    business_owner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: true}
 })
 
 const ProductModel = mongoose.model("Product", ProductSchema);
