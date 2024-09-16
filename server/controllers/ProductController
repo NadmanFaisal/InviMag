@@ -32,5 +32,18 @@ router.get('/Products/', async function (req, res){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
     }
 
+})
+
+router.get('/Products/:id', async function (req, res){
+    var productID = req.body.id;
+    const product = Product.findById(productID);
+    try{
+    if(!product){
+        res.status(404).json({"message: did not find product"})
+    }
+    res.status(200).json(product);
+    } catch (error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+    }
 
 })
