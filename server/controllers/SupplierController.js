@@ -77,5 +77,34 @@ router.delete('/suppliers', async function (req, res) {
     }
 });
 
+// update all fields of a supplier
+
+router.put('/suppliers/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        const {name, location_of_origin} = req.body;
+
+        // this to ensure that put does not act like patch.
+
+        if (!req.body.name) {
+            return res.status(404).json({ message: 'Name cannot be empty' });
+        } else if (!req.body.location_of_origin) {
+            return res.status(404).json({ message: 'Location of origin cannot be empty' });
+        }
+
+        var updatedSupplier = {name, location_of_origin};
+
+        // true: to always return updated supplier
+        var supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true });
+        if (!supplier) {
+            return res.status(404).json({ message: 'Supplier was not found' });
+        }
+
+        res.status(200).json(supplier); // Return updated supplier
+
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
 
 module.exports = router;
