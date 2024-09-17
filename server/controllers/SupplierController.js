@@ -107,4 +107,31 @@ router.put('/suppliers/:id', async function (req, res) {
     }
 });
 
+// update specific field of a supplier
+
+router.patch('/suppliers/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        var initialSupplier = await Supplier.findById(id);
+
+        if (!initialSupplier) {
+            return res.status(404).json({ message: 'Supplier does not exist' });
+        }
+
+        var updatedSupplier = {
+            name: (req.body.name || initialSupplier.name),
+            location_of_origin: (req.body.location_of_origin || initialSupplier.location_of_origin)
+        };
+
+        var supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true });
+        if (!supplier) {
+            return res.status(404).json({ message: 'Supplier was not found' });
+        }
+
+        res.status(200).json(supplier);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 module.exports = router;
