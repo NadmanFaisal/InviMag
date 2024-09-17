@@ -45,4 +45,37 @@ router.get('/suppliers/:id', async function (req, res) {
     }
 });
 
+// Delete supplier according to id
+
+router.delete('/suppliers/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        var supplier = await Supplier.findByIdAndDelete(id);
+
+        if (!supplier) {
+            return res.status(404).json({ message: 'Supplier not found' });
+        }
+
+        res.status(200).json(supplier); //Return deleted supplier, 200: Return OK response
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+// Delete all of suppliers 
+
+router.delete('/suppliers', async function (req, res) {
+    try {
+        var suppliers = await Supplier.deleteMany();
+        if (!suppliers) {
+            return res.status(404).json({ message: 'Suppliers not found' });
+        }
+        
+        res.status(200).json(suppliers); // Return number of supplier deleted
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+
 module.exports = router;
