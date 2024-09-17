@@ -35,7 +35,7 @@ router.get('/businessOwners/:id', async function (req, res) {
     try {
         const businessOwner = await BusinessOwner.findById(id);
         if (!businessOwner) {
-            res.status(404).json({"message": "Did not find business owner"});
+            return res.status(404).json({"message": "Did not find business owner"});
         }
         res.json(businessOwner);
     } catch (error) {
@@ -51,7 +51,7 @@ router.delete('/businessOwners/:id', async function (req, res) {
         var businessOwner = await BusinessOwner.findByIdAndDelete(id);
 
         if (!businessOwner) {
-            res.status(404).json({ message: 'Business owner not found' });
+            return res.status(404).json({ message: 'Business owner not found' });
         }
         // Returns the details of the deleted business owner
         res.status(200).json(businessOwner);
@@ -64,7 +64,7 @@ router.delete('/businessOwners', async function (req, res) {
     try {
         var businessOwners = await BusinessOwner.deleteMany();
         if (!businessOwners) {
-            res.status(404).json({ message: 'Business owners not found' });
+            return res.status(404).json({ message: 'Business owners not found' });
         }
         // Returns how many business owners were deleted
         res.status(200).json(businessOwners);
@@ -76,12 +76,20 @@ router.delete('/businessOwners', async function (req, res) {
 router.put('/businessOwners/:id', async function (req, res) {
     try {
         var id = req.params.id;
-        var updatedBusinessOwner = {
-            name: req.body.name,
-            total_budget: req.body.total_budget,
-            email: req.body.email,
-            password: req.body.password
-        };
+        const { name, total_budget, email, password } = req.body;
+
+        // Constraints to update ALL of the feilds of a business owner
+        if (!req.body.name) {
+            return res.status(404).json({ message: 'Name cannot be empty' });
+        } else if (!req.body.total_budget) {
+            return res.status(404).json({ message: 'Total budget cannot be empty' });
+        } else if (!req.body.email) {
+            return res.status(404).json({ message: 'Email cannot be empty' });
+        } else if (!req.body.password) {
+            return res.status(404).json({ message: 'Password cannot be empty' });
+        }
+        
+        var updatedBusinessOwner = { name, total_budget, email, password };
 
         // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it
         var businessOwner = await BusinessOwner.findByIdAndUpdate(id, updatedBusinessOwner, { new: true });
