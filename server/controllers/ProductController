@@ -65,6 +65,35 @@ router.delete('/Products/:id', function (req, res){
 
 });
 
+
+router.put('/Products/:id', function (req, res){
+    try{
+        var productID = req.params.id;
+        const product = Product.findById(productID);
+        if(!product){
+            res.status(404).json({"message" : "did not find product"})
+        }
+        if(!(req.params.name || req.params.quantity || req.params.buying_price || req.params.selling_price || req.params.category || req.params.in_stock || req.params.businessOwner )){
+            res.status(404).json({ error: 'An input for the fields is missing' });
+        }
+    
+        var updated_product ={
+            "name": (req.params.name),
+            "quantity": (req.params.quantity),
+            "buying_price": (req.params.buying_price),
+            "selling_price": (req.params.selling_price),
+            "category": (req.params.category),
+            "in_stock": (req.params.in_stock),
+            "businessOwner":(req.params.businessOwner)
+        };
+        product = updated_product;
+        res.json(product);
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+    }
+});
+
+
 router.patch('/Products/:id', function (req, res){
     try{
         var productID = req.params.id;
@@ -87,3 +116,5 @@ router.patch('/Products/:id', function (req, res){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
     }
 });
+
+module.exports = router;

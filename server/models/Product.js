@@ -13,4 +13,6 @@ const ProductSchema = new Schema({
     business_owner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: true}
 })
 
-const ProductModel = mongoose.model("Product", ProductSchema);
+const Product = mongoose.model("Product", ProductSchema);
+
+module.exports = Product;
