@@ -9,6 +9,6 @@ const supplierSchema = new Schema({
     products: [{type: Schema.Types.ObjectId, ref: "Product", required: true}]
 })
 
-const SupplierModel = mongoose.model("Supplier", supplierSchema);
+const Supplier = mongoose.model("Supplier", supplierSchema);
 
-module.exports = SupplierModel;
+module.exports = Supplier;

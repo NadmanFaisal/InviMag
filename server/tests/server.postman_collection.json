@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38197131",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
+		"_exporter_id": "38098400",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38098400"
 	},
 	"item": [
 		{
@@ -217,6 +217,170 @@
 						"api",
 						"businessOwners",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/suppliers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ABC Company\",\r\n    \"location_of_origin\": \"Bangladesh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/suppliers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/suppliers/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/66e978f53f81c4364e332ac9",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"66e978f53f81c4364e332ac9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /v1/api/suppliers/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ABC Company, Ltd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/66e978f53f81c4364e332ac9",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"66e978f53f81c4364e332ac9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /v1/api/suppliers/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"ABC Company, Ltd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/66e978f53f81c4364e332ac9",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"66e978f53f81c4364e332ac9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/suppliers/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/66e97023658ba5ca02f86eca",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"66e97023658ba5ca02f86eca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/suppliers",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers"
 					]
 				}
 			},
