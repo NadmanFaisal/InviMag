@@ -10,7 +10,12 @@ const ProductSchema = new Schema({
     selling_price: String,
     category: String,
     in_stock: Boolean,
-    business_owner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: true}
+    
+    // Many products can have one business owner
+    businessOwner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: false},
+    
+    // Many products can have one order history
+    orderHistory: {type: Schema.Types.ObjectId, ref: "OrderHistory", required: false}
 })
 
 const ProductModel = mongoose.model("Product", ProductSchema);
