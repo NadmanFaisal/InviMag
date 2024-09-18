@@ -18,5 +18,5 @@ const  orderHistorySchema = new Schema ({
 // Compiles the model from the defined schema
 const OrderHistory = mongoose.model('OrderHistory', orderHistorySchema);
 
-// Export function to crreate "BusinessOwner" model class
+// Export function to crreate "Order history" model class
 module.exports = OrderHistory;
