@@ -527,6 +527,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"total_price\": \"1000000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories",
+						"66ec0a58388d3891129a721a"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
