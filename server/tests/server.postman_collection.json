@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38197131",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
+		"_exporter_id": "38198193",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
 	},
 	"item": [
 		{
@@ -571,6 +571,17 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());",
+							"pm.environment.set(\"product_ID\", jsonInfo._id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -584,7 +595,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Bleach\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"Water\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -667,7 +678,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/v1/api/Products/66ec6135376a9bc1c9597bf1",
+					"raw": "{{host}}/v1/api/Products/{{product_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -675,83 +686,7 @@
 						"v1",
 						"api",
 						"Products",
-						"66ec6135376a9bc1c9597bf1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE /v1/api/Products/:id",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/v1/api/Products/66ec4eac0903cc0b762fef10",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"Products",
-						"66ec4eac0903cc0b762fef10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE /v1/api/Products/",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/v1/api/Products/",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"Products",
-						""
+						"{{product_ID}}"
 					]
 				}
 			},
@@ -846,6 +781,82 @@
 						"api",
 						"Products",
 						"66ec60a4a73d4bda93fc3c6c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/Products/:id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/66ec4eac0903cc0b762fef10",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						"66ec4eac0903cc0b762fef10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/Products/",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						""
 					]
 				}
 			},
