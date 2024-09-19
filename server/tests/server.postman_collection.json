@@ -498,6 +498,35 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "PUT /v1/api/orderHistories/:id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"total_price\": \"123.00\",\n    \"date_of_order\": \"2024-09-19\",\n    \"businessOwner\": \"66ebffe7e3c43bdad8c6d80f\",\n    \"products\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories",
+						"66ec0a58388d3891129a721a"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
