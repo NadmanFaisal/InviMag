@@ -6,7 +6,7 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var businessOwnerController = require('./controllers/BusinessOwnerController');
 var SupplierController = require('./controllers/SupplierController');
-const OrderHistory = require('./models/OrderHistory');
+var OrderHistoryController = require('./controllers/OrderHistoryController');
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
