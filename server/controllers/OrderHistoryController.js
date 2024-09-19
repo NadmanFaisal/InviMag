@@ -123,4 +123,18 @@ router.delete('/orderHistories/:id', async function (req, res) {
     }
 });
 
+// Deletes all the order histories
+router.delete('/orderHistories', async function (req, res) {
+    try {
+        var orderHistories = await OrderHistory.deleteMany();
+        if (!orderHistories) {
+            return res.status(404).json({ message: 'Order histories were not found' });
+        }
+        
+        res.status(200).json(orderHistories); // Returns the count of deleted order histories
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 module.exports = router;
