@@ -43,6 +43,36 @@ router.get('/orderHistories/:id', async function (req, res) {
     }
 });
 
+// Replace all of the values of a particular order history
+router.put('/orderHistories/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        const {total_price, date_of_order, businessOwner, products} = req.body;
+
+        if (!req.body.total_price) {
+            return res.status(404).json({ message: 'Total price cannot be empty' });
+        } else if (!req.body.date_of_order) {
+            return res.status(404).json({ message: 'Date of order cannot be empty' });
+        } else if (!req.body.businessOwner) {
+            return res.status(404).json({ message: 'Business owner IDs cannot be empty' });
+        } else if (!req.body.products) {
+            return res.status(404).json({ message: 'Product IDs cannot be empty' });
+        }
+
+        var updateOrderHistory = {total_price, date_of_order, businessOwner, products};
+
+        var orderHistory = await OrderHistory.findByIdAndUpdate(id, updateOrderHistory, { new: true });
+        if (!orderHistory) {
+            return res.status(404).json({ message: 'Order history was not found' });
+        }
+
+        res.status(200).json(orderHistory);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 
 
 module.exports = router;
