@@ -28,4 +28,21 @@ router.get('/orderHistories', async function(req, res) {
         res.status(500).json({ error: 'An error occurred while retreiving all the order histories.' });
     }
 });
+
+// Get a specific supplier by their ids
+router.get('/orderHistories/:id', async function (req, res) {
+    var id = req.params.id;
+    try {
+        const orderHistory = await OrderHistory.findById(id);
+        if (!orderHistory) {
+            return res.status(404).json({"message": "Did not find any order histories."}); // 404: Not found 
+        }
+        res.json(orderHistory);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error when getting order history from id' });
+    }
+});
+
+
+
 module.exports = router;
