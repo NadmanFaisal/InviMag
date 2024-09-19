@@ -19,4 +19,13 @@ router.post('/orderHistories', async function (req, res, next) {
     }
 });
 
+// Gets all the orderHistories from the database
+router.get('/orderHistories', async function(req, res) {
+    try {
+        const orderHistories = await OrderHistory.find();
+        res.json({'orderHistories': orderHistories});
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while retreiving all the order histories.' });
+    }
+});
 module.exports = router;
