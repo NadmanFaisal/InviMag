@@ -9,7 +9,7 @@ router.post('/orderHistories', async function (req, res, next) {
             total_price: req.body.total_price,
             date_of_order: req.body.date_of_order,
             businessOwner: req.body.businessOwner,
-            // products: req.body.products
+            products: req.body.products
     });
         
         await orderHistory.save();

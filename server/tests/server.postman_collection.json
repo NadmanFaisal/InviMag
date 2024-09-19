@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38098400",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38098400"
+		"_exporter_id": "38197131",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
 	},
 	"item": [
 		{
@@ -49,6 +49,52 @@
 						"api",
 						"businessOwners",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/Products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Detergent\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/Products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products"
 					]
 				}
 			},
@@ -381,6 +427,34 @@
 						"v1",
 						"api",
 						"suppliers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/orderHistories",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"total_price\": \"150.00\",\n    \"date_of_order\": \"2024-09-19\",\n    \"businessOwner\": \"66ec04d83c319c714078723b\",\n    \"products\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories"
 					]
 				}
 			},
