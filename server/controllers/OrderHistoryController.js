@@ -107,5 +107,20 @@ router.patch('/orderHistories/:id', async function (req, res) {
     }
 });
 
+// Deletes order history according to the provided ID
+router.delete('/orderHistories/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        var orderHistory = await OrderHistory.findByIdAndDelete(id);
+
+        if (!orderHistory) {
+            return res.status(404).json({ message: 'Order history not found' });
+        }
+
+        res.status(200).json(orderHistory); //Return deleted order history, 200: Return OK response
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
 
 module.exports = router;
