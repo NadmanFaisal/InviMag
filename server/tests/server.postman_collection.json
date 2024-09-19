@@ -55,52 +55,6 @@
 			"response": []
 		},
 		{
-			"name": "POST /api/Products",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Detergent\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/api/Products",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"Products"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GET /api/businessOwners",
 			"event": [
 				{
@@ -529,7 +483,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "PATCH /v1/api/orderHistories/:id",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -552,6 +506,175 @@
 						"api",
 						"orderHistories",
 						"66ec0a58388d3891129a721a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/orderHistories/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories",
+						"66ec0a58388d3891129a721a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/Products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Bleach\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/Products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/Products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Detergent\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/Products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/Products/:id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "_id",
+						"value": "66ebdae0827bc27a81e832a5",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/:id",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "66ebdae0827bc27a81e832a5"
+						}
 					]
 				}
 			},
