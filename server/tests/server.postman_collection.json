@@ -541,6 +541,25 @@
 			"response": []
 		},
 		{
+			"name": "DELETE /v1/api/orderHistories",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "POST /v1/api/Products",
 			"event": [
 				{
@@ -653,14 +672,13 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "_id",
-						"value": "66ebdae0827bc27a81e832a5",
-						"type": "text",
-						"disabled": true
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "{{host}}/v1/api/Products/:id",
+					"raw": "{{host}}/v1/api/Products/66ec4608d0e3f069eca6cf8c",
 					"host": [
 						"{{host}}"
 					],
@@ -668,13 +686,45 @@
 						"v1",
 						"api",
 						"Products",
-						":id"
+						"66ec4608d0e3f069eca6cf8c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/Products/:id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/66ec4608d0e3f069eca6cf8c",
+					"host": [
+						"{{host}}"
 					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "66ebdae0827bc27a81e832a5"
-						}
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						"66ec4608d0e3f069eca6cf8c"
 					]
 				}
 			},
