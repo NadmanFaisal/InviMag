@@ -459,6 +459,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GET /v1/api/orderHistories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
