@@ -9,7 +9,12 @@ const  businessOwnerSchema = new Schema ({
     total_budget: String,
     email: String,
     password: String,
-    products: [{type: Schema.Types.ObjectId, ref: "Product", required: false}]
+
+    // One business owner can have multiple products
+    products: [{type: Schema.Types.ObjectId, ref: "Product", required: false}],
+
+    // One business owner can have multiple order histories
+    orderHistories: [{type: Schema.Types.ObjectId, ref: "OrderHistory", required: false}]
 });
 
 businessOwnerSchema.virtual('loginCredentials').get(function(){ 

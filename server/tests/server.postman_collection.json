@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38198193",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
+		"_exporter_id": "38197131",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
 	},
 	"item": [
 		{
@@ -584,7 +584,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Water\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"Bleach\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
