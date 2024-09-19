@@ -9,7 +9,7 @@ const  businessOwnerSchema = new Schema ({
     total_budget: String,
     email: String,
     password: String,
-    products: [{type: Schema.Types.ObjectId, ref: "Product", required: true}]
+    products: [{type: Schema.Types.ObjectId, ref: "Product", required: false}]
 });
 
 businessOwnerSchema.virtual('loginCredentials').get(function(){ 

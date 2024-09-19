@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -10,9 +10,9 @@ const ProductSchema = new Schema({
     selling_price: String,
     category: String,
     in_stock: Boolean,
-    business_owner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: true}
+    business_owner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: false}
 })
 
-const Product = mongoose.model("Product", ProductSchema);
+const Product = mongoose.model('Product', ProductSchema);
 
 module.exports = Product;
