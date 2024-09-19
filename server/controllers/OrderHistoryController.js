@@ -73,6 +73,39 @@ router.put('/orderHistories/:id', async function (req, res) {
     }
 });
 
+// Updates a specific field for a specific order history
+router.patch('/orderHistories/:id', async function (req, res) {
+    try {
+        var id = req.params.id;
+        
+        // Fetch the existing order history
+        var initialOrderHistory = await OrderHistory.findById(id);
+        if (!initialOrderHistory) {
+            return res.status(404).json({ message: 'Order History does not exist' });
+        }
+
+        // Prepare the update object
+        var updateOrderHistory = {
+            total_price: req.body.total_price || initialOrderHistory.total_price,
+            date_of_order: req.body.date_of_order || initialOrderHistory.date_of_order,
+            businessOwner: req.body.businessOwner || initialOrderHistory.businessOwner,
+            products: req.body.products || initialOrderHistory.products
+        };
+
+        // Update the order history
+        var orderHistory = await OrderHistory.findByIdAndUpdate(id, updateOrderHistory, { new: true });
+        if (!orderHistory) {
+            return res.status(404).json({ message: 'Order history was not updated' });
+        }
+
+        // Return the updated order history
+        res.status(200).json(orderHistory);
+    } catch (error) {
+        // Log the error and return a server error response
+        console.error('Error updating order history:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
 
 
 module.exports = router;
