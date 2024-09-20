@@ -725,7 +725,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/Products/66ec6135376a9bc1c9597bf1",
+					"raw": "{{host}}/v1/api/Products/{{product_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -733,14 +733,14 @@
 						"v1",
 						"api",
 						"Products",
-						"66ec6135376a9bc1c9597bf1"
+						"{{product_ID}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "PUT /v1/api/Products/:id",
+			"name": "PATCH /v1/api/Products/:id",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -764,7 +764,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Happy\",\n    \"quantity\": \"1000\",\n    \"buying_price\": \"20\",\n    \"selling_price\": \"30\",\n    \"category\": \"laundry\",\n    \"in_stock\": true\n}",
+					"raw": "{\n    \"name\": \"Blinds\",\n    \"quantity\": \"1000\",\n    \"buying_price\": \"20\",\n    \"selling_price\": \"30\",\n    \"category\": \"decoration\",\n    \"in_stock\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -772,7 +772,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/Products/66ec60a4a73d4bda93fc3c6c",
+					"raw": "{{host}}/v1/api/Products/{{product_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -780,7 +780,7 @@
 						"v1",
 						"api",
 						"Products",
-						"66ec60a4a73d4bda93fc3c6c"
+						"{{product_ID}}"
 					]
 				}
 			},
@@ -810,7 +810,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/v1/api/Products/66ec4eac0903cc0b762fef10",
+					"raw": "{{host}}/v1/api/Products/{{product_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -818,7 +818,7 @@
 						"v1",
 						"api",
 						"Products",
-						"66ec4eac0903cc0b762fef10"
+						"{{product_ID}}"
 					]
 				}
 			},

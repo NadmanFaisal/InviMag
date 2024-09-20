@@ -11,7 +11,8 @@ router.post('/Products', async function (req, res, next ){
         selling_price: req.body.selling_price,
         category: req.body.category,
         in_stock: req.body.in_stock,
-        business_owner: req.body.business_owner
+        business_owner: req.body.business_owner,
+        order_history: req.body.order_history
     });
 
     try{
