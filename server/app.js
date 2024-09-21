@@ -5,8 +5,10 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var businessOwnerController = require('./controllers/BusinessOwnerController');
+var productControlller = require('./controllers/ProductController');
 var SupplierController = require('./controllers/SupplierController');
 var OrderHistoryController = require('./controllers/OrderHistoryController');
+
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
@@ -39,9 +41,9 @@ app.get('/api', function(req, res) {
 
 // Uses every endpoints specified inside the Controller class
 app.use('/api', businessOwnerController);
+app.use('/v1/api', productControlller);
 app.use('/v1/api', SupplierController);
 app.use('/v1/api', OrderHistoryController);
-
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });

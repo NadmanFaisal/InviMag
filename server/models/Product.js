@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
@@ -13,9 +13,10 @@ const ProductSchema = new Schema({
     
     // Many products can have one business owner
     businessOwner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: false},
-    
     // Many products can have one order history
     orderHistory: {type: Schema.Types.ObjectId, ref: "OrderHistory", required: false}
 })
 
-const ProductModel = mongoose.model("Product", ProductSchema);
+const Product = mongoose.model('Product', ProductSchema);
+
+module.exports = Product;
