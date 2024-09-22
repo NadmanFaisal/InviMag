@@ -54,9 +54,20 @@ exports.getProductByID = async (req, res) => {
 
 }
 
+exports.getProductByName = async (req, res) => {
+    var productName = req.query.name;
+    try{
+    var products = await Product.find({productName})
+    if(!products){
+        res.status(404).json({"message" : "did not find product"})
+    }
+    res.status(200).json(products);
+    } catch (error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+    }
 
+}
 
-    
 
 
 exports.deleteAllProducts = async (req, res) => {
