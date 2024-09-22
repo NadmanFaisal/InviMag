@@ -116,7 +116,7 @@ exports.updateProductByIB = async (req, res) => {
 
 
 
-exports.partiallyUpdateProduct = async (req, res) => {
+exports.partialUpdateProduct = async (req, res) => {
     try{
         var productID = req.params.id;
         var products = await Product.findById(productID);
