@@ -1,9 +1,8 @@
-const express = require('express');
-const router = express.Router();
+
 const OrderHistory = require('../models/OrderHistory');
 
 // Creates an orderHistory with POST method with already specified IDs
-router.post('/orderHistories', async function (req, res, next) {
+exports.createOrderHistory = async  (req, res, next) => {
     try {
         var orderHistory = new OrderHistory({
             total_price: req.body.total_price,
@@ -17,20 +16,20 @@ router.post('/orderHistories', async function (req, res, next) {
     } catch (error) {
         next(error);
     }
-});
+}
 
 // Gets all the orderHistories from the database
-router.get('/orderHistories', async function(req, res) {
+exports.getAllOrderHistories = async (req, res) => {
     try {
         const orderHistories = await OrderHistory.find();
         res.json({'orderHistories': orderHistories});
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retreiving all the order histories.' });
     }
-});
+}
 
 // Get a specific supplier by their ids
-router.get('/orderHistories/:id', async function (req, res) {
+exports.getOrderHistoriesByID = async  (req, res) => {
     var id = req.params.id;
     try {
         const orderHistory = await OrderHistory.findById(id);
@@ -41,10 +40,10 @@ router.get('/orderHistories/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ error: 'Server error when getting order history from id' });
     }
-});
+}
 
 // Replace all of the values of a particular order history
-router.put('/orderHistories/:id', async function (req, res) {
+exports.updateOrderHistoryByID = async  (req, res) => {
     try {
         var id = req.params.id;
         const {total_price, date_of_order, businessOwner, products} = req.body;
@@ -71,10 +70,10 @@ router.put('/orderHistories/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 // Updates a specific field for a specific order history
-router.patch('/orderHistories/:id', async function (req, res) {
+exports.partialUpdateOrderHistory = async  (req, res) => {
     try {
         var id = req.params.id;
         
@@ -105,10 +104,10 @@ router.patch('/orderHistories/:id', async function (req, res) {
         console.error('Error updating order history:', error);
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 // Deletes order history according to the provided ID
-router.delete('/orderHistories/:id', async function (req, res) {
+exports.deleteOrderHistoryByID = async (req, res) => {
     try {
         var id = req.params.id;
         var orderHistory = await OrderHistory.findByIdAndDelete(id);
@@ -121,10 +120,10 @@ router.delete('/orderHistories/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 // Deletes all the order histories
-router.delete('/orderHistories', async function (req, res) {
+exports.deleteAllOrderHistories = async  (req, res) => {
     try {
         var orderHistories = await OrderHistory.deleteMany();
         if (!orderHistories) {
@@ -135,6 +134,4 @@ router.delete('/orderHistories', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
-
-module.exports = router;
+}

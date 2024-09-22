@@ -18,7 +18,7 @@ exports.createBusinessOwner = async (req, res, next) => {
 }
 
 // Gets all the businessOwners from the database
-exports.getAllBuisnessOwners = async (req, res) => {
+exports.getAllBusinessOwners = async (req, res) => {
     try {
         const businessOwners = await BusinessOwner.find();
         res.json({'businessOwners': businessOwners});
@@ -28,7 +28,7 @@ exports.getAllBuisnessOwners = async (req, res) => {
 }
 
 // Get a specific business owner specified by their IDs from the database
-exports.getBuinessOwnerByID = async (req, res) => {
+exports.getBusinessOwnerByID = async (req, res) => {
     var id = req.params.id;
     try {
         const businessOwner = await BusinessOwner.findById(id);
