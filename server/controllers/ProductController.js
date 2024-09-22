@@ -24,9 +24,15 @@ exports.createProduct = async (req, res, next ) => {
 }
 
 exports.getAllProducts =  async (req, res) =>  {    
-
     try{
-        const products = await Product.find();
+        const sort_order = req.query.sort_order;
+        let sort_type = {};
+        if(sort_order === 'desc'){
+            sort_type = {buying_price : -1};
+        }else{
+            sort_type = {buying_price : 1};
+        }
+        const products = await Product.find().sort(sort_type);
         res.json({"Products" : products});
     } catch (error){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
@@ -48,19 +54,10 @@ exports.getProductByID = async (req, res) => {
 
 }
 
-exports.sortProductInTermsOfPrizeAscending = async (req, res) => {
-    
-    try{
-        var listOfProducts = await Product.find().sort({buying_price : 1});
 
-        if(!listOfProducts){
-            res.status(404).json({"message" : "did not find product"})
-        }
-        res.status(200).json(listOfProducts);
-        } catch (error){
-            res.status(500).json({ error: 'An error occurred while fetching Products' });
-        }
-}
+
+    
+
 
 exports.deleteAllProducts = async (req, res) => {
     try {
@@ -73,6 +70,7 @@ exports.deleteAllProducts = async (req, res) => {
         res.status(200).json(product); //Return deleted product, 200: Return OK response
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
+        
     }
 }
 
