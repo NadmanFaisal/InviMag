@@ -48,6 +48,20 @@ exports.getProductByID = async (req, res) => {
 
 }
 
+exports.sortProductInTermsOfPrizeAscending = async (req, res) => {
+    
+    try{
+        var listOfProducts = await Product.find().sort({buying_price : 1});
+
+        if(!listOfProducts){
+            res.status(404).json({"message" : "did not find product"})
+        }
+        res.status(200).json(listOfProducts);
+        } catch (error){
+            res.status(500).json({ error: 'An error occurred while fetching Products' });
+        }
+}
+
 exports.deleteAllProducts = async (req, res) => {
     try {
         var product = await Product.deleteMany();
@@ -140,4 +154,5 @@ exports.partialUpdateProduct = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching Products' });
     }
 }
+
     
