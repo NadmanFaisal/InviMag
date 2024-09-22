@@ -19,10 +19,18 @@ exports.createBusinessOwner = async (req, res, next) => {
     }
 }
 
-// Gets all the businessOwners from the database
+// Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
 exports.getAllBusinessOwners = async (req, res) => {
     try {
-        const businessOwners = await BusinessOwner.find();
+        const sort_order = req.query.sort_order
+        let sortOption = {};
+
+        if (sort_order === '+total_budget') {
+            sortOption = {total_budget: -1};
+        } else if (sort_order === '-total_budget') {
+            sortOption = {total_budget: 1};
+        }
+        const businessOwners = await BusinessOwner.find().sort(sortOption);
         res.json({'businessOwners': businessOwners});
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retreiving all the business owners' });
