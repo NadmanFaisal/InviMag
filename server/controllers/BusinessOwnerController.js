@@ -22,14 +22,23 @@ exports.createBusinessOwner = async (req, res, next) => {
 // Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
 exports.getAllBusinessOwners = async (req, res) => {
     try {
-        const sort_order = req.query.sort_order
+        const {sort_budget, sort_name} = req.query;
         let sortOption = {};
 
-        if (sort_order === '+total_budget') {
+        // Sort total budget according to the sorting condition (ascending or descending)
+        if (sort_budget === '+total_budget') {
             sortOption = {total_budget: -1};
-        } else if (sort_order === '-total_budget') {
+        } else if (sort_budget === '-total_budget') {
             sortOption = {total_budget: 1};
         }
+
+        // Sort name according to the sorting condition (ascending or descending)
+        if (sort_name === '+name') {
+            sortOption.name = 1;
+        } else if (sort_name === '-name') {
+            sortOption.name = -1;
+        }
+        
         const businessOwners = await BusinessOwner.find().sort(sortOption);
         res.json({'businessOwners': businessOwners});
     } catch (error) {
