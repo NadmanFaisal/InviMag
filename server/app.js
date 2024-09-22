@@ -4,10 +4,12 @@ var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
-var businessOwnerController = require('./controllers/BusinessOwnerController');
+var productRoutes = require('../server/routes/ProductRoutes');
+var businessOwnerRoutes = require('../server/routes/BusinessOwnerRoutes');
+var orderHistoryRoutes = require('../server/routes/OrderHistoryRoutes');
+var supplierRoutes = require('../server/routes/SupplierRoutes');
 
-var SupplierController = require('./controllers/SupplierController');
-var OrderHistoryController = require('./controllers/OrderHistoryController');
+
 
 
 // Variables
@@ -40,10 +42,10 @@ app.get('/api', function(req, res) {
 });
 
 // Uses every endpoints specified inside the Controller class
-app.use('/api', businessOwnerController);
-app.use('/v1/api', productControlller);
-app.use('/v1/api', SupplierController);
-app.use('/v1/api', OrderHistoryController);
+app.use('/v1/api', businessOwnerRoutes);
+app.use('/v1/api', productRoutes);
+app.use('/v1/api', supplierRoutes);
+app.use('/v1/api', orderHistoryRoutes);
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
     res.status(404).json({ 'message': 'Not Found' });
