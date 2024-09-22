@@ -5,7 +5,7 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 var businessOwnerController = require('./controllers/BusinessOwnerController');
-var productControlller = require('./controllers/ProductController');
+
 var SupplierController = require('./controllers/SupplierController');
 var OrderHistoryController = require('./controllers/OrderHistoryController');
 
