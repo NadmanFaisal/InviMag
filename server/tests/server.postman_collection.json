@@ -4,12 +4,12 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38198193",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
+		"_exporter_id": "38197131",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
 	},
 	"item": [
 		{
-			"name": "POST /api/businessOwners",
+			"name": "POST /v1/api/businessOwners",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -33,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Nadman\",\r\n    \"total_budget\": \"1200\",\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Nadman\",\r\n    \"total_budget\": 1500000,\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,11 +41,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/businessOwners/",
+					"raw": "{{host}}/v1/api/businessOwners/",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
 						"businessOwners",
 						""
@@ -55,7 +56,44 @@
 			"response": []
 		},
 		{
-			"name": "GET /api/businessOwners",
+			"name": "GET /v1/api/businessOwners/sorted",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/businessOwners?sort_order=%2Btotal_budget",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"businessOwners"
+					],
+					"query": [
+						{
+							"key": "sort_order",
+							"value": "%2Btotal_budget"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/businessOwners",
 			"event": [
 				{
 					"listen": "test",
@@ -84,21 +122,21 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/businessOwners/",
+					"raw": "{{host}}/v1/api/businessOwners",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
-						"businessOwners",
-						""
+						"businessOwners"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET /api/businessOwners/:id",
+			"name": "GET /v1/api/businessOwners/:id",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -115,21 +153,22 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/businessOwners/66e872b76e6b46992ff8902d",
+					"raw": "{{host}}/v1/api/businessOwners/66f03624bd8848ea185034b7",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
 						"businessOwners",
-						"66e872b76e6b46992ff8902d"
+						"66f03624bd8848ea185034b7"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "PUT /api/businessOwners/:id",
+			"name": "PUT /v1/api/businessOwners/:id",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -143,11 +182,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/businessOwners/66e872b76e6b46992ff8902d",
+					"raw": "{{host}}/v1/api/businessOwners/66e872b76e6b46992ff8902d",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
 						"businessOwners",
 						"66e872b76e6b46992ff8902d"
@@ -157,7 +197,7 @@
 			"response": []
 		},
 		{
-			"name": "PATCH /api/businessOwners/:id",
+			"name": "PATCH /v1/api/businessOwners/:id",
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -171,11 +211,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/api/businessOwners/66e872b76e6b46992ff8902d",
+					"raw": "{{host}}/v1/api/businessOwners/66e872b76e6b46992ff8902d",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
 						"businessOwners",
 						"66e872b76e6b46992ff8902d"
@@ -185,16 +226,17 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /api/businessOwners/:id",
+			"name": "DELETE /v1/api/businessOwners/:id",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/businessOwners/66e94c9d7ac5f7aec43761dc",
+					"raw": "{{host}}/v1/api/businessOwners/66e94c9d7ac5f7aec43761dc",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
 						"businessOwners",
 						"66e94c9d7ac5f7aec43761dc"
@@ -204,16 +246,17 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /api/businessOwners",
+			"name": "DELETE  /v1/api/businessOwners",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/businessOwners/",
+					"raw": "{{host}}/v1/api/businessOwners/",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"v1",
 						"api",
 						"businessOwners",
 						""
@@ -618,6 +661,44 @@
 		},
 		{
 			"name": "GET /v1/api/Products",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/Products/sorted",
 			"event": [
 				{
 					"listen": "prerequest",
