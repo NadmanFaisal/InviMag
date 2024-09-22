@@ -1,9 +1,7 @@
-const express = require('express');
-const router = express.Router();
 const BusinessOwner = require('../models/BusinessOwner');
 
 // Creates a businessOwners with POST method with already specified IDs
-router.post('/businessOwners', async function (req, res, next) {
+exports.createBusinessOwner = async (req, res, next) => {
     var businessOwner = new BusinessOwner({
         name: req.body.name,
         total_budget: req.body.total_budget,
@@ -17,20 +15,20 @@ router.post('/businessOwners', async function (req, res, next) {
     } catch (error) {
         next(error);
     }
-});
+}
 
 // Gets all the businessOwners from the database
-router.get('/businessOwners', async function(req, res) {
+exports.getAllBuisnessOwners = async (req, res) => {
     try {
         const businessOwners = await BusinessOwner.find();
         res.json({'businessOwners': businessOwners});
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retreiving all the business owners' });
     }
-});
+}
 
 // Get a specific business owner specified by their IDs from the database
-router.get('/businessOwners/:id', async function (req, res) {
+exports.getBuinessOwnerByID = async (req, res) => {
     var id = req.params.id;
     try {
         const businessOwner = await BusinessOwner.findById(id);
@@ -41,10 +39,10 @@ router.get('/businessOwners/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retreiving the specific business owner' });
     }
-});
+}
 
 // Will delete business owner according to its id
-router.delete('/businessOwners/:id', async function (req, res) {
+exports.deleteBusinessOwnerByID = async (req, res) =>{
     try {
         // Var instead of const cause i want to re-declare it if required in future.
         var id = req.params.id;
@@ -58,9 +56,9 @@ router.delete('/businessOwners/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
-router.delete('/businessOwners', async function (req, res) {
+ exports.deleteAllBusinessOwners = async (req, res) => {
     try {
         var businessOwners = await BusinessOwner.deleteMany();
         if (!businessOwners) {
@@ -71,9 +69,9 @@ router.delete('/businessOwners', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
-router.put('/businessOwners/:id', async function (req, res) {
+exports.updateBusinessOwnerByID = async  (req, res) => {
     try {
         var id = req.params.id;
         const { name, total_budget, email, password } = req.body;
@@ -102,9 +100,9 @@ router.put('/businessOwners/:id', async function (req, res) {
         // Any error is mentioned as Server error
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
-router.patch('/businessOwners/:id', async function (req, res) {
+exports.partialUpdateBusinessOwner =  async (req, res) => {
     try {
         var id = req.params.id;
         var initialOwner = await BusinessOwner.findById(id);
@@ -131,6 +129,4 @@ router.patch('/businessOwners/:id', async function (req, res) {
         // Any error is mentioned as Server error
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
-
-module.exports = router;
+}
