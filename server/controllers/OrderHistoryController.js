@@ -19,15 +19,22 @@ exports.createOrderHistory = async  (req, res, next) => {
 }
 
 // Gets all the orderHistories from the database
+// If multiple order histories with the same total price exist, it sorts by date.
 exports.getAllOrderHistories = async (req, res) => {
     try {
-        const sort_price = req.query.sort_price;
+        const { sort_price, sort_date } = req.query;
         let sortOption = {};
 
         if (sort_price === '+total_price') {
             sortOption.total_price = 1;
         } else if (sort_price === '-total_price') {
             sortOption.total_price = -1;
+        }
+
+        if (sort_date === '+date') {
+            sortOption.date_of_order = 1;
+        } else if (sort_date === '-date') {
+            sortOption.date_of_order = -1;
         }
 
         const orderHistories = await OrderHistory.find().sort(sortOption);

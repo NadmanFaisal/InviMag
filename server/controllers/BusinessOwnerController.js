@@ -20,7 +20,7 @@ exports.createBusinessOwner = async (req, res, next) => {
 }
 
 // Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
-// If both total budget and name are present as sort conditions, MongoDB will first sort by total budget, then with name
+// If multiple business owners with the same total budget exist, it sorts by name.
 exports.getAllBusinessOwners = async (req, res) => {
     try {
         const { sort_budget, sort_name } = req.query;
