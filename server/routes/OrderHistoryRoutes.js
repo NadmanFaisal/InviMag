@@ -1,3 +1,3 @@
 const express = require('express');
 const router = express.Router();
-var OrderHistoryController = require('./controllers/OrderHistoryController');
+const orderHistoryController = require('./controllers/OrderHistoryController');
