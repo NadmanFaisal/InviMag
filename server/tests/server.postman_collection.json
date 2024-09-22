@@ -557,7 +557,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/v1/api/orderHistories?sort_price=%2Btotal_price",
+					"raw": "{{host}}/v1/api/orderHistories?sort_price=-total_price&sort_date=%2Bdate",
 					"host": [
 						"{{host}}"
 					],
@@ -569,7 +569,11 @@
 					"query": [
 						{
 							"key": "sort_price",
-							"value": "%2Btotal_price"
+							"value": "-total_price"
+						},
+						{
+							"key": "sort_date",
+							"value": "%2Bdate"
 						}
 					]
 				}
