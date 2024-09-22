@@ -5,7 +5,7 @@ const Supplier = require('../models/Supplier');
 // Creates a Supplier with POST method with already specified IDs
 // Attributes depends on the request given, in our example, by Postman.
 
-router.post('/suppliers', async function (req, res, next) {
+exports.createSupplier = async (req, res, next) => {
     var supplier = new Supplier({
         name: req.body.name,
         location_of_origin: req.body.location_of_origin
@@ -17,22 +17,22 @@ router.post('/suppliers', async function (req, res, next) {
     } catch (error) {
         next(error);
     }
-});
+}
 
 // Gets all suppliers from the database
 
-router.get('/suppliers', async function(req, res) {
+exports.getAllSuppliers = async (req, res) => {
     try {
         const suppliers = await Supplier.find();
         res.json({'suppliers': suppliers});
     } catch (error) {
         res.status(500).json({ error: 'Server error when getting all suppliers' }); // 500: Server Errors
     }
-});
+}
 
 // Get a specific supplier by their ids
 
-router.get('/suppliers/:id', async function (req, res) {
+exports.getSupplierByID =  async  (req, res) => {
     var id = req.params.id;
     try {
         const supplier = await Supplier.findById(id);
@@ -43,11 +43,11 @@ router.get('/suppliers/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ error: 'Server error when getting supplier from id' });
     }
-});
+}
 
 // Delete supplier according to id
 
-router.delete('/suppliers/:id', async function (req, res) {
+exports.deleteSupplierByID =  async  (req, res) => {
     try {
         var id = req.params.id;
         var supplier = await Supplier.findByIdAndDelete(id);
@@ -60,11 +60,11 @@ router.delete('/suppliers/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 // Delete all of suppliers 
 
-router.delete('/suppliers', async function (req, res) {
+exports.deleteAllSuppliers = async (req, res) => {
     try {
         var suppliers = await Supplier.deleteMany();
         if (!suppliers) {
@@ -75,11 +75,11 @@ router.delete('/suppliers', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 // update all fields of a supplier
 
-router.put('/suppliers/:id', async function (req, res) {
+exports.updateSupplierByID = async  (req, res) => {
     try {
         var id = req.params.id;
         const {name, location_of_origin} = req.body;
@@ -105,11 +105,11 @@ router.put('/suppliers/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 // update specific field of a supplier
 
-router.patch('/suppliers/:id', async function (req, res) {
+exports.partialUpdateSupplier =  async  (req, res) => {
     try {
         var id = req.params.id;
         var initialSupplier = await Supplier.findById(id);
@@ -132,6 +132,4 @@ router.patch('/suppliers/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
-
-module.exports = router;
+}

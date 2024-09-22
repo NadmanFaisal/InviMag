@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router()
+
 const Product = require('../models/Product')
 
-router.post('/Products', async function (req, res, next ){
+exports.createProduct = async (req, res, next ) => {
 
     var product = new Product({
         name: req.body.name,
@@ -22,10 +21,10 @@ router.post('/Products', async function (req, res, next ){
     }catch (error){
         next(error);
     }
-});
+}
 
-router.get('/Products/', async function (req, res){
-        
+exports.getAllProducts =  async (req, res) =>  {    
+
     try{
         const products = await Product.find();
         res.json({"Products" : products});
@@ -33,9 +32,9 @@ router.get('/Products/', async function (req, res){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
     }
 
-});
+}
 
-router.get('/Products/:id', async function (req, res){
+exports.getProductByID = async (req, res) => {
     var productID = req.params.id;
     try{
     var products = await Product.findById(productID);
@@ -47,9 +46,9 @@ router.get('/Products/:id', async function (req, res){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
     }
 
-});
+}
 
-router.delete('/Products/', async function (req, res) {
+exports.deleteAllProducts = async (req, res) => {
     try {
         var product = await Product.deleteMany();
 
@@ -61,9 +60,9 @@ router.delete('/Products/', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
-router.delete('/Products/:id', async function (req, res) {
+exports.deleteProductByID = async (req, res) => {
     try {
         var productID = req.params.id;
         var product = await Product.findByIdAndDelete(productID);
@@ -76,10 +75,10 @@ router.delete('/Products/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 
-router.put('/Products/:id', async function (req, res) {
+exports.updateProductByIB = async (req, res) => {
     try {
         var id = req.params.id;
         const {name, quantity, buying_price, selling_price, category, in_stock} = req.body;
@@ -113,11 +112,11 @@ router.put('/Products/:id', async function (req, res) {
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
-});
+}
 
 
 
-router.patch('/Products/:id', async function (req, res){
+exports.partialUpdateProduct = async (req, res) => {
     try{
         var productID = req.params.id;
         var products = await Product.findById(productID);
@@ -140,7 +139,5 @@ router.patch('/Products/:id', async function (req, res){
     }catch(error){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
     }
-});
-
-    module.exports = router;
+}
     
