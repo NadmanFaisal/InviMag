@@ -20,6 +20,17 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());",
+							"pm.environment.set(\"business_owner_ID\", jsonInfo._id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -41,15 +52,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/businessOwners/",
+					"raw": "{{host}}/v1/api/businessOwners",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"businessOwners",
-						""
+						"businessOwners"
 					]
 				}
 			},
@@ -137,6 +147,18 @@
 		},
 		{
 			"name": "GET /v1/api/businessOwners/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -153,7 +175,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/businessOwners/66f03624bd8848ea185034b7",
+					"raw": "{{host}}/v1/api/businessOwners/{{business_owner_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -161,7 +183,7 @@
 						"v1",
 						"api",
 						"businessOwners",
-						"66f03624bd8848ea185034b7"
+						"{{business_owner_ID}}"
 					]
 				}
 			},
@@ -169,6 +191,18 @@
 		},
 		{
 			"name": "PUT /v1/api/businessOwners/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -182,7 +216,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/businessOwners/66e872b76e6b46992ff8902d",
+					"raw": "{{host}}/v1/api/businessOwners/{{business_owner_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -190,7 +224,7 @@
 						"v1",
 						"api",
 						"businessOwners",
-						"66e872b76e6b46992ff8902d"
+						"{{business_owner_ID}}"
 					]
 				}
 			},
@@ -198,6 +232,18 @@
 		},
 		{
 			"name": "PATCH /v1/api/businessOwners/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PATCH",
 				"header": [],
@@ -211,7 +257,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/businessOwners/66e872b76e6b46992ff8902d",
+					"raw": "{{host}}/v1/api/businessOwners/{{business_owner_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -219,7 +265,7 @@
 						"v1",
 						"api",
 						"businessOwners",
-						"66e872b76e6b46992ff8902d"
+						"{{business_owner_ID}}"
 					]
 				}
 			},
@@ -227,11 +273,23 @@
 		},
 		{
 			"name": "DELETE /v1/api/businessOwners/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/v1/api/businessOwners/66e94c9d7ac5f7aec43761dc",
+					"raw": "{{host}}/v1/api/businessOwners/{{business_owner_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -239,7 +297,7 @@
 						"v1",
 						"api",
 						"businessOwners",
-						"66e94c9d7ac5f7aec43761dc"
+						"{{business_owner_ID}}"
 					]
 				}
 			},
@@ -431,6 +489,19 @@
 		},
 		{
 			"name": "POST /v1/api/orderHistories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());",
+							"pm.environment.set(\"order_history_ID\", jsonInfo._id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -478,11 +549,23 @@
 		},
 		{
 			"name": "GET /v1/api/orderHistories/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"raw": "{{host}}/v1/api/orderHistories/{{order_history_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -490,7 +573,7 @@
 						"v1",
 						"api",
 						"orderHistories",
-						"66ec0a58388d3891129a721a"
+						"{{order_history_ID}}"
 					]
 				}
 			},
@@ -540,7 +623,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"raw": "{{host}}/v1/api/orderHistories/{{order_history_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -548,7 +631,7 @@
 						"v1",
 						"api",
 						"orderHistories",
-						"66ec0a58388d3891129a721a"
+						"{{order_history_ID}}"
 					]
 				}
 			},
@@ -569,7 +652,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"raw": "{{host}}/v1/api/orderHistories/{{order_history_id}}",
 					"host": [
 						"{{host}}"
 					],
@@ -577,7 +660,7 @@
 						"v1",
 						"api",
 						"orderHistories",
-						"66ec0a58388d3891129a721a"
+						"{{order_history_id}}"
 					]
 				}
 			},
