@@ -7,6 +7,8 @@ exports.createBusinessOwner = async (req, res, next) => {
         total_budget: req.body.total_budget,
         email: req.body.email,
         password: req.body.password,
+        products: req.body.products,
+        orderHistories: req.body.orderHistories
     });
 
     try {
