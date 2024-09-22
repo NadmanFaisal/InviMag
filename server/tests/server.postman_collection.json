@@ -594,7 +594,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/orderHistories/66ec0a58388d3891129a721a",
+					"raw": "{{host}}/v1/api/orderHistories/{{order_history_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -602,7 +602,7 @@
 						"v1",
 						"api",
 						"orderHistories",
-						"66ec0a58388d3891129a721a"
+						"{{order_history_ID}}"
 					]
 				}
 			},
@@ -652,7 +652,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/orderHistories/{{order_history_id}}",
+					"raw": "{{host}}/v1/api/orderHistories/{{order_history_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -660,7 +660,7 @@
 						"v1",
 						"api",
 						"orderHistories",
-						"{{order_history_id}}"
+						"{{order_history_ID}}"
 					]
 				}
 			},
