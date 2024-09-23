@@ -35,7 +35,25 @@ exports.getAllProducts =  async (req, res) =>  {
         const products = await Product.find().sort(sort_type);
         res.json({"Products" : products});
     } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
+        res.status(500).json({ error: 'An error occurred while fetching Products yo' });
+    }
+
+}
+
+
+exports.getProductByName = async (req, res) => {
+    const productName = req.query.name;
+    try{
+        if(!productName){
+            res.status(404).json({"message" : "Please provide a search string for the product"})
+        }
+    const productNames = await Product.find({name:{$regex : productName, $options: 'i'}});
+    if(!productNames){
+        res.status(404).json({"message" : "No products found with the given name"});
+    }
+    res.status(200).json({"Products": productNames});
+    } catch (error){
+        res.status(500).json({ error: 'An error occurred while fetching Products hi' });
     }
 
 }
@@ -49,27 +67,12 @@ exports.getProductByID = async (req, res) => {
     }
     res.status(200).json(products);
     } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
+        res.status(500).json({ error: 'An error occurred while fetching Products siu' });
     }
 
 }
 
-exports.getProductByName = async (req, res) => {
-    const productName = req.query.name;
-    try{
-        if(!productName){
-            res.status(404).json({"message" : "Please provide a search string for the product"})
-        }
-    const productNames = await Product.find({name:{$regex : productName, $options: 'i'}});
-    if(!productNames){
-        res.status(404).json({"message" : "No products found with the given name"});
-    }
-    res.status(200).json(productNames);
-    } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
-    }
 
-}
 
 
 

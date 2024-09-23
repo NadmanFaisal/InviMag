@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/ProductController');
 
+router.get('/Products/search', productController.getProductByName);
 router.post('/Products/', productController.createProduct);
-router.get('/Products/', productController.getProductByName);
+router.get('/Products/', productController.getAllProducts);
 router.get('/Products/:id', productController.getProductByID);
 router.delete('/Products/', productController.deleteAllProducts);
 router.delete('/Products/:id', productController.deleteProductByID);
