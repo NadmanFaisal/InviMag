@@ -1021,7 +1021,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"HTTP Override Product test\",\r\n    \"buying_price\": \"10\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"HTTP Override Product test\",\r\n    \"quantity\": \"1000\",\r\n    \"buying_price\": \"10\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1062,8 +1062,6 @@
 						"exec": [
 							"pm.test(\"Status Code for POST is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"product_ID\", jsonInfo._id);",
 							"});"
 						],
 						"type": "text/javascript",
