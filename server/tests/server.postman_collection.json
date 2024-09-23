@@ -28,11 +28,9 @@
 							"var jsonInfo = JSON.parse(pm.response.text());",
 							"pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"",
-							"pm.test(\"Create Business Owner\", function () {",
-							"    var jsonData = pm.response.json();",
-							"        pm.response.to.have.status(201);}",
-							"    );",
-							""
+							"pm.test(\"Status code is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -50,7 +48,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"S\",\r\n    \"total_budget\": 987923,\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
+					"raw": "{\r\n    \"name\": \"S\",\r\n    \"total_budget\": 100,\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -78,10 +76,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Create Overriden Business Owner\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
@@ -130,10 +126,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get sorted business owner\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
@@ -188,10 +182,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get all business owners.\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
@@ -236,10 +228,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Get all business owners by ID.\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
@@ -285,7 +275,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Put values business owner by ID\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
 							"  var jsonInfo = pm.response.json();",
 							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
@@ -331,10 +321,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Patch business owner by ID\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
@@ -377,10 +365,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Delete business owners by ID\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
@@ -414,10 +400,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Delete all business owners\", function () {",
+							"pm.test(\"Status code is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});",
 							""
 						],
