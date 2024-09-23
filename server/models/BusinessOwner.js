@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 // No id required, mongoose does this automatically
 const  businessOwnerSchema = new Schema ({
     name: String,
-    total_budget: String,
+    total_budget: {type: Number, required: true},
     email: String,
     password: String,
 
