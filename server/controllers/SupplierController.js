@@ -1,19 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const Supplier = require('../models/Supplier');
+const Product = require('../models/Product');
 
 // Creates a Supplier with POST method with already specified IDs
 // Attributes depends on the request given, in our example, by Postman.
 
 exports.createSupplier = async (req, res, next) => {
-    var supplier = new Supplier({
+    const supplier = new Supplier({
         name: req.body.name,
-        location_of_origin: req.body.location_of_origin
+        location_of_origin: req.body.location_of_origin,
+        products: req.body.products
     });
 
     try {
         await supplier.save();
         res.status(201).json(supplier); //201: Created entity, usually used for POST only
+    } catch (error) {
+        next(error); // sends it over to app.js, where it will see if the developer is in development mode, it will display the error stack
+    }
+}
+
     } catch (error) {
         next(error);
     }
