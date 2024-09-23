@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38197131",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
+		"_exporter_id": "38198193",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
 	},
 	"item": [
 		{
@@ -60,6 +60,41 @@
 						"v1",
 						"api",
 						"businessOwners"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/businessOwners/:id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-HTTP-Method-Override",
+						"value": "PUT",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Method Override Success\",\n    \"total_budget\": 100,\n    \"email\": \"Succes\",\n    \"password\": \"Full\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/businessOwners/{{business_owner_ID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"businessOwners",
+						"{{business_owner_ID}}"
 					]
 				}
 			},
@@ -511,7 +546,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"total_price\": \"80\",\n    \"date_of_order\": \"2024-09-19\",\n    \"businessOwner\": \"66ec04d83c319c714078723b\",\n    \"products\": []\n}",
+					"raw": "{\n    \"total_price\": 100.50,\n    \"date_of_order\": \"2020-09-22T14:30:00Z\",\n    \"businessOwner\": \"60c72b2f5f1b2c001f64500f\",\n    \"products\": []\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -735,8 +770,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonInfo = JSON.parse(pm.response.text());",
-							"pm.environment.set(\"product_ID\", jsonInfo._id);"
+							"//Fixed syntax ",
+							"pm.test(\"Status Code for POST is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"  var jsonInfo = pm.response.json();",
+							"  pm.environment.set(\"product_ID\", jsonInfo._id);",
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -754,7 +794,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"HTTP Override Product test\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"10\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"HTTP Override Product test\",\r\n    \"quantity\": \"1000\",\r\n    \"buying_price\": \"10\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -793,7 +833,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							""
+							"pm.test(\"Status Code for POST is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"  var jsonInfo = pm.response.json();",
+							"  pm.environment.set(\"product_ID\", jsonInfo._id);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -846,9 +890,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonInfo = JSON.parse(pm.response.text());",
-							"pm.environment.set(\"product_ID\", jsonInfo._id);",
-							"pm.environment.set(\"name\", jsonInfo.name);",
+							"pm.test(\"Status Code for POST is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"    var jsonInfo = JSON.parse(pm.response.text());",
+							"    pm.environment.set(\"name\", jsonInfo.name);",
+							"});",
+							"",
 							""
 						],
 						"type": "text/javascript",
@@ -867,7 +914,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Water\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"Detergent\",\r\n    \"quantity\": \"500\",\r\n    \"buying_price\": \"20000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -905,8 +952,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonInfo = JSON.parse(pm.response.text());",
-							"pm.environment.set(\"product_ID\", jsonInfo._id);"
+							"pm.test(\"Status Code for POST is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"});",
+							""
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -924,7 +973,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Product Test Lower buying_price\",\r\n    \"quantity\": \"100\",\r\n    \"buying_price\": \"200\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"Cheaper detergent\",\r\n    \"quantity\": \"2000\",\r\n    \"buying_price\": \"2000\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -957,39 +1006,14 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/v1/api/Products/",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"Products",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET /v1/api/Products descending buying_price",
-			"event": [
+				},
 				{
-					"listen": "prerequest",
+					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status Code for GET is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -1007,14 +1031,71 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/v1/api/Products?sort_order=desc",
+					"raw": "{{host}}/v1/api/Products/?sort_order",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"Products"
+						"Products",
+						""
+					],
+					"query": [
+						{
+							"key": "sort_order",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/Products descending buying_price",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for GET is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/?sort_order=desc",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						""
 					],
 					"query": [
 						{
@@ -1038,6 +1119,18 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for GET is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -1050,16 +1143,22 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/v1/api/Products?name={{name}}",
+					"raw": "{{host}}/v1/api/Products/search?name={{name}}",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"Products"
+						"Products",
+						"search"
 					],
 					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
 						{
 							"key": "name",
 							"value": "{{name}}"
@@ -1077,6 +1176,18 @@
 					"script": {
 						"exec": [
 							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for GET is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -1115,6 +1226,18 @@
 					"script": {
 						"exec": [
 							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for POST is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -1166,6 +1289,18 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for POST is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -1213,6 +1348,18 @@
 						"type": "text/javascript",
 						"packages": {}
 					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for POST is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
 			],
 			"request": {
@@ -1247,6 +1394,18 @@
 					"script": {
 						"exec": [
 							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for POST is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
