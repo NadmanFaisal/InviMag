@@ -154,36 +154,36 @@ exports.deleteSpecificProductBySupplierId = async(req, res, next) => {
 
 // Gets all suppliers from the database
 
-exports.getAllSuppliers = async (req, res) => {
+exports.getAllSuppliers = async (req, res, next) => {
     try {
-        const suppliers = await Supplier.find();
-        res.json({'suppliers': suppliers});
+        const suppliers = await Supplier.find().populate('products');
+        res.status(200).json({'suppliers': suppliers});
     } catch (error) {
-        res.status(500).json({ error: 'Server error when getting all suppliers' }); // 500: Server Errors
+        next(error);
     }
 }
 
 // Get a specific supplier by their ids
 
-exports.getSupplierByID =  async  (req, res) => {
-    var id = req.params.id;
+exports.getSupplierByID =  async  (req, res, next) => {
+    const id = req.params.id;
     try {
-        const supplier = await Supplier.findById(id);
+        const supplier = await Supplier.findById(id).populate('products');
         if (!supplier) {
             return res.status(404).json({"message": "Did not find supplier"}); // 404: Not found 
         }
-        res.json(supplier);
+        res.status(200).json(supplier);
     } catch (error) {
-        res.status(500).json({ error: 'Server error when getting supplier from id' });
+        next(error);
     }
 }
 
 // Delete supplier according to id
 
-exports.deleteSupplierByID =  async  (req, res) => {
+exports.deleteSupplierByID =  async  (req, res, next) => {
     try {
-        var id = req.params.id;
-        var supplier = await Supplier.findByIdAndDelete(id);
+        const id = req.params.id;
+        const supplier = await Supplier.findByIdAndDelete(id).populate('products');
 
         if (!supplier) {
             return res.status(404).json({ message: 'Supplier not found' });
@@ -191,30 +191,30 @@ exports.deleteSupplierByID =  async  (req, res) => {
 
         res.status(200).json(supplier); //Return deleted supplier, 200: Return OK response
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
 // Delete all of suppliers 
 
-exports.deleteAllSuppliers = async (req, res) => {
+exports.deleteAllSuppliers = async (req, res, next) => {
     try {
-        var suppliers = await Supplier.deleteMany();
+        const suppliers = await Supplier.deleteMany();
         if (!suppliers) {
             return res.status(404).json({ message: 'Suppliers not found' });
         }
         
         res.status(200).json(suppliers); // Return number of supplier deleted
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
 // update all fields of a supplier
 
-exports.updateSupplierByID = async  (req, res) => {
+exports.updateSupplierByID = async  (req, res, next) => {
     try {
-        var id = req.params.id;
+        const id = req.params.id;
         const {name, location_of_origin} = req.body;
 
         // this to ensure that put does not act like patch.
@@ -225,10 +225,10 @@ exports.updateSupplierByID = async  (req, res) => {
             return res.status(404).json({ message: 'Location of origin cannot be empty' });
         }
 
-        var updatedSupplier = {name, location_of_origin};
+        let updatedSupplier = {name, location_of_origin};
 
         // true: to always return updated supplier
-        var supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true });
+        const supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true }).populate('products');
         if (!supplier) {
             return res.status(404).json({ message: 'Supplier was not found' });
         }
@@ -236,33 +236,36 @@ exports.updateSupplierByID = async  (req, res) => {
         res.status(200).json(supplier); // Return updated supplier
 
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
 // update specific field of a supplier
 
-exports.partialUpdateSupplier =  async  (req, res) => {
+exports.partialUpdateSupplier =  async  (req, res, next) => {
     try {
-        var id = req.params.id;
-        var initialSupplier = await Supplier.findById(id);
+        const id = req.params.id;
+        const initialSupplier = await Supplier.findById(id);
 
         if (!initialSupplier) {
             return res.status(404).json({ message: 'Supplier does not exist' });
         }
 
-        var updatedSupplier = {
+        // check for updated values to add, if not found, then just add the original value
+
+        let updatedSupplier = {
             name: (req.body.name || initialSupplier.name),
             location_of_origin: (req.body.location_of_origin || initialSupplier.location_of_origin)
         };
 
-        var supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true });
+        // update with new values, and we want the new values hence new: true
+        const supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true }).populate('products');
         if (!supplier) {
             return res.status(404).json({ message: 'Supplier was not found' });
         }
 
         res.status(200).json(supplier);
     } catch (error) {
-        res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
