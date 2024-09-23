@@ -63,11 +63,52 @@ exports.addProductToSupplier = async(req, res, next) => {
     }
 }
 
+// Get all products from a specific supplier
+
+exports.getProductsBySupplierId = async (req, res, next) => {
+    const id = req.params.id;
+
+    try {
+        const supplier = await Supplier.findById(id).populate('products');
+
+        if(!supplier){
+            return res.status(404).json({message: 'Did not find supplier'});
+        }
+
+        res.status(200).json({'products': supplier.products}); // return all products from supplier
 
     } catch (error) {
         next(error);
     }
 }
+
+// Get a specific product from a specific supplier
+
+exports.getSpecificProductBySupplierId = async(req, res, next) => {
+    const supplierId = req.params.id;
+    const productId = req.params.product_id;
+
+    try {
+        const supplier = await Supplier.findById(supplierId).populate('products');
+
+        if(!supplier){
+            return res.status(404).json({message: 'Did not find supplier'});
+        }
+
+        // compare id to find specific product from the product list of suppliers
+        const product = supplier.products.find(product => product._id.toString() === productId);
+
+        if(!product) {
+            return res.status(404).json({message: 'Product not found in this supplier'});
+        }
+
+        res.status(200).json(product);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 // Gets all suppliers from the database
 
