@@ -21,6 +21,49 @@ exports.createSupplier = async (req, res, next) => {
     }
 }
 
+// Adds product to existing supplier
+
+exports.addProductToSupplier = async(req, res, next) => {
+    const id = req.params.id;
+
+    try {
+
+        const supplier = await Supplier.findById(id).populate('products'); // populate allows us to view the whole product with its fields, rather than the id field only
+
+        if (!supplier) {
+            return res.status(404).json({message: 'Did not find supplier'});
+        }
+
+        // create new product
+        const newProduct = new Product({
+            name: req.body.name,
+            quantity: req.body.quantity,
+            buying_price: req.body.buying_price,
+            selling_price: req.body.selling_price,
+            category: req.body.category,
+            in_stock: req.body.in_stock,
+            business_owner: req.body.business_owner,
+            order_history: req.body.order_history
+        });
+
+        // save product to database & add product to supplier list
+        const savedProduct = await newProduct.save();
+        supplier.products.push(savedProduct);
+
+        await supplier.save();
+
+        res.status(201).json({
+            message: 'Product has been added to supplier.',
+            supplier: supplier,
+            product_id: savedProduct._id
+        }); // return product to save it in postman environment variables.
+    }
+    catch(error) {
+        next(error);
+    }
+}
+
+
     } catch (error) {
         next(error);
     }
