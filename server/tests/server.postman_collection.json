@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38198193",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
+		"_exporter_id": "38098400",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38098400"
 	},
 	"item": [
 		{
@@ -370,12 +370,29 @@
 		},
 		{
 			"name": "POST /v1/api/suppliers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());\r",
+							"pm.environment.set(\"supplier_ID\", jsonInfo._id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ABC Company\",\r\n    \"location_of_origin\": \"Bangladesh\"\r\n}",
+					"raw": "{\r\n    \"name\": \"DEF Company\",\r\n    \"location_of_origin\": \"Azerbaijan\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -383,14 +400,172 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/suppliers",
+					"raw": "{{host}}/v1/api/suppliers/",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"suppliers"
+						"suppliers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/suppliers/:id/Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());\r",
+							"pm.environment.set(\"supplier_product_ID\", jsonInfo.product_id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cherry\",\r\n    \"quantity\": \"120\",\r\n    \"buying_price\": \"25000\",\r\n    \"selling_price\": \"35000\",\r\n    \"category\": \"fruit\",\r\n    \"in_stock\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"{{supplier_ID}}",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/suppliers/:id/Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"{{supplier_ID}}",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/suppliers/:id/Products/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products/{{supplier_product_ID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"{{supplier_ID}}",
+						"Products",
+						"{{supplier_product_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /v1/api/suppliers/:id/Products/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products/{{supplier_product_ID}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						"{{supplier_ID}}",
+						"Products",
+						"{{supplier_product_ID}}"
 					]
 				}
 			},
