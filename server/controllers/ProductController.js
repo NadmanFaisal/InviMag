@@ -4,7 +4,7 @@ const Product = require('../models/Product')
 
 exports.createProduct = async (req, res, next ) => {
 
-    var product = new Product({
+    let product = new Product({
         name: req.body.name,
         quantity: req.body.quantity,
         buying_price: req.body.buying_price,
@@ -14,17 +14,37 @@ exports.createProduct = async (req, res, next ) => {
         business_owner: req.body.business_owner,
         order_history: req.body.order_history
     });
+    
+    if(!product.name || product.name === ''){
+        res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
+    }
+    if(!product.quantity || product.quantity === ''){
+        res.status(400).json({ error: 'Bad Request, quantity field cannot be empty'});
+    }
+    if(!product.buying_price || product.buying_price === ''){
+        res.status(400).json({ error: 'Bad Request, buying_price field cannot be empty'});
+    }
+    if(!product.selling_price || product.selling_price === ''){
+        res.status(400).json({ error: 'Bad Request, selling_price field cannot be empty'});
+    }
+    if(!product.category || product.category === ''){
+        res.status(400).json({ error: 'Bad Request, category field cannot be empty'});
+    }
+    if(!product.in_stock || product.in_stock === ''){
+        res.status(400).json({ error: 'Bad Request, in_stock field cannot be empty'});
+    }
 
     try{
         await product.save();
         res.status(201).json(product);
 
     }catch (error){
+        res.status(500).json({ error: 'An error occurred while creating a product' });
         next(error);
     }
 }
 
-exports.getAllProducts =  async (req, res) =>  {    
+exports.getAllProducts =  async (req, res, next) =>  {    
     try{
         const sort_order = req.query.sort_order;
         let sort_type = {};
@@ -34,15 +54,20 @@ exports.getAllProducts =  async (req, res) =>  {
             sort_type = {buying_price : 1};
         }
         const products = await Product.find().sort(sort_type);
-        res.json({"Products" : products});
+        if(!products){
+            res.status(404).json({"message" : "No products found"});
+        }
+        res.status(200).json({"Products" : products});
     } catch (error){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+
     }
 
 }
 
 
-exports.getProductByName = async (req, res) => {
+exports.getProductByName = async (req, res, next) => {
     const productName = req.query.name;
     try{
         if(!productName){
@@ -55,11 +80,13 @@ exports.getProductByName = async (req, res) => {
     res.status(200).json({"Products": productNames});
     } catch (error){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+
     }
 
 }
 
-exports.getProductByID = async (req, res) => {
+exports.getProductByID = async (req, res, next) => {
     const productID = req.params.id;
     try{
     const products = await Product.findById(productID);
@@ -69,44 +96,47 @@ exports.getProductByID = async (req, res) => {
     res.status(200).json(products);
     } catch (error){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+
     }
 
 }
 
 
 
-exports.deleteAllProducts = async (req, res) => {
+exports.deleteAllProducts = async (req, res, next) => {
     try {
         const product = await Product.deleteMany();
 
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
-
         res.status(200).json(product); //Return deleted product, 200: Return OK response
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
-        
+        next(error);
     }
 }
 
-exports.deleteProductByID = async (req, res) => {
+exports.deleteProductByID = async (req, res, next) => {
     try {
         const productID = req.params.id;
         const product = await Product.findByIdAndDelete(productID);
 
         if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
+            return res.status(404).json({ message: 'No Products not found' });
         }
 
         res.status(200).json({message : 'Product deleted successfully'}); //Return deleted product, 200: Return OK response
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
+
     }
 }
 
 
-exports.updateProductByIB = async (req, res) => {
+exports.updateProductByIB = async (req, res, next) => {
     try {
         const id = req.params.id;
         const {name, quantity, buying_price, selling_price, category, in_stock} = req.body;
@@ -114,17 +144,17 @@ exports.updateProductByIB = async (req, res) => {
         // this to ensure that put does not act like patch.
 
         if (!req.body.name) {
-            return res.status(404).json({ message: 'Name cannot be empty' });
+            return res.status(400).json({ message: 'Bad Request: Name cannot be empty' });
         } else if (!req.body.quantity) {
-            return res.status(404).json({ message: 'quantity cannnot be empty' });
+            return res.status(400).json({ message: 'Bad Request: quantity cannnot be empty' });
         }else if(!req.body.buying_price){
-            return res.status(404).json({ message: 'buying_price cannot be empty' });
+            return res.status(400).json({ message: 'Bad Request: buying_price cannot be empty' });
         }else if(!req.body.selling_price){
-            return res.status(404).json({ message: 'selling_price cannot be empty' });
+            return res.status(400).json({ message: 'Bad Request: selling_price cannot be empty' });
         } else if(!req.body.category){
-            return res.status(404).json({ message: 'category cannot be empty' });
+            return res.status(400).json({ message: 'Bad Request: category cannot be empty' });
         }else if(req.body.in_stock === null){
-            return res.status(404).json({ message: 'in_stock cannot be empty' });
+            return res.status(400).json({ message: 'Bad Request: in_stock cannot be empty' });
         }
 
         const updatedProduct = {name, quantity, buying_price, selling_price, category, in_stock};
@@ -139,12 +169,13 @@ exports.updateProductByIB = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
 
 
-exports.partialUpdateProduct = async (req, res) => {
+exports.partialUpdateProduct = async (req, res, next) => {
     try{
         const productID = req.params.id;
         const products = await Product.findById(productID);
@@ -166,6 +197,8 @@ exports.partialUpdateProduct = async (req, res) => {
         res.json(new_products);
     }catch(error){
         res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+
     }
 }
 
