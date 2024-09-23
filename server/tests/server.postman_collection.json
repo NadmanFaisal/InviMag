@@ -370,12 +370,29 @@
 		},
 		{
 			"name": "POST /v1/api/suppliers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());\r",
+							"pm.environment.set(\"supplier_ID\", jsonInfo._id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ABC Company\",\r\n    \"location_of_origin\": \"Bangladesh\"\r\n}",
+					"raw": "{\r\n    \"name\": \"DEF Company\",\r\n    \"location_of_origin\": \"Azerbaijan\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -383,14 +400,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/suppliers",
+					"raw": "{{host}}/v1/api/suppliers/",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"suppliers"
+						"suppliers",
+						""
 					]
 				}
 			},
@@ -398,12 +416,30 @@
 		},
 		{
 			"name": "POST /v1/api/suppliers/:id/Products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());\r",
+							"pm.environment.set(\"supplier_product_ID\", jsonInfo.product_id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ABC Company\",\r\n    \"location_of_origin\": \"Bangladesh\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Cherry\",\r\n    \"quantity\": \"120\",\r\n    \"buying_price\": \"25000\",\r\n    \"selling_price\": \"35000\",\r\n    \"category\": \"fruit\",\r\n    \"in_stock\": true\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -411,14 +447,16 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/suppliers",
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"suppliers"
+						"suppliers",
+						"{{supplier_ID}}",
+						"Products"
 					]
 				}
 			},
@@ -481,7 +519,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products/{{product_ID}}",
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products/{{supplier_product_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -491,7 +529,7 @@
 						"suppliers",
 						"{{supplier_ID}}",
 						"Products",
-						"{{product_ID}}"
+						"{{supplier_product_ID}}"
 					]
 				}
 			},
@@ -517,7 +555,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products/{{product_ID}}",
+					"raw": "{{host}}/v1/api/suppliers/{{supplier_ID}}/Products/{{supplier_product_ID}}",
 					"host": [
 						"{{host}}"
 					],
@@ -527,7 +565,7 @@
 						"suppliers",
 						"{{supplier_ID}}",
 						"Products",
-						"{{product_ID}}"
+						"{{supplier_product_ID}}"
 					]
 				}
 			},
@@ -1021,7 +1059,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"HTTP Override Product test\",\r\n    \"buying_price\": \"10\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"HTTP Override Product test\",\r\n    \"quantity\": \"1000\",\r\n    \"buying_price\": \"10\",\r\n    \"selling_price\": \"30000\",\r\n    \"category\": \"laundry\",\r\n    \"in_stock\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1062,8 +1100,6 @@
 						"exec": [
 							"pm.test(\"Status Code for POST is 200\", function () {",
 							"  pm.response.to.have.status(200);",
-							"  var jsonInfo = pm.response.json();",
-							"  pm.environment.set(\"product_ID\", jsonInfo._id);",
 							"});"
 						],
 						"type": "text/javascript",
