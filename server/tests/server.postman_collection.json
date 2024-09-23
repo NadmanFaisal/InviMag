@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38198193",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
+		"_exporter_id": "38197131",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
 	},
 	"item": [
 		{
@@ -28,11 +28,9 @@
 							"var jsonInfo = JSON.parse(pm.response.text());",
 							"pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"",
-							"pm.test(\"Create Business Owner\", function () {",
-							"    var jsonData = pm.response.json();",
-							"        pm.response.to.have.status(201);}",
-							"    );",
-							""
+							"pm.test(\"Status code is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"});"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -50,7 +48,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"S\",\r\n    \"total_budget\": 987923,\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
+					"raw": "{\r\n    \"name\": \"S\",\r\n    \"total_budget\": 100,\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -73,6 +71,21 @@
 		},
 		{
 			"name": "POST /v1/api/businessOwners/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -108,6 +121,21 @@
 		},
 		{
 			"name": "GET /v1/api/businessOwners/sorted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -154,6 +182,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -197,6 +228,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -241,6 +275,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"  var jsonInfo = pm.response.json();",
+							"  pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -282,6 +321,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -323,6 +365,9 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
 							""
 						],
 						"type": "text/javascript",
@@ -350,6 +395,21 @@
 		},
 		{
 			"name": "DELETE  /v1/api/businessOwners",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
