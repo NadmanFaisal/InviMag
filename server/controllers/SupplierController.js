@@ -109,6 +109,48 @@ exports.getSpecificProductBySupplierId = async(req, res, next) => {
     }
 }
 
+// Delete a specific product from a specific supplier
+
+exports.deleteSpecificProductBySupplierId = async(req, res, next) => {
+    const supplierId = req.params.id;
+    const productId = req.params.product_id;
+
+    try {
+        const supplier = await Supplier.findById(supplierId).populate('products');
+
+        if(!supplier){
+            return res.status(404).json({message: 'Did not find supplier'});
+        }
+        
+        // find index of product through searching the product list and finding which productid is equivalent to request of productid
+        const productIndex = supplier.products.findIndex(product => product._id.toString() === productId);
+
+
+        // here we cannot check if product.length == 0 since if I remove last product it will be empty and still throw error,
+        // so i had to do it through indexing for that particular situation
+        
+        // returns -1 if it cant find it, so we throw 404 error
+        if (productIndex === -1) {
+            return res.status(404).json({ message: 'Product not found in the supplier\'s product list' });
+        }
+
+        // removes the product through finding its id
+        const removedProduct = supplier.products.pull({ _id: productId });
+        await supplier.save();
+
+        // delete it from the product collection also
+        await Product.findByIdAndDelete(productId);
+
+        res.status(200).json({
+            message: 'Removed product from suppliers product list. Remaining products in suppliers list:- ',
+            product: removedProduct
+        });
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 // Gets all suppliers from the database
 
