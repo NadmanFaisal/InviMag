@@ -1,5 +1,3 @@
-
-const { listen } = require('../app');
 const Product = require('../models/Product')
 
 exports.createProduct = async (req, res, next ) => {
@@ -16,22 +14,22 @@ exports.createProduct = async (req, res, next ) => {
     });
     
     if(!product.name || product.name === ''){
-        res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
     }
     if(!product.quantity || product.quantity === ''){
-        res.status(400).json({ error: 'Bad Request, quantity field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, quantity field cannot be empty'});
     }
     if(!product.buying_price || product.buying_price === ''){
-        res.status(400).json({ error: 'Bad Request, buying_price field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, buying_price field cannot be empty'});
     }
     if(!product.selling_price || product.selling_price === ''){
-        res.status(400).json({ error: 'Bad Request, selling_price field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, selling_price field cannot be empty'});
     }
     if(!product.category || product.category === ''){
-        res.status(400).json({ error: 'Bad Request, category field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, category field cannot be empty'});
     }
     if(!product.in_stock || product.in_stock === ''){
-        res.status(400).json({ error: 'Bad Request, in_stock field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, in_stock field cannot be empty'});
     }
 
     try{
@@ -55,7 +53,7 @@ exports.getAllProducts =  async (req, res, next) =>  {
         }
         const products = await Product.find().sort(sort_type);
         if(!products){
-            res.status(404).json({"message" : "No products found"});
+            return res.status(404).json({"message" : "No products found"});
         }
         res.status(200).json({"Products" : products});
     } catch (error){
@@ -71,11 +69,11 @@ exports.getProductByName = async (req, res, next) => {
     const productName = req.query.name;
     try{
         if(!productName){
-            res.status(404).json({"message" : "Please provide a search string for the product"})
+            return res.status(404).json({"message" : "Please provide a search string for the product"})
         }
     const productNames = await Product.find({name:{$regex : productName, $options: 'i'}});
     if(!productNames){
-        res.status(404).json({"message" : "No products found with the given name"});
+        return res.status(404).json({"message" : "No products found with the given name"});
     }
     res.status(200).json({"Products": productNames});
     } catch (error){
@@ -91,7 +89,7 @@ exports.getProductByID = async (req, res, next) => {
     try{
     const products = await Product.findById(productID);
     if(!products){
-        res.status(404).json({"message" : "did not find product"})
+        return res.status(404).json({"message" : "did not find product"})
     }
     res.status(200).json(products);
     } catch (error){
@@ -180,7 +178,7 @@ exports.partialUpdateProduct = async (req, res, next) => {
         const productID = req.params.id;
         const products = await Product.findById(productID);
         if(!products){ // if the product with the inputted ID does not exist, then throw a 404 not found error
-            res.status(404).json({"message" : "did not find product"})
+            return res.status(404).json({"message" : "did not find product"})
         }
         // Creating a reference to an updated product
         const updated_product ={

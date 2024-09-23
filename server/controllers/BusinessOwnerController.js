@@ -11,6 +11,19 @@ exports.createBusinessOwner = async (req, res, next) => {
         orderHistories: req.body.orderHistories
     });
 
+    if(!businessOwner.name || businessOwner.name === ''){
+        res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
+    }
+    if(!businessOwner.total_budget || businessOwner.total_budget === ''){
+        res.status(400).json({ error: 'Bad Request, quantity field cannot be empty'});
+    }
+    if(!businessOwner.email || businessOwner.email === ''){
+        res.status(400).json({ error: 'Bad Request, buying_price field cannot be empty'});
+    }
+    if(!businessOwner.password || businessOwner.password === ''){
+        res.status(400).json({ error: 'Bad Request, selling_price field cannot be empty'});
+    }
+
     try {
         await businessOwner.save();
         res.status(201).json(businessOwner);
@@ -21,7 +34,7 @@ exports.createBusinessOwner = async (req, res, next) => {
 
 // Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
 // If multiple business owners with the same total budget exist, it sorts by name.
-exports.getAllBusinessOwners = async (req, res) => {
+exports.getAllBusinessOwners = async (req, res, next) => {
     try {
         const { sort_budget, sort_name } = req.query;
         let sortOption = {};
@@ -44,6 +57,7 @@ exports.getAllBusinessOwners = async (req, res) => {
         res.json({ 'businessOwners': businessOwners });
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retrieving all the business owners' });
+        next(error);
     }
 }
 
@@ -60,6 +74,7 @@ exports.getBusinessOwnerByID = async (req, res) => {
         res.json(businessOwner);
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retreiving the specific business owner' });
+        next(error);
     }
 }
 
@@ -77,6 +92,7 @@ exports.deleteBusinessOwnerByID = async (req, res) =>{
         res.status(200).json(businessOwner);
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
@@ -90,6 +106,7 @@ exports.deleteBusinessOwnerByID = async (req, res) =>{
         res.status(200).json(businessOwners);
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
@@ -121,6 +138,7 @@ exports.updateBusinessOwnerByID = async  (req, res) => {
     } catch (error) {
         // Any error is mentioned as Server error
         res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
 
@@ -150,5 +168,6 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
     } catch (error) {
         // Any error is mentioned as Server error
         res.status(500).json({ message: 'Server error', error: error.message });
+        next(error);
     }
 }
