@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var path = require('path');
 var cors = require('cors');
+var methodOverride = require('method-override');
 var history = require('connect-history-api-fallback');
 var productRoutes = require('../server/routes/ProductRoutes');
 var businessOwnerRoutes = require('../server/routes/BusinessOwnerRoutes');
@@ -42,6 +43,7 @@ app.get('/api', function(req, res) {
 });
 
 // Uses every endpoints specified inside the Controller class
+app.use(methodOverride('X-HTTP-Method-Override'));
 app.use('/v1/api', businessOwnerRoutes);
 app.use('/v1/api', productRoutes);
 app.use('/v1/api', supplierRoutes);
