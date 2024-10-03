@@ -14,10 +14,12 @@
     </div>
 
     <div class="right-section">
-      <div class="login-button-container">
+
+      <div class="login-signup-button-container">
         <button type="button" class="login-button">Log In</button>
         <button type="button" class="signup-button">Sign up</button>
       </div>
+
       <b-container fluid class="login-container">
         <h2>Login</h2>
         <form @submit.prevent="loginUser">
@@ -119,7 +121,7 @@ export default {
   position:relative;
 }
 
-.login-button-container {
+.login-signup-button-container {
   position: absolute;
   top: 20px;
   right: 20px;
