@@ -9,6 +9,7 @@ router.delete('/BusinessOwners/', businessOwnerController.deleteAllBusinessOwner
 router.delete('/BusinessOwners/:id', businessOwnerController.deleteBusinessOwnerByID);
 router.put('/BusinessOwners/:id', businessOwnerController.updateBusinessOwnerByID);
 router.patch('/BusinessOwners/:id', businessOwnerController.partialUpdateBusinessOwner);
+router.post('/login', businessOwnerController.loginBusinessOwner);
 
 
 module.exports = router;

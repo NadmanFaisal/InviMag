@@ -32,6 +32,41 @@ exports.createBusinessOwner = async (req, res, next) => {
     }
 }
 
+exports.loginBusinessOwner = async (req, res) => {
+    
+    // Prints the log in credentials on the front end for debugging purposes
+    console.log('Login request received:', req.body);
+    
+    // Stores the email and password received from front end in constant variables
+    const { email, password } = req.body;
+
+    try {
+        const businessOwner = await BusinessOwner.findOne({ email });
+
+        if (!businessOwner) {
+            return res.status(404).json({ message: 'Business owner was not found' });
+        }
+
+        if (password !== businessOwner.password) {
+            return res.status(401).json({ message: 'Invalid password' });
+        }
+
+        // Returns the business owner and its respective details upon successful log in
+        console.log('Business Owner found:', businessOwner);
+
+        res.status(200).json({ 
+            id: businessOwner._id,
+            name: businessOwner.name,
+            total_budget: businessOwner.total_budget,
+            email: businessOwner.email,
+        });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+};
+
+
 // Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
 // If multiple business owners with the same total budget exist, it sorts by name.
 exports.getAllBusinessOwners = async (req, res, next) => {
