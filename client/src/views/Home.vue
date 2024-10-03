@@ -6,6 +6,7 @@
       <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
       <p class="col-xl-9">Message from the server:<br/>
       {{ message }}</p>
+      <router-link to="/login">Log in</router-link>
     </b-container>
   </div>
 </template>
