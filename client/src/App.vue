@@ -5,6 +5,7 @@
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>
+      <router-link to = "/inventoryPage"> Inventory Page</router-link>
   </div>
 </template>
 
