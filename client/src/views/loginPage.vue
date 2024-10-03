@@ -1,6 +1,9 @@
 <template>
   <div class="split-screen">
-    <div class="left-section"></div>
+    <div class="left-section">
+      <img :src="image" alt="Description of the image" class="left-texture-image" />
+      <img :src="image" alt="Description of the image" class="right-texture-image" />
+    </div>
 
     <div class="right-section">
       <b-container fluid class="login-container">
@@ -45,12 +48,16 @@
 </template>
 
 <script>
+
+import textureImage from '/src/texturePacks/login_texture.png'
+
 export default {
   data() {
     return {
       email: '',
       password: '',
-      error: null
+      error: null,
+      image: textureImage
     }
   },
   methods: {
@@ -80,6 +87,11 @@ export default {
 .left-section {
   flex: 3;
   background-color: #FFFFFF;
+  display: flex; /* Enable flexbox */
+  height: 100%;
+  align-items: flex-start; /* Align items to the start (top) */
+  justify-content: flex-start;
+  position: relative;
 }
 
 .right-section {
@@ -184,6 +196,25 @@ button {
 
 button:hover {
   background-color: rgb(0, 85, 255);
+}
+
+.left-texture-image {
+  width: 458px;
+  height: 456px;
+  flex-shrink: 0;
+  margin: 85px;
+  opacity: 0.4;
+}
+
+.right-texture-image {
+  width: 458px;
+  height: 456px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+  margin: 85px;
+  opacity: 0.4;
 }
 
 .error-message {
