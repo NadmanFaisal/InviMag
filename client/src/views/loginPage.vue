@@ -14,6 +14,9 @@
     </div>
 
     <div class="right-section">
+      <div class="login-signup-button-container">
+        <button type="button" class="login-button">Log In</button>
+      </div>
       <b-container fluid class="login-container">
         <h2>Login</h2>
         <form @submit.prevent="loginUser">
@@ -45,7 +48,7 @@
             <label for="rememberMe" class="remember-label">Remember me</label>
           </div>
 
-          <button type="submit">Log In</button>
+          <button type="submit" class="login-submit-button">Log In</button>
         </form>
         <div v-if="error" class="error-message">
           {{ error }}
@@ -112,6 +115,29 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  position:relative;
+}
+
+.login-signup-button-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+button.login-button {
+  width: 130px;
+  height: 50px;
+  border: none;
+  border-radius: 50px;
+  background: #FFF;
+  color: #37F;
+  font-family: "Istok Web";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 h2 {
@@ -190,7 +216,7 @@ label[for="rememberMe"] {
   line-height: normal;
 }
 
-button {
+button.login-submit-button {
   width: 278px;
   height: 59px;
   flex-shrink: 0;
@@ -206,8 +232,12 @@ button {
   line-height: normal;
 }
 
-button:hover {
+button.login-submit-button:hover {
   background-color: rgb(0, 85, 255);
+}
+
+button.login-button:hover {
+  background-color: rgb(235, 235, 235);
 }
 
 .left-texture-image {
