@@ -65,7 +65,7 @@ exports.getAllProducts =  async (req, res, next) =>  {
 }
 
 
-exports.getProductByName = async (req, res, next) => {
+exports.getProductsByName = async (req, res, next) => {
     const productName = req.query.name;
     try{
         if(!productName){

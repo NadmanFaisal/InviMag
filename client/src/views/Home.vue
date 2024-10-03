@@ -13,7 +13,6 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-
 export default {
   name: 'home',
   data() {
