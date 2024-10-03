@@ -14,8 +14,9 @@
     </div>
 
     <div class="right-section">
-      <div class="login-signup-button-container">
+      <div class="login-button-container">
         <button type="button" class="login-button">Log In</button>
+        <button type="button" class="signup-button">Sign up</button>
       </div>
       <b-container fluid class="login-container">
         <h2>Login</h2>
@@ -118,7 +119,7 @@ export default {
   position:relative;
 }
 
-.login-signup-button-container {
+.login-button-container {
   position: absolute;
   top: 20px;
   right: 20px;
@@ -133,6 +134,20 @@ button.login-button {
   border-radius: 50px;
   background: #FFF;
   color: #37F;
+  font-family: "Istok Web";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+button.signup-button {
+  width: 130px;
+  height: 50px;
+  border: none;
+  border-radius: 50px;
+  background: #37F; /* Blue background for Sign Up button */
+  color: #FFF; /* White text color */
   font-family: "Istok Web";
   font-size: 16px;
   font-weight: 400;
@@ -238,6 +253,10 @@ button.login-submit-button:hover {
 
 button.login-button:hover {
   background-color: rgb(235, 235, 235);
+}
+
+button.signup-button:hover {
+  background-color: rgb(0, 85, 255);
 }
 
 .left-texture-image {
