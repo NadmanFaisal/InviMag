@@ -57,6 +57,7 @@
 
 <script>
 
+import axios from 'axios'
 import textureImage from '/src/texturePacks/login_texture.png'
 
 export default {
@@ -76,10 +77,13 @@ export default {
           email: this.email,
           password: this.password
         }
-        console.log('User Data', userData)
-        alert('Login successful!')
+        const response = await axios.post('http://localhost:3000/v1/api/login', userData)
+        console.log('Logged in business owner', response.data)
+        const businessOwnerName = response.data.name
+        alert(`Login successful! Welcome back ${businessOwnerName}!`)
       } catch (err) {
-        this.error = 'An error occurred during login'
+        console.error(err)
+        this.error = err.response?.data?.message || 'An error occurred during login'
       }
     }
   }
