@@ -3,6 +3,14 @@
     <div class="left-section">
       <img :src="image" alt="Description of the image" class="left-texture-image" />
       <img :src="image" alt="Description of the image" class="right-texture-image" />
+
+      <div class="company-info">
+        <div class="company-name">Company Name</div>
+        <div class="company-motto">ADSDAS DCCS DFSDF VDFS
+          DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
+        <div class="company-description">ADSDAS DCCS DFSDF VDFS SDFDS SDFSFD S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
+      </div>
+
     </div>
 
     <div class="right-section">
@@ -87,9 +95,9 @@ export default {
 .left-section {
   flex: 3;
   background-color: #FFFFFF;
-  display: flex; /* Enable flexbox */
+  display: flex;
   height: 100%;
-  align-items: flex-start; /* Align items to the start (top) */
+  align-items: flex-start;
   justify-content: flex-start;
   position: relative;
 }
@@ -215,6 +223,49 @@ button:hover {
   transform: rotate(180deg);
   margin: 85px;
   opacity: 0.4;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Adjusts the position to center of left section */
+}
+
+.company-name {
+  color: #787676;
+  font-family: "Istok Web";
+  font-size: 96px;
+  font-weight: 700;
+}
+
+.company-motto {
+  display: flex;
+  width: 586px;
+  height: 152px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #37F;
+  font-family: "Istok Web";
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.company-description {
+  display: flex;
+  width: 633px;
+  height: 191px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #606060;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .error-message {
