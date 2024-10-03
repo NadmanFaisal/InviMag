@@ -148,8 +148,8 @@ button.signup-button {
   height: 50px;
   border: none;
   border-radius: 50px;
-  background: #37F; /* Blue background for Sign Up button */
-  color: #FFF; /* White text color */
+  background: #37F;
+  color: #FFF;
   font-family: "Istok Web";
   font-size: 16px;
   font-weight: 400;

@@ -44,7 +44,7 @@ exports.loginBusinessOwner = async (req, res) => {
         const businessOwner = await BusinessOwner.findOne({ email });
 
         if (!businessOwner) {
-            return res.status(404).json({ message: 'Business owner was not found' });
+            return res.status(404).json({ message: 'No registered email was found. Sign up!' });
         }
 
         if (password !== businessOwner.password) {
