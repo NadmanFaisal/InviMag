@@ -16,8 +16,8 @@
     <div class="right-section">
 
       <div class="login-signup-button-container">
-        <button type="button" class="login-button">Log In</button>
-        <button type="button" class="signup-button">Sign up</button>
+        <BButton type="button" class="login-button">Log In</BButton>
+        <BButton type="button" class="signup-button">Sign up</BButton>
       </div>
 
       <b-container fluid class="login-container">
@@ -26,7 +26,7 @@
 
           <div class="form-group">
             <label for="email">Email</label>
-            <input
+            <BFormInput
               type="email"
               v-model="email"
               id="email"
@@ -37,7 +37,7 @@
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input
+            <BFormInput
               type="password"
               v-model="password"
               id="password"
@@ -48,10 +48,10 @@
 
           <div class="form-group">
             <input type="checkbox" id="rememberMe" v-model="rememberMe" class="checkbox" />
-            <label for="rememberMe" class="remember-label">Remember me</label>
+            <label for="rememberMe">Remember me</label>
           </div>
 
-          <button type="submit" class="login-submit-button">Log In</button>
+          <BButton type="submit" class="login-submit-button">Log In</BButton>
         </form>
         <div v-if="error" class="error-message">
           {{ error }}
@@ -65,6 +65,7 @@
 
 import axios from 'axios'
 import textureImage from '/src/texturePacks/login_texture.png'
+import { BFormInput } from 'bootstrap-vue-next'
 
 export default {
   data() {
