@@ -24,7 +24,7 @@
         <h2>Login</h2>
         <form @submit.prevent="loginUser">
 
-          <div class="form-group">
+          <div class="detail-input-group">
             <label for="email">Email</label>
             <BFormInput
               type="email"
@@ -35,7 +35,7 @@
             />
           </div>
 
-          <div class="form-group">
+          <div class="detail-input-group">
             <label for="password">Password</label>
             <BFormInput
               type="password"
@@ -46,7 +46,7 @@
             />
           </div>
 
-          <div class="form-group">
+          <div class="check-box-group">
             <input type="checkbox" id="rememberMe" v-model="rememberMe" class="checkbox" />
             <label for="rememberMe">Remember me</label>
           </div>
@@ -122,6 +122,26 @@ export default {
   position:relative;
 }
 
+@media (max-width: 757px) {
+  .split-screen {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-section {
+    display: none;
+  }
+
+  .right-section {
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+}
+
 .login-signup-button-container {
   position: absolute;
   top: 20px;
@@ -140,7 +160,6 @@ button.login-button {
   font-family: "Istok Web";
   font-size: 16px;
   font-weight: 400;
-  line-height: normal;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -200,7 +219,11 @@ label[for="email"], label[for="password"] {
   padding-left: 10px;
 }
 
-.form-group {
+.detail-input-group {
+  margin-bottom: 25px;
+}
+
+.check-box-group {
   margin-bottom: 25px;
 }
 
