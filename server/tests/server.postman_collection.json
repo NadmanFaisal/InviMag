@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38197131",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38197131"
+		"_exporter_id": "38198193",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
 	},
 	"item": [
 		{
@@ -25,11 +25,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"var jsonInfo = JSON.parse(pm.response.text());",
-							"pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
-							"",
 							"pm.test(\"Status code is 201\", function () {",
-							"  pm.response.to.have.status(201);",
+							"    pm.response.to.have.status(201);",
+							"    var jsonInfo = JSON.parse(pm.response.text());",
+							"    pm.environment.set(\"business_owner_ID\", jsonInfo._id);",
 							"});"
 						],
 						"type": "text/javascript",
@@ -875,7 +874,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"total_price\": 100.50,\n    \"date_of_order\": \"2020-09-22T14:30:00Z\",\n    \"businessOwner\": \"60c72b2f5f1b2c001f64500f\",\n    \"products\": []\n}\n",
+					"raw": "{\n    \"total_price\": 100.50,\n    \"date_of_order\": \"2020-09-22T14:30:00Z\",\n    \"businessOwner\": \"{{business_owner_ID}}\",\n    \"products\": []\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"

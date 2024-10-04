@@ -4,8 +4,8 @@
       <router-link to="/">Home</router-link>
     </div>
     <!-- Render the content of the current page view -->
+    <router-link to = "/inventoryPage"> Inventory Page</router-link>
     <router-view/>
-      <router-link to = "/inventoryPage"> Inventory Page</router-link>
   </div>
 </template>
 

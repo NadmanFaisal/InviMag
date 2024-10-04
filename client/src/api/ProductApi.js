@@ -1,32 +1,28 @@
-import axios from 'axios';
-
-export const Api = axios.create({
-    baseURL: import.meta.env.VITE_API_ENDPOINT || 'http://localhost:3000/api'
-  });
+import { Api } from '../Api';
 
   export const productApi = {
     createProduct(newProduct){
-        return axios.post(`${baseURL}/Products/`, newProduct);
+        return Api.post('/Products/', newProduct);
     },
 
     getAllProducts(){
-        return axios.get(`${baseURL}/Products/`);
+        return Api.get('/Products/');
     },
 
     getProductByID(id){
-        return axios.get(`${baseURL}/Products/${id}`);
+        return Api.get(`/Products/${id}`);
     },
 
     getProductsByName(name){
-        return axios.get(`${baseURL}/Products/search${name}`);
+        return Api.get(`/Products/search${name}`);
     },
 
     updateProductById(id, updatedProduct){
-        return axios.get(`${baseURL}/Products/${id}`, updatedProduct);
+        return Api.get(`/Products/${id}`, updatedProduct);
     },
     
     deleteProductById(id){
-        return axios.get(`${baseURL}/Products/${id}`);
+        return Api.get(`/Products/${id}`);
     }
 
   }
