@@ -51,7 +51,7 @@
             <label for="rememberMe">Remember me</label>
           </div>
 
-          <BButton type="submit" class="login-submit-button">Log In</BButton>
+          <BButton type="button" class="login-submit-button">Log In</BButton>
         </form>
         <div v-if="error" class="error-message">
           {{ error }}
@@ -224,6 +224,7 @@ label[for="email"], label[for="password"] {
 }
 
 .check-box-group {
+  display: flex;
   margin-bottom: 25px;
 }
 
@@ -244,7 +245,6 @@ input {
   height: 13px;
   flex-shrink: 0;
   margin-right: 5px;
-  margin-left: -200px;
 }
 
 label[for="rememberMe"] {
@@ -258,7 +258,7 @@ label[for="rememberMe"] {
 }
 
 button.login-submit-button {
-  width: 278px;
+  width: 80%;
   height: 59px;
   flex-shrink: 0;
   border: none;
