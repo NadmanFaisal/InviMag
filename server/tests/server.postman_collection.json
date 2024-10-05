@@ -47,7 +47,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"S\",\r\n    \"total_budget\": 100,\r\n    \"email\": \"test\",\r\n    \"password\": \"129\"\r\n}",
+					"raw": "{\r\n    \"name\": \"S\",\r\n    \"email\": \"test1@a.s\",\r\n    \"password\": \"129\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -55,14 +55,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/v1/api/businessOwners",
+					"raw": "{{host}}/v1/api/businessOwners/signup",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"businessOwners"
+						"businessOwners",
+						"signup"
 					]
 				}
 			},
