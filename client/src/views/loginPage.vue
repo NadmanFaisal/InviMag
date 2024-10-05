@@ -1,61 +1,68 @@
 <template>
   <div class="split-screen">
     <div class="left-section">
+      <b-container fluid>
+        <b-row>
+          <b-col cols="12" class="company-info">
+            <div class="company-name">Company Name</div>
+            <div class="company-motto">ADSDAS DCCS DFSDF VDFS
+              DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
+            <div class="company-description">ADSDAS DCCS DFSDF VDFS SDFDS SDFSFD S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
+          </b-col>
+        </b-row>
+      </b-container>
       <img :src="image" alt="Description of the image" class="left-texture-image" />
       <img :src="image" alt="Description of the image" class="right-texture-image" />
-
-      <div class="company-info">
-        <div class="company-name">Company Name</div>
-        <div class="company-motto">ADSDAS DCCS DFSDF VDFS
-          DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
-        <div class="company-description">ADSDAS DCCS DFSDF VDFS SDFDS SDFSFD S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
-      </div>
-
     </div>
 
     <div class="right-section">
+      <b-container fluid>
+        <b-row>
+          <b-col cols="12">
+            <div class="login-signup-button-container">
+              <BButton type="button" class="login-button">Log In</BButton>
+              <BButton type="button" class="signup-button">Sign up</BButton>
+            </div>
+          </b-col>
+          <b-col cols="12">
+            <div class="login-container">
+              <h2>Login</h2>
+              <form @submit.prevent="loginUser">
+                <div class="detail-input-group">
+                  <label for="email">Email</label>
+                  <BFormInput
+                    type="email"
+                    v-model="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
 
-      <div class="login-signup-button-container">
-        <BButton type="button" class="login-button">Log In</BButton>
-        <BButton type="button" class="signup-button">Sign up</BButton>
-      </div>
+                <div class="detail-input-group">
+                  <label for="password">Password</label>
+                  <BFormInput
+                    type="password"
+                    v-model="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                  />
+                </div>
 
-      <b-container fluid class="login-container">
-        <h2>Login</h2>
-        <form @submit.prevent="loginUser">
+                <div class="check-box-group">
+                  <input type="checkbox" id="rememberMe" v-model="rememberMe" class="checkbox" />
+                  <label for="rememberMe">Remember me</label>
+                </div>
 
-          <div class="detail-input-group">
-            <label for="email">Email</label>
-            <BFormInput
-              type="email"
-              v-model="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-
-          <div class="detail-input-group">
-            <label for="password">Password</label>
-            <BFormInput
-              type="password"
-              v-model="password"
-              id="password"
-              placeholder="Enter your password"
-              required
-            />
-          </div>
-
-          <div class="check-box-group">
-            <input type="checkbox" id="rememberMe" v-model="rememberMe" class="checkbox" />
-            <label for="rememberMe">Remember me</label>
-          </div>
-
-          <BButton type="button" class="login-submit-button">Log In</BButton>
-        </form>
-        <div v-if="error" class="error-message">
-          {{ error }}
-        </div>
+                <BButton type="button" class="login-submit-button">Log In</BButton>
+              </form>
+              <div v-if="error" class="error-message">
+                {{ error }}
+              </div>
+            </div>
+          </b-col>
+        </b-row>
       </b-container>
     </div>
   </div>
@@ -119,9 +126,9 @@ export default {
   flex: 2;
   background-color: #3377FF;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  position:relative;
 }
 
 @media (max-width: 757px) {
@@ -151,8 +158,8 @@ export default {
 
 .login-signup-button-container {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 50px;
+  right: 50px;
   display: flex;
   gap: 20px;
 }
@@ -206,6 +213,7 @@ h2 {
   border-radius: 50px;
   background: #FFF;
   box-shadow: -15px 15px 4px 0px rgba(0, 0, 0, 0.25);
+  margin: auto;
 }
 
 label[for="email"], label[for="password"] {
@@ -295,7 +303,7 @@ button.signup-button:hover {
 .left-texture-image {
   width: 458px;
   height: 456px;
-  flex-shrink: 0;
+  position: absolute;
   margin: 85px;
   opacity: 0.4;
 }
