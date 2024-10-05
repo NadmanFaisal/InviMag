@@ -1,7 +1,9 @@
 const BusinessOwner = require('../models/BusinessOwner');
+const { hashPassword } = require('../utilities/Authentication');
 
 // Creates a businessOwners with POST method with already specified IDs
 exports.createBusinessOwner = async (req, res, next) => {
+    try {
     var businessOwner = new BusinessOwner({
         name: req.body.name,
         total_budget: req.body.total_budget,
@@ -12,22 +14,61 @@ exports.createBusinessOwner = async (req, res, next) => {
     });
 
     if(!businessOwner.name || businessOwner.name === ''){
-        res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
     }
     if(!businessOwner.total_budget || businessOwner.total_budget === ''){
-        res.status(400).json({ error: 'Bad Request, quantity field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, quantity field cannot be empty'});
     }
     if(!businessOwner.email || businessOwner.email === ''){
-        res.status(400).json({ error: 'Bad Request, buying_price field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, buying_price field cannot be empty'});
     }
     if(!businessOwner.password || businessOwner.password === ''){
-        res.status(400).json({ error: 'Bad Request, selling_price field cannot be empty'});
+        return res.status(400).json({ error: 'Bad Request, selling_price field cannot be empty'});
     }
+
+    await businessOwner.save();
+    res.status(201).json(businessOwner);
+    
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.signUpBusinessOwner = async (req, res, next) => {
+    let businessOwner = new BusinessOwner({
+        name: req.body.name,
+        total_budget: req.body.total_budget,
+        email: req.body.email,
+        password: req.body.password,
+        products: req.body.products,
+        orderHistories: req.body.orderHistories
+    });
+
+    // Error handling in regards to empty names and regex like a character before, and after the @ symbol and the dot , the symbol itself and a character after the dot
+
+    const emailVerification = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if(!businessOwner.name || businessOwner.name === ''){
+        return res.status(400).json({ error: 'Please enter a valid username'});
+    }
+    if(!businessOwner.email || businessOwner.email === '' || !emailVerification.test(businessOwner.email)){
+        return res.status(400).json({ error: 'Please enter a valid email'});
+    }
+    if(!businessOwner.password || businessOwner.password === ''){
+        return res.status(400).json({ error: 'Please enter a valid password'});
+    }
+
+    const hashedPassword = await hashPassword(businessOwner.password);
+    businessOwner.password = hashedPassword
 
     try {
         await businessOwner.save();
         res.status(201).json(businessOwner);
     } catch (error) {
+        // check if email already exists in the db.
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
+            return res.status(409).json({ error: 'Email already exists' });
+        }
         next(error);
     }
 }
