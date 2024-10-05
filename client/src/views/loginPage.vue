@@ -98,7 +98,9 @@ export default {
 </script>
 
 <style scoped>
+
 .split-screen {
+  flex-direction: row;
   display: flex;
   height: 100vh;
 }
@@ -140,6 +142,11 @@ export default {
     align-items: center;
     position: relative;
   }
+
+  .login-container {
+    width: 80%;
+  }
+
 }
 
 .login-signup-button-container {
