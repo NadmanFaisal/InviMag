@@ -23,6 +23,7 @@
     "url": "git+https://gitlab.com/dit342/group-00-web.git"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "connect-history-api-fallback": "^2.0.0",
     "cookie-parser": "^1.4.6",
@@ -34,6 +35,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "cross-env": "^7.0.3",
     "newman": "^6.2.1",
     "nodemon": "^3.1.4",
