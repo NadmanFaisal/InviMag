@@ -4,14 +4,7 @@
     <div v-if="products.length">
       <h2>Products:</h2>
       <ul>
-        <li v-for="product in products" :key="product._id" class="product-item">
-          <h3>{{ product.name }}</h3>
-          <p><strong>Quantity:</strong> {{ product.quantity }}</p>
-          <p><strong>Buying Price:</strong> ${{ product.buying_price }}</p>
-          <p><strong>Selling Price:</strong> ${{ product.selling_price }}</p>
-          <p><strong>Category:</strong> {{ product.category }}</p>
-          <p><strong>In Stock:</strong> {{ product.in_stock ? 'Yes' : 'No' }}</p>
-        </li>
+          <ProductCard v-for="product in products" :key="product._id" :product="product"></ProductCard>
       </ul>
     </div>
     <div v-else>
@@ -21,8 +14,14 @@
 </template>
 <script>
 import { productApi } from '@/api/ProductApi'
+import ProductCard from '../components/ProductCard.vue';
+
 export default {
+  components: { ProductCard },
     name: "inventoryPage",
+    components: {
+    ProductCard // Register the ProductComponent
+  },
     data(){
         return {
             products: [],
