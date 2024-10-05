@@ -6,8 +6,8 @@ const Schema = mongoose.Schema;
 // No id required, mongoose does this automatically
 const  businessOwnerSchema = new Schema ({
     name: String,
-    total_budget: {type: Number, required: true},
-    email: String,
+    total_budget: Number,
+    email: {type: String, unique: true},
     password: String,
 
     // One business owner can have multiple products
