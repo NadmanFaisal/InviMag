@@ -55,7 +55,7 @@
                   <label for="rememberMe">Remember me</label>
                 </div>
 
-                <BButton type="button" class="login-submit-button">Log In</BButton>
+                <BButton type="submit" class="login-submit-button">Log In</BButton>
               </form>
               <div v-if="error" class="error-message">
                 {{ error }}
