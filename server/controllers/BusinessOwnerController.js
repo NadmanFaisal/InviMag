@@ -1,5 +1,6 @@
 const BusinessOwner = require('../models/BusinessOwner');
 const { hashPassword } = require('../utilities/Authentication');
+const { comparePassword } = require('../utilities/Authentication');
 
 // Creates a businessOwners with POST method with already specified IDs
 exports.createBusinessOwner = async (req, res, next) => {
@@ -75,8 +76,7 @@ exports.signUpBusinessOwner = async (req, res, next) => {
 
 exports.loginBusinessOwner = async (req, res) => {
     
-    // Prints the log in credentials on the front end for debugging purposes
-    console.log('Login request received:', req.body);
+    console.log('Login request received');
     
     // Stores the email and password received from front end in constant variables
     const { email, password } = req.body;
@@ -88,11 +88,12 @@ exports.loginBusinessOwner = async (req, res) => {
             return res.status(404).json({ message: 'No registered email was found. Sign up!' });
         }
 
-        if (password !== businessOwner.password) {
+        const isPasswordValid = await comparePassword(password, businessOwner.password);
+
+        if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid password' });
         }
 
-        // Returns the business owner and its respective details upon successful log in
         console.log('Business Owner found:', businessOwner);
 
         res.status(200).json({ 
