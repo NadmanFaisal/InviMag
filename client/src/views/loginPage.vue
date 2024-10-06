@@ -21,7 +21,7 @@
           <b-col cols="12">
             <div class="login-signup-button-container">
               <BButton type="button" class="login-button">Log In</BButton>
-              <BButton type="button" class="signup-button">Sign up</BButton>
+              <BButton type="button" class="signup-button" @click="goToSignupPage()">Sign up</BButton>
             </div>
           </b-col>
           <b-col cols="12">
@@ -99,6 +99,10 @@ export default {
         console.error(err)
         this.error = err.response?.data?.message || 'An error occurred during login'
       }
+    },
+
+    goToSignupPage() {
+      this.$router.push('/signup')
     }
   }
 }
