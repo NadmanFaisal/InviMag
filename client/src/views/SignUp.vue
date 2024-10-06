@@ -5,7 +5,7 @@
           <b-col md="8" class="signup-blue-container d-flex justify-content-center align-items-center">
 
             <div class="login-signup-button-container">
-              <BButton type="button" class="login-button">Log In</BButton>
+              <BButton type="button" class="login-button" @click="goToLoginPage()">Log In</BButton>
               <BButton type="button" class="signup-button" @click="goToSignupPage()">Sign up</BButton>
             </div>
 
@@ -65,6 +65,10 @@ export default {
       } catch (error) {
         this.message = 'Sign Up Failed: ' + (error.response?.data?.error || error.message)
       }
+    },
+
+    goToLoginPage() {
+      this.$router.push('/login')
     }
   }
 }
@@ -132,46 +136,46 @@ export default {
   }
 
   .login-signup-button-container {
-  position: absolute;
-  top: 50px;
-  right: 50px;
-  display: flex;
-  gap: 20px;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    display: flex;
+    gap: 20px;
   }
 
   button.login-button {
-  width: 130px;
-  height: 50px;
-  border: none;
-  border-radius: 50px;
-  background: #FFF;
-  color: #37F;
-  font-family: "Istok Web";
-  font-size: 16px;
-  font-weight: 400;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+    width: 130px;
+    height: 50px;
+    border: none;
+    border-radius: 50px;
+    background: #FFF;
+    color: #37F;
+    font-family: "Istok Web";
+    font-size: 16px;
+    font-weight: 400;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 
-button.signup-button {
-  width: 130px;
-  height: 50px;
-  border: none;
-  border-radius: 50px;
-  background: #37F;
-  color: #FFF;
-  font-family: "Istok Web";
-  font-size: 16px;
-  font-weight: 400;
-  line-height: normal;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+  button.signup-button {
+    width: 130px;
+    height: 50px;
+    border: none;
+    border-radius: 50px;
+    background: #37F;
+    color: #FFF;
+    font-family: "Istok Web";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
 
-button.login-button:hover {
-  background-color: rgb(235, 235, 235);
-}
+  button.login-button:hover {
+    background-color: rgb(235, 235, 235);
+  }
 
-button.signup-button:hover {
-  background-color: rgb(0, 85, 255);
-}
+  button.signup-button:hover {
+    background-color: rgb(0, 85, 255);
+  }
 
-  </style>
+</style>
