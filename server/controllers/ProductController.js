@@ -58,8 +58,12 @@ exports.getAllProducts =  async (req, res, next) =>  {
 }
 
 exports.getAllProductsByBuyingPrice = async (req, res, next) => {
+    let sortOrder = req.params.sort_order;
+    if(!sortOrder){
+        sortOrder = 1;
+    }
     try{
-        const products = await Product.find().sort({buying_price: 1});
+        const products = await Product.find().sort({buying_price: sortOrder});
         if(!products){
             return res.status(404).json({"message" : "No products found"});
         }
@@ -72,8 +76,12 @@ exports.getAllProductsByBuyingPrice = async (req, res, next) => {
 }
 
 exports.getAllProductsBySellingPrice = async (req, res, next) => {
+    let sortOrder = req.params.sort_order;
+    if(!sortOrder){
+        sortOrder = 1;
+    }
     try{
-        const products = await Product.find().sort({selling_price: 1});
+        const products = await Product.find().sort({selling_price: sortOrder});
         if(!products){
             return res.status(404).json({"message" : "No products found"});
         }
@@ -86,8 +94,12 @@ exports.getAllProductsBySellingPrice = async (req, res, next) => {
 }
 
 exports.getAllProductsByQuantity = async (req, res, next) => {
+    let sortOrder = req.params.sort_order;
+    if(!sortOrder){
+        sortOrder = 1;
+    }
     try{
-        const products = await Product.find().sort({quantity: 1});
+        const products = await Product.find().sort({quantity: sortOrder});
         if(!products){
             return res.status(404).json({"message" : "No products found"});
         }
