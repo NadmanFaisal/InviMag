@@ -64,6 +64,20 @@ exports.getAllProducts =  async (req, res, next) =>  {
 
 }
 
+exports.getAllProductsByBuyingPrice = async (req, res, next) => {
+    try{
+        const products = await Product.find().sort({buying_price: 1});
+        if(!products){
+            return res.status(404).json({"message" : "No products found"});
+        }
+        return res.status(200).json({"Products": products});
+
+    } catch (error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+    }
+}
+
 
 exports.getProductsByName = async (req, res, next) => {
     const productName = req.query.name;
@@ -71,14 +85,14 @@ exports.getProductsByName = async (req, res, next) => {
         if(!productName){
             return res.status(404).json({"message" : "Please provide a search string for the product"})
         }
-    const productNames = await Product.find({name:{$regex : productName, $options: 'i'}});
+    const productNames = await Product.find({name:{$regex : productName, $options: 'i'}})
     if(!productNames){
-        return res.status(404).json({"message" : "No products found with the given name"});
+        return res.status(404).json({"message" : "No products found with the given name"})
     }
-    res.status(200).json({"Products": productNames});
+    res.status(200).json({"Products": productNames})
     } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
-        next(error);
+        res.status(500).json({ error: 'An error occurred while fetching Products' })
+        next(error)
 
     }
 
