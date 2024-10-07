@@ -44,14 +44,7 @@ exports.createProduct = async (req, res, next ) => {
 
 exports.getAllProducts =  async (req, res, next) =>  {    
     try{
-        const sort_order = req.query.sort_order;
-        let sort_type = {};
-        if(sort_order === 'desc'){
-            sort_type = {buying_price : -1};
-        }else{
-            sort_type = {buying_price : 1};
-        }
-        const products = await Product.find().sort(sort_type);
+        const products = await Product.find();
         if(!products){
             return res.status(404).json({"message" : "No products found"});
         }
@@ -91,6 +84,21 @@ exports.getAllProductsBySellingPrice = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.getAllProductsByQuantity = async (req, res, next) => {
+    try{
+        const products = await Product.find().sort({quantity: 1});
+        if(!products){
+            return res.status(404).json({"message" : "No products found"});
+        }
+        return res.status(200).json({"Products": products});
+
+    } catch (error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+    }
+}
+
 
 exports.getProductsByName = async (req, res, next) => {
     const productName = req.query.name;
