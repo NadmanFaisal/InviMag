@@ -4,9 +4,9 @@
     <div class = "dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
-      <a href = "#" onclick = ""> Buying Price</a>
-      <a href = "#"> Selling Price</a>
-      <a href = "#"> Quantity</a>
+      <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
+      <a href = "#" @click = "sortBySellingPrice"> Selling Price</a>
+      <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
     </div>
     <div class = "productListBox">
@@ -51,7 +51,7 @@ export default {
                 console.log(this.products);
 
             }catch(error){
-                console.error('Error fetching products:', error);
+                console.error('An Error occured when fetching products:', error);
             }
         },
 
@@ -65,15 +65,31 @@ export default {
         },
 
         async sortByBuyingPrice(){
-          const response = await
-
-
+          try{
+            const response = await productApi.getAllProductsByBuyingPrice();
+            this.products = response.data.Products;
+          }catch (error){
+            console.error('An Error occured when sorting products:', error);
+          }
         },
 
-        async sortBySellingPrice(){},
-        async sortByQuantity(){},
+        async sortBySellingPrice(){
+          try{
+            const response = await productApi.getAllProductsBySellingPrice();
+            this.products = response.data.Products;
+          }catch (error){
+            console.error('An Error occured when sorting products:', error);
+          }
+        },
 
-
+        async sortByQuantity(){
+          try{
+            const response = await productApi.getAllProductsByQuantity();
+            this.products = response.data.Products;
+          }catch (error){
+            console.error('An Error occured when sorting products:', error);
+          }
+        }
   }
 }
           
@@ -92,7 +108,7 @@ export default {
   flex-grow: 1; /* Remaining space after the sidebar */
   position: absolute;
   left: 25%; /* Center horizontally based on left edge */
-  bottom: -700px; /* 20px from the bottom of the screen */
+  bottom: -1200px; /* 20px from the bottom of the screen */
 }
 .customHeader{
   padding-top: 30px;

@@ -13,6 +13,18 @@ import { Api } from '../Api';
         return Api.get(`/Products/${id}`);
     },
 
+    getAllProductsByBuyingPrice(sort_order){
+        return Api.get('/Products/orderByBuyingPrice', sort_order);
+    },
+
+    getAllProductsBySellingPrice(sort_order){
+        return Api.get('/Products/orderBySellingPrice', sort_order);
+    },
+
+    getAllProductsByQuantity(sort_order){
+        return Api.get('/Products/orderByQuantity', sort_order);
+    },
+
     getProductsByName(name){
         return Api.get(`/Products/search${name}`);
     },

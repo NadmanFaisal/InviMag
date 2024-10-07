@@ -58,7 +58,7 @@ exports.getAllProducts =  async (req, res, next) =>  {
 }
 
 exports.getAllProductsByBuyingPrice = async (req, res, next) => {
-    let sortOrder = req.params.sort_order;
+    let sortOrder = req.body.sort_order;
     if(!sortOrder){
         sortOrder = 1;
     }
@@ -76,7 +76,7 @@ exports.getAllProductsByBuyingPrice = async (req, res, next) => {
 }
 
 exports.getAllProductsBySellingPrice = async (req, res, next) => {
-    let sortOrder = req.params.sort_order;
+    let sortOrder = req.body.sort_order;
     if(!sortOrder){
         sortOrder = 1;
     }
@@ -94,7 +94,7 @@ exports.getAllProductsBySellingPrice = async (req, res, next) => {
 }
 
 exports.getAllProductsByQuantity = async (req, res, next) => {
-    let sortOrder = req.params.sort_order;
+    let sortOrder = req.body.sort_order;
     if(!sortOrder){
         sortOrder = 1;
     }
