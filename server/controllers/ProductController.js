@@ -78,6 +78,19 @@ exports.getAllProductsByBuyingPrice = async (req, res, next) => {
     }
 }
 
+exports.getAllProductsBySellingPrice = async (req, res, next) => {
+    try{
+        const products = await Product.find().sort({selling_price: 1});
+        if(!products){
+            return res.status(404).json({"message" : "No products found"});
+        }
+        return res.status(200).json({"Products": products});
+
+    } catch (error){
+        res.status(500).json({ error: 'An error occurred while fetching Products' });
+        next(error);
+    }
+}
 
 exports.getProductsByName = async (req, res, next) => {
     const productName = req.query.name;
