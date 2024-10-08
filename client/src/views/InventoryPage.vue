@@ -1,6 +1,11 @@
 <template>
   <div>
     <h1>Inventory Page</h1>
+    <div class = "productCountContainer">
+    <div color = "#33B8FF" class = "totalFont">TOTAL PRODUCTS: {{totalProducts}}</div>
+    <div color = "#21C21C" class = "inStockFont">IN STOCK: {{inStockProducts}}</div>
+    <div color = "#F77575" class = "outOfStockFont">OUT OF STOCK: {{outOfStockProducts}}</div>
+    </div>
     <div class = "dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
@@ -36,8 +41,7 @@ export default {
     data(){
         return {
           search: "",  
-          products: [],
-            
+          products: [],  
         }
     },
 
@@ -46,7 +50,7 @@ export default {
     },
     
     methods:{
-      
+
         async fetchProducts(){
             try{
                 const response = await productApi.getAllProducts();
@@ -93,8 +97,20 @@ export default {
             console.error('An Error occured when sorting products:', error);
           }
         }
-        
-  }
+      },
+    computed:{
+        totalProducts(){
+          return this.products.length;
+        },
+
+        inStockProducts(){
+          return this.products.filter(product => product.in_stock === true).length;
+        },
+        outOfStockProducts(){
+          return this.totalProducts - this.inStockProducts;
+        },
+
+    },  
 }
           
 
@@ -112,7 +128,7 @@ export default {
   flex-grow: 1; /* Remaining space after the sidebar */
   position: absolute;
   left: 25%; /* Center horizontally based on left edge */
-  bottom: -1200px; /* 20px from the bottom of the screen */
+  bottom: -1400px; /* 20px from the bottom of the screen */
 }
 .customHeader{
   padding-top: 30px;
@@ -172,5 +188,51 @@ export default {
   font-weight: bold;
 }
 
+.productCountContainer {
+  display: flex; /* Use flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 20px; /* Space between items */
+  margin-bottom: 20px; /* Add some space below the count containers */
+}
 
+.totalFont{
+  width: 230px; /* Set a fixed width for each count */
+  padding: 20px; /* Add padding */
+  border-radius: 10px; /* Round the corners */
+  background: #FFF; /* Background color */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Add shadow */
+  text-align: center; /* Center text */
+  font-family: "Istok Web"; /* Font family */
+  font-size: 30px; /* Font size */
+  font-weight: 700; /* Font weight */
+  line-height: 100%; /* Line height */
+  color:#37F;
+}
+.inStockFont{width: 230px; /* Set a fixed width for each count */
+  padding: 20px; /* Add padding */
+  border-radius: 10px; /* Round the corners */
+  background: #FFF; /* Background color */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Add shadow */
+  text-align: center; /* Center text */
+  font-family: "Istok Web"; /* Font family */
+  font-size: 30px; /* Font size */
+  font-weight: 700; /* Font weight */
+  line-height: 100%; /* Line height */
+  color: #21C21C;
+}
+
+.outOfStockFont {
+  width: 230px; /* Set a fixed width for each count */
+  padding: 20px; /* Add padding */
+  border-radius: 10px; /* Round the corners */
+  background: #FFF; /* Background color */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Add shadow */
+  text-align: center; /* Center text */
+  font-family: "Istok Web"; /* Font family */
+  font-size: 30px; /* Font size */
+  font-weight: 700; /* Font weight */
+  line-height: 100%; /* Line height */
+  color: #F77575;
+}
 </style>
