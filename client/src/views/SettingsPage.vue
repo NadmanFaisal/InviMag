@@ -33,7 +33,7 @@
 
         </div>
 
-        <div class="col-10 right-section bg-white">
+        <div class="col-10 right-section">
 
           <div class="col-5 profile-overview-container">
             <div class="col-11 silly-rectangle">
@@ -45,6 +45,33 @@
             <div class="business-owner-details">
               <h2 class="profile-name">John Doe</h2>
               <p class="profile-title">Business Owner</p>
+            </div>
+          </div>
+
+          <div class="col-5 account-settings-container">
+
+            <div class="col-11 title-summary-container">
+              <label for="title" class="title-label form-label">Account Settings</label>
+              <label for="summary" class="summary-label form-label">Update your account information</label>
+            </div>
+
+            <div class="col-11 username-container">
+              <label for="username" class="username-label form-label">Username</label>
+              <input type="text" class="username-input-field form-control" placeholder="Username" label="Recipient's username">
+            </div>
+
+            <div class="col-11 name-container">
+              <label for="name" class="name-label form-label">Name</label>
+              <input type="text" class="name-input-field form-control" placeholder="Type in your name" label="Recipient's username">
+            </div>
+
+            <div class="col-11 email-container">
+              <label for="email" class="email-label form-label">Email</label>
+              <input type="text" class="email-input-field form-control" placeholder="Type in your email" label="Recipient's username">
+            </div>
+
+            <div class="col-11 button-container">
+              <button type="button" class="save-button btn btn-primary">Save changes</button>
             </div>
           </div>
 
@@ -159,6 +186,7 @@ export default {
 
 .right-section {
   padding: 20px;
+  background: #f1f1f1;
 }
 
 .silly-rectangle {
@@ -208,7 +236,7 @@ export default {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin: 10px 0;
+  margin: 10px;
 }
 
 .profile-title {
@@ -224,6 +252,91 @@ export default {
   font-weight: 400;
   line-height: normal;
   margin: 10px;
+}
+
+.account-settings-container {
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  height: 65%;
+
+  border-radius: 15px;
+  border: var(--sds-size-stroke-border) solid rgba(0, 0, 0, 0.10);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.username-container, .name-container, .email-container {
+  margin-top: 3%;
+  display: flex;
+  height: 20%;
+  flex-direction: column;
+}
+
+.username-input-field {
+  border-radius: 10px;
+  height: 50%;
+  background: #F4F4F4;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.30);
+}
+
+.name-input-field, .email-input-field {
+  border-radius: 10px;
+  height: 50%;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.30);
+}
+
+.username-label, .name-label, .email-label {
+  color: #787676;
+  font-family: "Istok Web";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.title-label {
+  color: #787676;
+  margin-top: 5%;
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.summary-label {
+  color: #787676;
+
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: #37F;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
 }
 
 .test-container {
