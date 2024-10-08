@@ -33,11 +33,23 @@
 
         </div>
 
-        <div class="col-9 right-section bg-white">
-          <div class="test-container">
-            <h2>Settings</h2>
+        <div class="col-10 right-section bg-white">
+
+          <div class="col-5 profile-overview-container">
+            <div class="col-11 silly-rectangle">
+            </div>
+
+            <div class="profile-picture">
+                <img src="/home/nadman/OneDrive_Chalmers/Semester 3/DIT342 - Web development/group-17-web/client/src/images/profile-picture.jpeg" alt="Profile Picture" class="img-fluid rounded-circle" />
+            </div>
+            <div class="business-owner-details">
+              <h2 class="profile-name">John Doe</h2>
+              <p class="profile-title">Business Owner</p>
+            </div>
           </div>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -147,6 +159,71 @@ export default {
 
 .right-section {
   padding: 20px;
+}
+
+.silly-rectangle {
+  display: flex;
+  height: 80px;
+  flex-direction: column;
+  border-radius: 10px;
+  background: #37F;
+  position: absolute;
+}
+
+.profile-overview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  border-radius: 15px;
+  border: var(--sds-size-stroke-border) solid rgba(0, 0, 0, 0.10);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.profile-picture {
+  margin-top: 5%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #787676;
+
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 10px 0;
+}
+
+.profile-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #787676;
+
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 10px;
 }
 
 .test-container {
