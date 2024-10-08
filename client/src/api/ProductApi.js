@@ -25,10 +25,6 @@ import { Api } from '../Api';
         return Api.get('/Products/orderByQuantity', sort_order);
     },
 
-    getProductsByName(name){
-        return Api.get(`/Products/search${name}`);
-    },
-
     updateProductById(id, updatedProduct){
         return Api.get(`/Products/${id}`, updatedProduct);
     },

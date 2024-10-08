@@ -35,7 +35,9 @@ export default {
   },
     data(){
         return {
-            products: [],
+          search: "",  
+          products: [],
+            
         }
     },
 
@@ -44,6 +46,7 @@ export default {
     },
     
     methods:{
+      
         async fetchProducts(){
             try{
                 const response = await productApi.getAllProducts();
@@ -90,6 +93,7 @@ export default {
             console.error('An Error occured when sorting products:', error);
           }
         }
+        
   }
 }
           
@@ -120,12 +124,14 @@ export default {
   display: inline-block;
 }
 .dropdown-button{
-  background-color: #4CAF50;
+  background-color: #37F;
   color: white;
   padding: 16px;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  font-weight: bold;
+  border-radius: 10%;
 }
 .dropdown-content{
   display: none;
@@ -151,6 +157,20 @@ export default {
   display: block;
 }
 
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttonFormat{
+  color: white;
+  background-color: #37F;
+  font-weight: bold;
+}
 
 
 </style>

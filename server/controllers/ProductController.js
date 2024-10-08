@@ -112,25 +112,6 @@ exports.getAllProductsByQuantity = async (req, res, next) => {
 }
 
 
-exports.getProductsByName = async (req, res, next) => {
-    const productName = req.query.name;
-    try{
-        if(!productName){
-            return res.status(404).json({"message" : "Please provide a search string for the product"})
-        }
-    const productNames = await Product.find({name:{$regex : productName, $options: 'i'}})
-    if(!productNames){
-        return res.status(404).json({"message" : "No products found with the given name"})
-    }
-    res.status(200).json({"Products": productNames})
-    } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' })
-        next(error)
-
-    }
-
-}
-
 exports.getProductByID = async (req, res, next) => {
     const productID = req.params.id;
     try{

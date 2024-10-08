@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/ProductController');
 
-router.get('/Products/search', productController.getProductsByName);
 router.post('/Products/', productController.createProduct);
 router.get('/Products', productController.getAllProducts);
 router.get('/Products/orderByBuyingPrice', productController.getAllProductsByBuyingPrice);
