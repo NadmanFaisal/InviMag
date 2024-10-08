@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <BContainer>
     <h1>Inventory Page</h1>
-    <div class = "productCountContainer">
-    <div color = "#33B8FF" class = "totalFont">TOTAL PRODUCTS: {{totalProducts}}</div>
-    <div color = "#21C21C" class = "inStockFont">IN STOCK: {{inStockProducts}}</div>
-    <div color = "#F77575" class = "outOfStockFont">OUT OF STOCK: {{outOfStockProducts}}</div>
-    </div>
+    <BRow class = "productCountContainer">
+    <BCol color = "#33B8FF" class = "totalFont">TOTAL PRODUCTS: {{totalProducts}}</BCol>
+    <BCol color = "#21C21C" class = "inStockFont">IN STOCK: {{inStockProducts}}</BCol>
+    <BCol color = "#F77575" class = "outOfStockFont">OUT OF STOCK: {{outOfStockProducts}}</BCol>
+    </BRow>
     <div class = "dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
@@ -14,19 +14,22 @@
       <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
     </div>
+<BRow>
+  <BCol>
     <div class = "productListBox">
     <div v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
-      <ul>
+        <ul>
           <ProductCard v-for="product in products" :key="product._id" :product="product"></ProductCard>
-      </ul>
-    </div>
-    <div v-else>
-      <p>No products available.</p>
-    </div>
-  </div>
-    
-  </div>
+        </ul>
+      </div>
+        <div v-else>
+        <p>No products available.</p>
+      </div>
+    </div> 
+  </Bcol>
+</BRow>
+  </BContainer>
 </template>
 <script>
 import { productApi } from '@/api/ProductApi'
