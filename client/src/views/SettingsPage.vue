@@ -105,6 +105,22 @@
             </div>
           </div>
 
+          <div class="col-12 budget-overview-container">
+
+            <div class="col-11 title-summary-container">
+              <label for="title" class="title-label form-label">Budget Settings</label>
+              <label for="summary" class="summary-label form-label">Update your max budget information</label>
+            </div>
+
+            <div class="col-11 budget-container">
+              <input type="number" v-model="budget" class="budget-input-field form-control" placeholder="Budget" label="Recipient's budget">
+            </div>
+
+            <div class="col-11 button-container">
+              <button type="button" class="budget-save-button btn btn-primary">Save changes</button>
+            </div>
+          </div>
+
         </div>
 
       </div>
