@@ -1,12 +1,12 @@
 <template>
-  <BContainer>
+  <BContainer fluid>
     <h1>Inventory Page</h1>
     <BRow class = "productCountContainer">
-    <BCol color = "#33B8FF" class = "totalFont">TOTAL PRODUCTS: {{totalProducts}}</BCol>
-    <BCol color = "#21C21C" class = "inStockFont">IN STOCK: {{inStockProducts}}</BCol>
-    <BCol color = "#F77575" class = "outOfStockFont">OUT OF STOCK: {{outOfStockProducts}}</BCol>
+    <BCol sm="12" md="4" color = "#33B8FF" class = "totalFont">TOTAL PRODUCTS: {{totalProducts}}</BCol>
+    <BCol sm="12" md="4" color = "#21C21C" class = "inStockFont">IN STOCK: {{inStockProducts}}</BCol>
+    <BCol sm="12" md="4" color = "#F77575" class = "outOfStockFont">OUT OF STOCK: {{outOfStockProducts}}</BCol>
     </BRow>
-    <div class = "dropdown">
+    <div sm="12" class = "dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
@@ -16,7 +16,7 @@
     </div>
 <BRow>
   <BCol>
-    <div class = "productListBox">
+    <div sm="12" class = "productListBox">
     <div v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
         <ul>
@@ -50,6 +50,7 @@ export default {
 
     created(){
         this.fetchProducts();
+        window.addEventListener('resize', this.checkScreenSize);
     },
     
     methods:{
@@ -237,5 +238,17 @@ export default {
   font-weight: 700; /* Font weight */
   line-height: 100%; /* Line height */
   color: #F77575;
+}
+
+@media (max-width: 757px) {
+  .productCountContainer {
+    font-size: 18px; /* Shrink font */
+    padding: 10px; /* Shrink padding */
+  }
+  .productListBox{
+    margin: 0 auto;
+    width: 100%; /* Take full width on small screens */
+    transform: translate(-130px, 150px);
+  }
 }
 </style>
