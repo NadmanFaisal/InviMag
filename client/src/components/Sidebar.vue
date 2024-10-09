@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar">
+    <div class="sidebar sidebarResponsive">
         <h1 class = "sideBarHeaderFont">COMP name</h1>
       <ul class="navList">
         <li class="navItem" v-for="item in navItems" :key="item.name">
@@ -67,6 +67,12 @@
   
   .navLink:hover {
     background-color: #1abc9c; /* Change background on hover */
+  }
+
+  @media (max-width: 757px) {
+    .sidebarResponsive{
+      display: none;
+    }
   }
   </style>
   
