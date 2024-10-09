@@ -198,6 +198,7 @@ export default {
   align-items: center; /* Center vertically */
   gap: 20px; /* Space between items */
   margin-bottom: 20px; /* Add some space below the count containers */
+  flex-grow: 1;
 }
 
 .totalFont{
