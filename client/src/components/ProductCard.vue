@@ -98,4 +98,12 @@ export default {
     line-height: 120%; /* 28.8px */
     letter-spacing: -0.48px;
 }
+
+@media (max-width: 757px) {
+    .productDisplay{
+        margin: 0 auto;
+        width: 100%; /* Take full width on small screens */
+    }
+}
+
 </style>
