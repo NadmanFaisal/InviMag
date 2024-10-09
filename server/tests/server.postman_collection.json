@@ -4,8 +4,8 @@
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38098400",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38098400"
+		"_exporter_id": "38198193",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
 	},
 	"item": [
 		{
@@ -1469,7 +1469,7 @@
 			"response": []
 		},
 		{
-			"name": "GET /v1/api/Products ascending buying_price",
+			"name": "GET /v1/api/Products",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1526,7 +1526,7 @@
 			"response": []
 		},
 		{
-			"name": "GET /v1/api/Products descending buying_price",
+			"name": "GET /v1/api/Products ordered by buying price",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1582,7 +1582,7 @@
 			"response": []
 		},
 		{
-			"name": "GET /v1/api/Products",
+			"name": "GET /v1/api/Products ordered by selling price",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1617,7 +1617,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{host}}/v1/api/Products/search?name={{name}}",
+					"raw": "{{host}}/v1/api/Products/?sort_order=desc",
 					"host": [
 						"{{host}}"
 					],
@@ -1625,17 +1625,68 @@
 						"v1",
 						"api",
 						"Products",
-						"search"
+						""
 					],
 					"query": [
 						{
-							"key": "",
-							"value": "",
-							"disabled": true
-						},
+							"key": "sort_order",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/Products ordered by quantity",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code for GET is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/v1/api/Products/?sort_order=desc",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"Products",
+						""
+					],
+					"query": [
 						{
-							"key": "name",
-							"value": "{{name}}"
+							"key": "sort_order",
+							"value": "desc"
 						}
 					]
 				}
