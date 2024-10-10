@@ -4,6 +4,8 @@ const businessOwnerController = require('../controllers/BusinessOwnerController'
 
 router.post('/BusinessOwners', businessOwnerController.createBusinessOwner);
 router.post('/BusinessOwners/signup', businessOwnerController.signUpBusinessOwner);
+router.post('/BusinessOwners/logout', businessOwnerController.logOutBusinessOwner);
+router.get('/check-auth', businessOwnerController.checkAuthStatus);
 router.get('/BusinessOwners/', businessOwnerController.getAllBusinessOwners);
 router.get('/BusinessOwners/:id', businessOwnerController.getBusinessOwnerByID);
 router.delete('/BusinessOwners/', businessOwnerController.deleteAllBusinessOwners);

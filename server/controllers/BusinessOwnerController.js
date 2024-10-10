@@ -1,6 +1,6 @@
 const BusinessOwner = require('../models/BusinessOwner');
-const { hashPassword } = require('../utilities/Authentication');
-const { comparePassword } = require('../utilities/Authentication');
+const { hashPassword, comparePassword } = require('../utilities/Authentication');
+const jwt = require('../utilities/jwtUtils');
 
 // Creates a businessOwners with POST method with already specified IDs
 exports.createBusinessOwner = async (req, res, next) => {
@@ -59,7 +59,9 @@ exports.signUpBusinessOwner = async (req, res, next) => {
         return res.status(400).json({ error: 'Please enter a valid password'});
     }
 
+    // hashPassword from utils file
     const hashedPassword = await hashPassword(businessOwner.password);
+    //store hashedPassword so no hacker enters db and steals critical information
     businessOwner.password = hashedPassword
 
     try {
@@ -74,8 +76,9 @@ exports.signUpBusinessOwner = async (req, res, next) => {
     }
 }
 
-exports.loginBusinessOwner = async (req, res) => {
-    
+// Logs in Business Owner by creating cookies
+
+exports.loginBusinessOwner = async (req, res) => {    
     console.log('Login request received');
     
     // Stores the email and password received from front end in constant variables
@@ -88,23 +91,67 @@ exports.loginBusinessOwner = async (req, res) => {
             return res.status(404).json({ message: 'No registered email was found. Sign up!' });
         }
 
+        //comparePassword from utils to compare encrypted password
+
         const isPasswordValid = await comparePassword(password, businessOwner.password);
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid password' });
         }
 
+        // JWT token creation, add id, email and name of the person accessing this session.
+
+        const token = jwt.generateToken({
+            id: businessOwner._id,
+            email: businessOwner.email,
+            name: businessOwner.name,
+        });
+
+        console.log('JWT Token:', token);
+
+        // set cookie with JWT token
+        jwt.setTokenCookie(res, token);
+
+        console.log('Cookie set for auth_token:', token);
+
         console.log('Business Owner found:', businessOwner);
 
         res.status(200).json({ 
             id: businessOwner._id,
             name: businessOwner.name,
-            total_budget: businessOwner.total_budget,
-            email: businessOwner.email,
+            email: businessOwner.email,   
         });
     } catch (error) {
         console.error('Error during login:', error);
         res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+};
+
+// Logs Out BusinessOwner by clearing cookies
+
+exports.logOutBusinessOwner = (req, res, next) => {
+    try {
+        jwt.clearTokenCookie(res);
+        res.status(200).json({message: 'Logout successful'})
+    } catch (error) {
+        next(error);
+    }
+};
+
+// checks authentication for each HTTP request with JWT verify
+
+exports.checkAuthStatus = async (req, res) => {
+    try {
+        const token = req.cookies.auth_token;
+        if (!token) {
+            return res.status(401).json({ message: 'Unauthorized: No token provided' });
+        }
+
+        const decoded = await jwt.verifyToken(token);
+        res.status(200).json({ user: decoded }); 
+    } catch (error) {
+        console.error("Error verifying token:", error.message);
+        next(error)
     }
 };
 
