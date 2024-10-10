@@ -1,36 +1,66 @@
 <template>
     <b-col cols="12" class="account-settings-container">
 
-<b-col cols="11" class="title-summary-container">
-  <label for="title" class="title-label form-label">Account Settings</label>
-  <label for="summary" class="summary-label form-label">Update your account information</label>
-</b-col>
+    <b-col cols="11" class="title-summary-container">
+      <label for="title" class="title-label form-label">Account Settings</label>
+      <label for="summary" class="summary-label form-label">Update your account information</label>
+    </b-col>
 
-<b-col cols="11" class="username-container">
-  <label for="username" class="username-label form-label">Username</label>
-  <input type="text" class="username-input-field form-control" placeholder="Username">
-</b-col>
+    <b-col cols="11" class="username-container">
+      <label for="id" class="user-id-label form-label">User ID</label>
+      <input type="text" class="user-id-input-field form-control" placeholder="User ID" v-model="userId">
+    </b-col>
 
-<b-col cols="11" class="name-container">
-  <label for="name" class="name-label form-label">Name</label>
-  <input type="text" class="name-input-field form-control" placeholder="Type in your name">
-</b-col>
+    <b-col cols="11" class="name-container">
+      <label for="name" class="name-label form-label">Name</label>
+      <input type="text" class="name-input-field form-control" placeholder="Type in your name" v-model="name">
+    </b-col>
 
-<b-col cols="11" class="email-container">
-  <label for="email" class="email-label form-label">Email</label>
-  <input type="text" class="email-input-field form-control" placeholder="Type in your email">
-</b-col>
+    <b-col cols="11" class="email-container">
+      <label for="email" class="email-label form-label">Email</label>
+      <input type="text" class="email-input-field form-control" placeholder="Type in your email" v-model="email">
+    </b-col>
 
-<b-col cols="11" class="button-container">
-  <button type="button" class="account-details-save-button btn btn-primary">Save changes</button>
-</b-col>
+    <b-col cols="11" class="button-container">
+      <button type="button" class="account-details-save-button btn btn-primary" @click="updateBusinessOwner">Save changes</button>
+    </b-col>
 
-</b-col>
+  </b-col>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
-  name: 'AccountSettings'
+  name: 'AccountSettings',
+  data() {
+    return {
+      userId: '',
+      name: '',
+      email: ''
+    }
+  },
+  methods: {
+    async updateBusinessOwner() {
+      if (!this.userId) return
+
+      const updatedData = {
+        name: this.name,
+        email: this.email
+      }
+
+      try {
+        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
+        alert('Your details have been updated successfully!')
+        this.name = ''
+        this.email = ''
+      } catch (error) {
+        console.error('Error updating your details:', error)
+        alert('Could not update your details. Please try again.')
+      }
+    }
+  }
 }
 </script>
 
@@ -56,7 +86,7 @@ export default {
   flex-direction: column;
 }
 
-.username-input-field {
+.user-id-input-field {
   border-radius: 10px;
   height: 50%;
   background: #e4e4e4;
@@ -70,7 +100,7 @@ export default {
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.30);
 }
 
-.username-label, .name-label, .email-label {
+.user-id-label, .name-label, .email-label {
   color: #787676;
   font-family: "Istok Web";
   font-size: 15px;

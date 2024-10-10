@@ -8,17 +8,17 @@
 
         <b-col cols="11" class="current-password-container">
             <label for="current-password" class="current-password-label form-label">Current password</label>
-            <input type="text" class="current-password-input-field form-control" placeholder="Username" label="Recipient's username">
+            <input type="text" class="current-password-input-field form-control" placeholder="Type in your password" label="Recipient's username">
         </b-col>
 
         <b-col cols="11" class="new-password-container">
             <label for="new-password" class="new-password-label form-label">New password</label>
-            <input type="text" class="new-password-input-field form-control" placeholder="Type in your name" label="Recipient's name">
+            <input type="text" class="new-password-input-field form-control" placeholder="Type in your new password" label="Recipient's name">
         </b-col>
 
         <b-col cols="11" class="confirm-password-container">
             <label for="confirm-password" class="confirm-password-label form-label">Confirm password</label>
-            <input type="text" class="confirm-password-input-field form-control" placeholder="Type in your email" label="Recipient's password">
+            <input type="text" class="confirm-password-input-field form-control" placeholder="Confirm your password" label="Recipient's password">
         </b-col>
 
         <b-col cols="11" class="button-container">
