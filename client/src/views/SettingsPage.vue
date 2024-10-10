@@ -505,8 +505,21 @@ export default {
 
 }
 
-.test-container {
-  text-align: center;
-  padding-top: 50px;
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .middle-section, .right-section {
+    flex: none;
+    width: 100%;
+    padding: 10px;
+  }
+
+   .left-section {
+    display: none;
+   }
+
 }
+
 </style>
