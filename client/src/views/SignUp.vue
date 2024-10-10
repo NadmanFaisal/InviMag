@@ -1,15 +1,15 @@
 <template>
-    <div class="white-background">
+    <b-col class="white-background">
       <b-container fluid class="vh-100 d-flex align-items-center justify-content-center">
         <b-row class="justify-content-center align-items-center w-100">
           <b-col md="8" class="signup-blue-container d-flex justify-content-center align-items-center">
 
-            <div class="login-signup-button-container">
+            <b-col class="login-signup-button-container">
               <BButton type="button" class="login-button" @click="goToLoginPage()">Log In</BButton>
               <BButton type="button" class="signup-button" @click="goToSignupPage()">Sign up</BButton>
-            </div>
+            </b-col>
 
-            <div class="white-container-signup p-4">
+            <b-col class="white-container-signup p-4">
               <h1 class="signup-title mb-4">Sign Up</h1>
 
               <SignUpForm
@@ -29,16 +29,16 @@
               >
                 {{ message }}
               </p>
-            </div>
+            </b-col>
           </b-col>
         </b-row>
       </b-container>
-    </div>
+    </b-col>
   </template>
 
 <script>
-import SignUpForm from '@/components/SignUpForm.vue'
-import axios from 'axios'
+import SignUpForm from '@/components/SignUpComponents/SignUpForm.vue'
+import { Api } from '@/Api'
 
 export default {
   name: 'SignUp',
@@ -56,11 +56,14 @@ export default {
   methods: {
     async submitSignUp({ username, email, password }) {
       try {
-        await axios.post('http://localhost:3000/v1/api/BusinessOwners/signup', {
+        await Api.post('BusinessOwners/signup', {
           name: username,
           email,
           password
         })
+        setTimeout(() => {
+          this.$router.push('/login')
+        }, 2000)
         this.message = 'Sign Up Successful!'
       } catch (error) {
         this.message = 'Sign Up Failed: ' + (error.response?.data?.error || error.message)

@@ -6,7 +6,7 @@
       <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
       <p class="col-xl-9">Message from the server:<br/>
       {{ message }}</p>
-      <router-link to="/login">Log in</router-link>
+      <b-button @click="logOut()">Logout</b-button>
     </b-container>
   </div>
 </template>
@@ -31,6 +31,17 @@ export default {
         .catch(error => {
           this.message = error
         })
+    },
+    async logOut() {
+      try {
+        // Send a request to the backend to log out
+        await Api.post('/BusinessOwners/logout')
+
+        // Redirect to home or login after successful logout
+        this.$router.push('/login')
+      } catch (error) {
+        console.error('Error during logout:', error)
+      }
     }
   }
 }

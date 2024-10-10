@@ -70,11 +70,11 @@
 
 <script>
 
-import axios from 'axios'
+import { Api } from '@/Api'
 import textureImage from '/src/texturePacks/login_texture.png'
-import { BFormInput } from 'bootstrap-vue-next'
 
 export default {
+  name: 'LogIn',
   data() {
     return {
       email: '',
@@ -91,10 +91,14 @@ export default {
           email: this.email,
           password: this.password
         }
-        const response = await axios.post('http://localhost:3000/v1/api/login', userData)
+        const response = await Api.post('/login', userData)
         console.log('Logged in business owner', response.data)
-        const businessOwnerName = response.data.name
-        alert(`Login successful! Welcome back ${businessOwnerName}!`)
+        const businessOwner = response.data
+        const businessOwnerName = businessOwner.name
+        setTimeout(function () {
+          alert(`Login successful! Welcome back ${businessOwnerName}!`)
+        }, 500)
+        this.$router.push('/')
       } catch (err) {
         console.error(err)
         this.error = err.response?.data?.message || 'An error occurred during login'
