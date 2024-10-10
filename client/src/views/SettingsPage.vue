@@ -1,133 +1,143 @@
 <template>
   <div class="settings-page">
-    <div class="container-fluid">
-      <div class="row min-vh-100">
+    <b-container fluid>
+      <b-row class="min-vh-100">
 
-        <div class="col-2 left-section">
-          <div class="col-12 company-name-container">
+        <b-col cols="2" class="left-section">
+          <b-col cols="12" class="company-name-container">
             <label for="company-name" class="company-name-label form-label">Company Name</label>
-          </div>
+          </b-col>
+
           <div class="top-navigation-container">
-            <div class="card">
+            <b-card>
               <a class="nav-link" href="/">Home</a>
-            </div>
-            <div class="card">
+            </b-card>
+            <b-card>
               <a class="nav-link" href="#">Inventory</a>
-            </div>
-            <div class="card">
+            </b-card>
+            <b-card>
               <a class="nav-link" href="#">Suppliers</a>
-            </div>
-            <div class="card">
+            </b-card>
+            <b-card>
               <a class="nav-link" href="#">Products</a>
-            </div>
-            <div class="card">
+            </b-card>
+            <b-card>
               <a class="nav-link" href="#">Order</a>
-            </div>
+            </b-card>
           </div>
 
           <div class="bottom-navigation-container">
-            <div class="card settings-card">
+            <b-card class="settings-card">
               <a class="nav-link active" href="#">Settings</a>
-            </div>
-            <div class="card">
+            </b-card>
+            <b-card>
               <a class="nav-link" href="#">Log out</a>
-            </div>
+            </b-card>
           </div>
+        </b-col>
 
-        </div>
+        <b-col cols="5" class="middle-section">
 
-        <div class="col-5 middle-section">
-
-          <div class="col-12 profile-overview-container">
-            <div class="col-11 silly-rectangle">
-            </div>
+          <!-- Profile Overview -->
+          <b-col cols="12" class="profile-overview-container">
+            <b-col cols="11" class="silly-rectangle">
+            </b-col>
 
             <div class="profile-picture">
-                <img src="/home/nadman/OneDrive_Chalmers/Semester 3/DIT342 - Web development/group-17-web/client/src/images/profile-picture.jpeg" alt="Profile Picture" class="img-fluid rounded-circle" />
+              <img src="/home/nadman/OneDrive_Chalmers/Semester 3/DIT342 - Web development/group-17-web/client/src/images/profile-picture.jpeg" 
+                alt="Profile Picture"
+                class="img-fluid rounded-circle"
+              />
             </div>
             <div class="business-owner-details">
               <h2 class="profile-name">John Doe</h2>
               <p class="profile-title">Business Owner</p>
             </div>
-          </div>
+          </b-col>
 
-          <div class="col-12 account-settings-container">
+          <!-- Account Settings -->
+          <b-col cols="12" class="account-settings-container">
 
-            <div class="col-11 title-summary-container">
+            <b-col cols="11" class="title-summary-container">
               <label for="title" class="title-label form-label">Account Settings</label>
               <label for="summary" class="summary-label form-label">Update your account information</label>
-            </div>
+            </b-col>
 
-            <div class="col-11 username-container">
+            <b-col cols="11" class="username-container">
               <label for="username" class="username-label form-label">Username</label>
-              <input type="text" class="username-input-field form-control" placeholder="Username" label="Recipient's current password">
-            </div>
+              <input type="text" class="username-input-field form-control" placeholder="Username">
+            </b-col>
 
-            <div class="col-11 name-container">
+            <b-col cols="11" class="name-container">
               <label for="name" class="name-label form-label">Name</label>
-              <input type="text" class="name-input-field form-control" placeholder="Type in your name" label="Recipient's new password">
-            </div>
+              <input type="text" class="name-input-field form-control" placeholder="Type in your name">
+            </b-col>
 
-            <div class="col-11 email-container">
+            <b-col cols="11" class="email-container">
               <label for="email" class="email-label form-label">Email</label>
-              <input type="text" class="email-input-field form-control" placeholder="Type in your email" label="Recipient's old password">
-            </div>
+              <input type="text" class="email-input-field form-control" placeholder="Type in your email">
+            </b-col>
 
-            <div class="col-11 button-container">
+            <b-col cols="11" class="button-container">
               <button type="button" class="account-details-save-button btn btn-primary">Save changes</button>
-            </div>
-          </div>
+            </b-col>
 
-        </div>
+          </b-col>
+        </b-col>
 
-        <div class="col-5 right-section">
-          <div class="col-12 password-settings-container">
+        <b-col cols="5" class="right-section">
 
-            <div class="col-11 title-summary-container">
+          <!-- Password Settings -->
+          <b-col cols="12" class="password-settings-container">
+
+            <b-col cols="11" class="title-summary-container">
               <label for="title" class="title-label form-label">Password Settings</label>
               <label for="summary" class="summary-label form-label">Update your password information</label>
-            </div>
+            </b-col>
 
-            <div class="col-11 current-password-container">
+            <b-col cols="11" class="current-password-container">
               <label for="current-password" class="current-password-label form-label">Current password</label>
               <input type="text" class="current-password-input-field form-control" placeholder="Username" label="Recipient's username">
-            </div>
+            </b-col>
 
-            <div class="col-11 new-password-container">
-              <label for="new-password" class="new-password-label form-label">New passowrd</label>
+            <b-col cols="11" class="new-password-container">
+              <label for="new-password" class="new-password-label form-label">New password</label>
               <input type="text" class="new-password-input-field form-control" placeholder="Type in your name" label="Recipient's name">
-            </div>
+            </b-col>
 
-            <div class="col-11 confirm-password-container">
+            <b-col cols="11" class="confirm-password-container">
               <label for="confirm-password" class="confirm-password-label form-label">Confirm password</label>
               <input type="text" class="confirm-password-input-field form-control" placeholder="Type in your email" label="Recipient's password">
-            </div>
+            </b-col>
 
-            <div class="col-11 button-container">
+            <b-col cols="11" class="button-container">
               <button type="button" class="password-details-save-button btn btn-primary">Save changes</button>
-            </div>
-          </div>
+            </b-col>
 
-          <div class="col-12 budget-overview-container">
+          </b-col>
 
-            <div class="col-11 title-summary-container">
+          <!-- Budget Settings -->
+          <b-col cols="12" class="budget-overview-container">
+
+            <b-col cols="11" class="title-summary-container">
               <label for="title" class="title-label form-label">Budget Settings</label>
               <label for="summary" class="summary-label form-label">Update your max budget information</label>
-            </div>
+            </b-col>
 
-            <div class="col-11 budget-container">
-              <input type="number" v-model="budget" class="budget-input-field form-control" placeholder="Budget" label="Recipient's budget">
-            </div>
+            <b-col cols="11" class="budget-container">
+              <input type="number" v-model="budget" class="budget-input-field form-control" placeholder="Budget">
+            </b-col>
 
-            <div class="col-11 button-container">
+            <b-col cols="11" class="button-container">
               <button type="button" class="budget-save-button btn btn-primary">Save changes</button>
-            </div>
-          </div>
+            </b-col>
 
-        </div>
+          </b-col>
 
-      </div>
-    </div>
+        </b-col>
+
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -177,13 +187,13 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 40%;
+  margin-top: 20%;
 }
 
 .top-navigation-container .card {
   background: #37f;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
   flex: 1;
   border: none;
 }
@@ -206,7 +216,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 100%;
+  margin-top: 50%;
 }
 
 .bottom-navigation-container .card {
@@ -239,7 +249,7 @@ export default {
     #ffffff00 100%
   );
   text-align: center;
-  padding: 15px;
+  padding: 5px;
 }
 
 .card:hover {
