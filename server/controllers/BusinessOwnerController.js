@@ -118,8 +118,8 @@ exports.loginBusinessOwner = async (req, res) => {
 
         res.status(200).json({ 
             id: businessOwner._id,
-            name: businessOwner.name,
-            email: businessOwner.email,   
+            name: businessOwner.name,   
+            email: businessOwner.email
         });
     } catch (error) {
         console.error('Error during login:', error);
