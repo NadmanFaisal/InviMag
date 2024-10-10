@@ -93,8 +93,12 @@ export default {
         }
         const response = await axios.post('http://localhost:3000/v1/api/login', userData)
         console.log('Logged in business owner', response.data)
-        const businessOwnerName = response.data.name
-        alert(`Login successful! Welcome back ${businessOwnerName}!`)
+        const businessOwner = response.data
+
+        // Stores the business owners details in local storage
+        localStorage.setItem('businessOwner', JSON.stringify(businessOwner))
+
+        alert(`Login successful! Welcome back ${businessOwner.name}!`)
       } catch (err) {
         console.error(err)
         this.error = err.response?.data?.message || 'An error occurred during login'
