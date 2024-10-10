@@ -44,7 +44,7 @@
             </b-col>
 
             <div class="profile-picture">
-              <img src="/home/nadman/OneDrive_Chalmers/Semester 3/DIT342 - Web development/group-17-web/client/src/images/profile-picture.jpeg" 
+              <img src="../images/profile-picture.jpeg"
                 alt="Profile Picture"
                 class="img-fluid rounded-circle"
               />
