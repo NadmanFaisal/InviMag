@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 
 import InventoryPage from './views/InventoryPage.vue'
 
+import Create from './views/SignUp.vue'
+
 const routes = [
   { path: '/', name: 'Home', component: Home },
   {path: '/inventoryPage', name:'InventoryPage', component: InventoryPage},
