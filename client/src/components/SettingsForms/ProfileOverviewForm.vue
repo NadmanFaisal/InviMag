@@ -1,0 +1,90 @@
+<template>
+    <b-col cols="12" class="profile-overview-container">
+            <b-col cols="11" class="silly-rectangle">
+            </b-col>
+
+            <div class="profile-picture">
+              <img src="../../images/profile-picture.jpeg"
+                alt="Profile Picture"
+                class="img-fluid rounded-circle"
+              />
+            </div>
+            <div class="business-owner-details">
+              <h2 class="profile-name">John Doe</h2>
+              <p class="profile-title">Business Owner</p>
+            </div>
+          </b-col>
+</template>
+
+<script>
+export default {
+  name: 'ProfileOverview'
+}
+</script>
+
+<style scoped>
+.profile-overview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  border: var(--sds-size-stroke-border) solid rgba(0, 0, 0, 0.10);
+  background: #FFF;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.profile-picture {
+  margin-top: 5%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #787676;
+
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 10px;
+}
+
+.profile-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #787676;
+
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 10px;
+}
+
+.silly-rectangle {
+  display: flex;
+  height: 80px;
+  flex-direction: column;
+  border-radius: 10px;
+  background: #37F;
+  position: absolute;
+}
+</style>
