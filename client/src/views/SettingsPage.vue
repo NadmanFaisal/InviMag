@@ -4,6 +4,9 @@
       <div class="row min-vh-100">
 
         <div class="col-2 left-section">
+          <div class="col-12 company-name-container">
+            <label for="company-name" class="company-name-label form-label">Company Name</label>
+          </div>
           <div class="top-navigation-container">
             <div class="card">
               <a class="nav-link" href="/">Home</a>
@@ -157,6 +160,17 @@ export default {
   flex-direction: column;
   margin: 0;
   padding: 0;
+}
+
+.company-name-label {
+  margin-top: 10%;
+  color: var(--Schemes-On-Primary, #FFF);
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .top-navigation-container {
