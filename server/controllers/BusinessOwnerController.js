@@ -273,19 +273,16 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
         
 
         var initialOwner = await BusinessOwner.findById(id);
-        // Prevents code break if initial owner is not found
         if (!initialOwner) {
             return res.status(404).json({ message: 'Business owner does not exist' });
         }
 
         if (currentPassword && newPassword) {
-            // Compare current password with stored hashed password
             const isPasswordValid = await comparePassword(currentPassword, initialOwner.password);
             if (!isPasswordValid) {
                 return res.status(401).json({ message: 'Invalid current password' });
             }
 
-            // Hash the new password before storing
             const hashedNewPassword = await hashPassword(newPassword);
             initialOwner.password = hashedNewPassword;
         }
