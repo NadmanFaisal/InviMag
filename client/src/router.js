@@ -4,11 +4,14 @@ import { Api } from '@/Api'
 import Home from './views/Home.vue'
 import LogIn from './views/loginPage.vue'
 import SignUp from './views/SignUp.vue'
+import Settings from './views/SettingsPage.vue'
+
 
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { requiresAuth: true } },
   { path: '/login', name: 'login', component: LogIn, meta: { requiresAuth: false } },
-  { path: '/signup', name: 'signup', component: SignUp, meta: { requiresAuth: false } }
+  { path: '/signup', name: 'signup', component: SignUp, meta: { requiresAuth: false } },
+  { path: '/settings', name: 'settings', component: Settings, meta: { requiresAuth: true } }
 ]
 
 const router = createRouter({
