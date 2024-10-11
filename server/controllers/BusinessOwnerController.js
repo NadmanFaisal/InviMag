@@ -38,11 +38,11 @@ exports.createBusinessOwner = async (req, res, next) => {
 exports.signUpBusinessOwner = async (req, res, next) => {
     let businessOwner = new BusinessOwner({
         name: req.body.name,
-        total_budget: req.body.total_budget,
+        total_budget: req.body.total_budget || 0,
         email: req.body.email,
         password: req.body.password,
-        products: req.body.products,
-        orderHistories: req.body.orderHistories
+        products: req.body.products || null,
+        orderHistories: req.body.orderHistories || null
     });
 
     // Error handling in regards to empty names and regex like a character before, and after the @ symbol and the dot , the symbol itself and a character after the dot

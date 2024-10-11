@@ -34,7 +34,7 @@ export default {
     async logOut() {
       try {
         await Api.post('http://localhost:3000/v1/api/BusinessOwners/logout')
-
+        localStorage.removeItem('businessOwner')
         this.$router.push('/login')
       } catch (error) {
         console.error('Error during logout:', error)
