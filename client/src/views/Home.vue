@@ -14,7 +14,6 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-
 export default {
   name: 'home',
   data() {
@@ -34,10 +33,8 @@ export default {
     },
     async logOut() {
       try {
-        // Send a request to the backend to log out
         await Api.post('/BusinessOwners/logout')
 
-        // Redirect to home or login after successful logout
         this.$router.push('/login')
       } catch (error) {
         console.error('Error during logout:', error)

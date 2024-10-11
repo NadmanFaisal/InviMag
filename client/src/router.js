@@ -28,13 +28,12 @@ async function isAuthenticated() {
 router.beforeEach(async (to, from, next) => {
   const isAuth = await isAuthenticated() // Check if the user is authenticated
 
-  // If the route requires authentication and the user is not authenticated, redirect to login
-  if (to.meta.requiresAuth && !isAuth) {
-    next({ name: 'login' })
-  } else if (!to.meta.requiresAuth && isAuth) {
-    next({ name: 'home' })
-  } else {
-    next()
+  if (to.meta.requiresAuth && !isAuth) { // if page is requires authentication and user not authorized
+    next({ name: 'login' }) // send him to login (or allow him to use unauthorized screens as long as he is unauthorized)
+  } else if (!to.meta.requiresAuth && isAuth) { // if page does not require authentication and user is authorized
+    next({ name: 'home' }) // send him home
+  } else { // otherwise
+    next() // allow him to access authorized pages as an authorized user or access unauthorized pages as an unauthorized user
   }
 })
 
