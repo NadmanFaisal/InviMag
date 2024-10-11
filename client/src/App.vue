@@ -1,8 +1,10 @@
 <template>
   <div id="app">
+    <Sidebar/>
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/signup"> SignUp</router-link>
+      <router-link to="/signup"> Sign Up </router-link>
+      <router-link to="/login">Log in</router-link>
       <router-link to="/settings"> Settings </router-link>
     </div>
     <!-- Render the content of the current page view -->
@@ -17,5 +19,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  padding-left: 0px !important;
 }
 </style>

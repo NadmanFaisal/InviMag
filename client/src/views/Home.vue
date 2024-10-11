@@ -6,6 +6,7 @@
       <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
       <p class="col-xl-9">Message from the server:<br/>
       {{ message }}</p>
+      <b-button @click="logOut()">Logout</b-button>
     </b-container>
   </div>
 </template>
@@ -13,7 +14,6 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-
 export default {
   name: 'home',
   data() {
@@ -30,6 +30,15 @@ export default {
         .catch(error => {
           this.message = error
         })
+    },
+    async logOut() {
+      try {
+        await Api.post('http://localhost:3000/v1/api/BusinessOwners/logout')
+
+        this.$router.push('/login')
+      } catch (error) {
+        console.error('Error during logout:', error)
+      }
     }
   }
 }

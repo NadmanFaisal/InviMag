@@ -18,7 +18,6 @@ const  businessOwnerSchema = new Schema ({
 });
 
 businessOwnerSchema.virtual('loginCredentials').get(function(){ 
-    
     return '${this.email} ${this.password}'; 
 });
 
