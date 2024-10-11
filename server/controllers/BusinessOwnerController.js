@@ -269,17 +269,32 @@ exports.updateBusinessOwnerByID = async  (req, res) => {
 exports.partialUpdateBusinessOwner =  async (req, res) => {
     try {
         var id = req.params.id;
+        const { currentPassword, newPassword } = req.body;
+        
+
         var initialOwner = await BusinessOwner.findById(id);
         // Prevents code break if initial owner is not found
         if (!initialOwner) {
             return res.status(404).json({ message: 'Business owner does not exist' });
         }
 
+        if (currentPassword && newPassword) {
+            // Compare current password with stored hashed password
+            const isPasswordValid = await comparePassword(currentPassword, initialOwner.password);
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: 'Invalid current password' });
+            }
+
+            // Hash the new password before storing
+            const hashedNewPassword = await hashPassword(newPassword);
+            initialOwner.password = hashedNewPassword;
+        }
+
         var updatedBusinessOwner = {
             name: (req.body.name || initialOwner.name),
             total_budget: (req.body.total_budget || initialOwner.total_budget),
             email: (req.body.email || initialOwner.email),
-            password: (req.body.password || initialOwner.password)
+            password: initialOwner.password
         };
 
         // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it
