@@ -10,15 +10,42 @@
               />
             </div>
             <div class="business-owner-details">
-              <h2 class="profile-name">John Doe</h2>
+              <h2 class="profile-name">{{ name }}</h2>
               <p class="profile-title">Business Owner</p>
             </div>
           </b-col>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
-  name: 'ProfileOverview'
+  name: 'ProfileOverview',
+  data() {
+    return {
+      userId: 'User Name',
+      name: ''
+    }
+  },
+  mounted() {
+    const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    if (businessOwner && businessOwner.id) {
+      this.userId = businessOwner.id
+      this.displayUserName()
+    }
+  },
+  methods: {
+    async displayUserName() {
+      try {
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        this.name = response.data.name
+      } catch (error) {
+        console.error('Error getting user name:', error)
+        alert('Could not get your name. Please try again.')
+      }
+    }
+  }
 }
 </script>
 
