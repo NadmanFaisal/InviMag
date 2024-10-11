@@ -85,3 +85,15 @@ Our advanced feature would be a smart suggestor that looks at a resources that a
 ## Teaser (MS3)
 
 ![Teaser](./images/teaser.png)
+## API Proposal
+
+We are thinking of implementing the Currency Exchange API. This will allow each business owner to see their relevant price based on their geolocation. This ensures that the business owner is able to understand the value of his product and adjust precisely on how much of his local currency he would like to spend.
+
+Pages such as the Products Page, Inventory page, and the Setting page will be able to implement this feature by adding a “preferred currency” for the business owners and supplier entities, such that whenever a business owner accesses a supplier product regardless of which currency the use it will convert the currency to the preferred currency that was chosen by the business owner.
+
+Frontend: We will have a new attribute called preferred currency which the business owner can select. This will highlight to the user if he would like to display the prices in USD (international currency) or in their local currency. When applicable, the user will be able to see the prices of all the other products from foreign suppliers converted to their preferred currency value.
+
+Backend: The implementation of this API in the backend will involve adding new attributes to the business owner entity (country of origin and preferred currency). We will also need to do advanced filtering such that when we get a list of products, all the price-related attributes need to be converted to the preferred currency of the business owner.
+
+.
+Link for the Currency Exchange API: https://www.exchangerate-api.com/
