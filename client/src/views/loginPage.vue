@@ -91,7 +91,7 @@ export default {
           email: this.email,
           password: this.password
         }
-        const response = await Api.post('/login', userData)
+        const response = await Api.post('http://localhost:3000/v1/api/login', userData)
         console.log('Logged in business owner', response.data)
         const businessOwner = response.data
         const businessOwnerName = businessOwner.name

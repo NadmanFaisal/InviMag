@@ -46,6 +46,10 @@ app.use(cors(corsOptions));
 // Use cookies
 app.use(cookieParser());
 
+// Import routes
+app.get('/api', function(req, res) {
+    res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
+});
 
 // Uses every endpoints specified inside the Controller class
 app.use(methodOverride('X-HTTP-Method-Override'));
@@ -53,6 +57,10 @@ app.use('/v1/api', businessOwnerRoutes);
 app.use('/v1/api', productRoutes);
 app.use('/v1/api', supplierRoutes);
 app.use('/v1/api', orderHistoryRoutes);
+// Catch all non-error handler for api (i.e., 404 Not Found)
+app.use('/api/*', function (req, res) {
+    res.status(404).json({ 'message': 'Not Found' });
+});
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode

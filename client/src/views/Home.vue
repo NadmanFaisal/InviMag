@@ -33,7 +33,7 @@ export default {
     },
     async logOut() {
       try {
-        await Api.post('/BusinessOwners/logout')
+        await Api.post('http://localhost:3000/v1/api/BusinessOwners/logout')
 
         this.$router.push('/login')
       } catch (error) {
