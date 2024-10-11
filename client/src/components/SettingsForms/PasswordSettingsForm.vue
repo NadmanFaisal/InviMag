@@ -8,17 +8,17 @@
 
         <b-col cols="11" class="current-password-container">
             <label for="current-password" class="current-password-label form-label">Current password</label>
-            <input type="text" v-model="currentPassword" class="current-password-input-field form-control" placeholder="Type in your password">
+            <input type="password" v-model="currentPassword" class="current-password-input-field form-control" placeholder="Type in your password">
         </b-col>
 
         <b-col cols="11" class="new-password-container">
             <label for="new-password" class="new-password-label form-label">New password</label>
-            <input type="text" v-model="newPassword" class="new-password-input-field form-control" placeholder="Type in your new password" label="Recipient's name">
+            <input type="password" v-model="newPassword" class="new-password-input-field form-control" placeholder="Type in your new password" label="Recipient's name">
         </b-col>
 
         <b-col cols="11" class="confirm-password-container">
             <label for="confirm-password" class="confirm-password-label form-label">Confirm password</label>
-            <input type="text" v-model="confirmPassword" class="confirm-password-input-field form-control" placeholder="Confirm your password">
+            <input type="password" v-model="confirmPassword" class="confirm-password-input-field form-control" placeholder="Confirm your password">
         </b-col>
 
         <b-col cols="11" class="button-container">
