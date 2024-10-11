@@ -8,6 +8,7 @@
       <router-link to="/settings"> Settings </router-link>
     </div>
     <!-- Render the content of the current page view -->
+    <router-link to = "/inventoryPage"> Inventory Page</router-link>
     <router-view/>
   </div>
 </template>
