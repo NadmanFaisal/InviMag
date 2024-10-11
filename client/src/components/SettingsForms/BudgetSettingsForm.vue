@@ -7,19 +7,61 @@
         </b-col>
 
         <b-col cols="11" class="budget-container">
-            <input type="number" v-model="budget" class="budget-input-field form-control" placeholder="Budget">
+            <input type="number" v-model="total_budget" class="budget-input-field form-control" placeholder="Budget">
         </b-col>
 
         <b-col cols="11" class="button-container">
-            <button type="button" class="budget-save-button btn btn-primary">Save changes</button>
+            <button type="button" class="budget-save-button btn btn-primary" @click="updateBusinessOwner">Save changes</button>
         </b-col>
 
     </b-col>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
-  name: 'BudgetSettings'
+  name: 'BudgetSettings',
+  data() {
+    return {
+      userID: '',
+      total_budget: 0
+    }
+  },
+  mounted() {
+    const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    if (businessOwner && businessOwner.id) {
+      this.userId = businessOwner.id
+      this.displayUserTotalBudget()
+    }
+  },
+  methods: {
+    async displayUserTotalBudget() {
+      try {
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        this.total_budget = response.data.total_budget
+      } catch (error) {
+        console.error('Error getting user total budget:', error)
+        alert('Could not get your total budget. Please try again.')
+      }
+    },
+    async updateBusinessOwner() {
+      if (!this.userId) return
+
+      const updatedData = {
+        total_budget: this.total_budget
+      }
+
+      try {
+        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
+        alert('Your details have been updated successfully!')
+      } catch (error) {
+        console.error('Error updating your details:', error)
+        alert('Could not update your details. Please try again.')
+      }
+    }
+  }
 }
 </script>
 

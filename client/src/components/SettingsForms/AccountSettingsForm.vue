@@ -8,7 +8,7 @@
 
     <b-col cols="11" class="username-container">
       <label for="id" class="user-id-label form-label">User ID</label>
-      <input type="text" class="user-id-input-field form-control" placeholder="User ID" v-model="userId">
+      <input type="text" class="user-id-input-field form-control" placeholder="User ID" v-model="userId" disabled>
     </b-col>
 
     <b-col cols="11" class="name-container">
@@ -39,6 +39,12 @@ export default {
       userId: '',
       name: '',
       email: ''
+    }
+  },
+  mounted() {
+    const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    if (businessOwner && businessOwner.id) {
+      this.userId = businessOwner.id
     }
   },
   methods: {

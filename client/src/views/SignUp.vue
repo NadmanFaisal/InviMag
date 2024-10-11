@@ -56,7 +56,7 @@ export default {
   methods: {
     async submitSignUp({ username, email, password }) {
       try {
-        await Api.post('BusinessOwners/signup', {
+        await Api.post('http://localhost:3000/v1/api/BusinessOwners/signup', {
           name: username,
           email,
           password
