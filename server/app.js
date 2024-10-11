@@ -9,13 +9,20 @@ const productRoutes = require('../server/routes/ProductRoutes');
 const businessOwnerRoutes = require('../server/routes/BusinessOwnerRoutes');
 const orderHistoryRoutes = require('../server/routes/OrderHistoryRoutes');
 const supplierRoutes = require('../server/routes/SupplierRoutes');
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 
-
-
+const corsOptions = {
+    origin: 'http://localhost:5173', 
+    credentials: true,               
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], 
+    allowedHeaders: ['Content-Type', 'Authorization'],             
+};
 
 // constiables
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
 const port = process.env.PORT || 3000;
+dotenv.config({ path: require('path').resolve(__dirname, '.env') });  // for some reason dotenv wouldnt pick up on the path without requiring absolute path check
 
 // Connect to MongoDB
 mongoose.connect(mongoURI).catch(function(err) {
@@ -34,8 +41,10 @@ app.use(express.json());
 // HTTP request logger
 app.use(morgan('dev'));
 // Enable cross-origin resource sharing for frontend must be registered before api
-app.options('*', cors());
-app.use(cors());
+app.options(cors());
+app.use(cors(corsOptions));
+// Use cookies
+app.use(cookieParser());
 
 // Import routes
 app.get('/api', function(req, res) {
