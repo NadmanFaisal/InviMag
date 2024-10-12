@@ -4,7 +4,7 @@
       <div class="attributeDisplayContainer">
         <div class="attributeDisplayWidget">
           <p class="attributeLabel">Quantity</p>
-          <p class="attributeValue">{{ product.quantity }}</p>
+          <p class="attributeValue">{{ product.quantity }} Units</p>
         </div>
         <div class="attributeDisplayWidget">
           <p class="attributeLabel">Buying Price</p>
@@ -76,6 +76,7 @@ export default {
     font-size: 16px;
     font-weight: 700;
     text-align: center;
+    color: grey;
 }
 
 .attributeFont {
