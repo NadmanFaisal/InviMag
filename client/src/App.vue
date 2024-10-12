@@ -2,14 +2,15 @@
 <template>
   <div id="app">
     <Sidebar v-if="$route.meta.requiresAuth"/>
+
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/signup"> Sign Up </router-link>
       <router-link to="/login">Log in</router-link>
       <router-link to="/settings"> Settings </router-link>
+      <router-link to = "/inventoryPage"> Inventory Page</router-link>
     </div>
     <!-- Render the content of the current page view -->
-    <router-link to = "/inventoryPage"> Inventory Page</router-link>
     <router-view/>
   </div>
 </template>
@@ -20,7 +21,7 @@ export default {
   name: 'App',
   components: {
     Sidebar // Register the Sidebar component here
-  }
+  },
 }
 </script>
 
@@ -32,5 +33,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   padding-left: 0px !important;
+}
+#nav {
+  display: none;
+}
+
+@media (max-width: 757px){
+  #nav {
+  display: flex;
+  flex-direction: column;
+}
+
 }
 </style>
