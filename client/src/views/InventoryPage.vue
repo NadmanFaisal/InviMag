@@ -1,6 +1,6 @@
 <template>
   <BContainer fluid>
-    <h1 class = "offset-2">Inventory Page</h1>
+    <h1 class = "offset-2 companyHeader">Company Name</h1>
     <b-row cols = "10" class = " offset-2 productCountContainer">
     <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
       <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
@@ -127,6 +127,12 @@ export default {
 </script>
 
 <style scoped>
+
+.companyHeader{
+  color: #47F;
+  font-family: "Istok Web", "Sans-serif";
+  font-weight: bold;
+}
 .productListBox{
   color: black;
   width: 1036px;
