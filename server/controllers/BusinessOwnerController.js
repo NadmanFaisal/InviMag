@@ -140,7 +140,7 @@ exports.logOutBusinessOwner = (req, res, next) => {
 
 // checks authentication for each HTTP request with JWT verify
 
-exports.checkAuthStatus = async (req, res) => {
+exports.checkAuthStatus = async (req, res, next) => {
     try {
         const token = req.cookies.auth_token;
         if (!token) {

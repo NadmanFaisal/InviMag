@@ -1,13 +1,14 @@
 <template>
   <b-container fluid>
-
-    <b-col cols = "10" class = " offset-1 top-container-style ">
+    <b-row> 
+    <b-col :cols = "2"></b-col>
+    <b-col :cols = "10" class = "top-container-style ">
 
     <!--This is the Header where the business Owners company name will be placed-->  
     <h1 class = "companyHeader">Company Name</h1>
 
     <!--This is the containers that display total, in-stock, and out-of-stock products-->
-    <b-row  class = "productCountContainer justify-content-center">
+    <b-row :cols = "10"  class = "productCountContainer justify-content-center main-content">
     <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
       <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
     </b-col>
@@ -18,7 +19,7 @@
     </b-col>
     </b-row>
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
-    <div cols = "10" sm="12" class = " justify-content-center dropdown">
+    <div sm="12" class = "dropdown">
       <button class = "dropdown-button" @click = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
@@ -27,22 +28,23 @@
       </div>
     </div>
   </b-col>
-  <BRow>
+  </b-row>
+  <b-row class="justify-content-center">
     <!--This is the list of products displayed along with their attributes-->
-  <b-col>
-    <div sm="12" class = "productListBox justify-content-center">
-    <div v-if="products.length">
+  <b-col :cols="10" sm="12" md="8">
+    <b-col class = "offset-2 justify-content-center productListBox">
+    <b-col v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
         <ul>
           <ProductCard v-for="product in products" :key="product._id" :product="product"></ProductCard>
         </ul>
-      </div>
-        <div v-else>
+      </b-col>
+        <b-col v-else>
           <p>No products available.</p>
-        </div>
-      </div> 
+        </b-col>
+      </b-col> 
     </b-col>
-  </BRow>
+  </b-row>
   </b-container>
 </template>
 <script>
@@ -142,6 +144,8 @@ export default {
   height: 270px;
   flex-shrink: 0;
   background-color: #F1F6FF;
+  margin-left: 16.6667%; /* Push content to the right by the width of the sidebar */
+  width: 83.3333%;
 }
 .companyHeader{
   color: #47F;
@@ -150,15 +154,17 @@ export default {
 }
 .productListBox{
   color: black;
-  width: 1036px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #FFF;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
   flex-grow: 1; /* Remaining space after the sidebar */
   position: relative;
+  transform: none;
+  margin-left: 16.6667%; /* Push content to the right by the width of the sidebar */
+  width: 100%;
   padding: 20px;
-  left: 25%; /* Center horizontally based on left edge */
+  justify-content: center;
 }
 .customHeader{
   padding-top: 30px;
@@ -271,15 +277,29 @@ export default {
   color: #F77575;
 }
 
-@media (max-width: 757px) {
+.main-content {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+@media (max-width: 768px) {
   .productCountContainer {
     font-size: 18px; /* Shrink font */
     padding: 10px; /* Shrink padding */
+    columns: 12;
   }
+  .top-container-style{
+    margin-left: 0%;
+    width: 100%;
+  }
+  .main-content {
+    width: 100%; 
+    padding: 0 10px;
+}
   .productListBox{
-    margin: 0 auto;
-    width: 100%; /* Take full width on small screens */
-    transform: translate(-130px, 150px);
+    transform: none; /* Remove any left offset */
+    margin-left: 0%;
+    width: 100%;
   }
 }
 </style>

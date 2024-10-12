@@ -252,7 +252,7 @@ ul {
   margin: 0 !important;  /* Remove margins from lists */
 }
 
-@media (max-width: 757px) {
+@media (max-width: 768px) {
     .sidebarResponsive{
       display: none;
     }

@@ -34,7 +34,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
 
 .productDisplay {
-    width: 961px;
+    width: 100%;
     height: auto; /* Allow height to adjust based on content */
     padding: 20px;
     margin: 10px 0;
@@ -43,6 +43,7 @@ export default {
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .attributeDisplayContainer {
@@ -59,7 +60,7 @@ export default {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px;
 }
@@ -100,7 +101,7 @@ export default {
     letter-spacing: -0.48px;
 }
 
-@media (max-width: 757px) {
+@media (max-width: 768px) {
     .productDisplay{
         margin: 0 auto;
         width: 100%; /* Take full width on small screens */
