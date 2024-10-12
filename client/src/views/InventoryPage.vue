@@ -19,7 +19,7 @@
     </b-row>
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
     <div cols = "10" sm="12" class = " justify-content-center dropdown">
-      <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
+      <button class = "dropdown-button" @click = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
       <a href = "#" @click = "sortBySellingPrice"> Selling Price</a>
@@ -30,7 +30,7 @@
   <BRow>
     <!--This is the list of products displayed along with their attributes-->
   <b-col>
-    <div sm="12" class = "productListBox">
+    <div sm="12" class = "productListBox justify-content-center">
     <div v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
         <ul>
@@ -158,7 +158,7 @@ export default {
   flex-grow: 1; /* Remaining space after the sidebar */
   position: absolute;
   left: 25%; /* Center horizontally based on left edge */
-  bottom: -1100px; /* 20px from the bottom of the screen */
+  bottom: -1000px; /* 20px from the bottom of the screen */
 }
 .customHeader{
   padding-top: 30px;
