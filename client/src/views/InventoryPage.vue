@@ -1,7 +1,8 @@
 <template>
   <BContainer fluid>
-    <h1 class = "offset-2 companyHeader">Company Name</h1>
-    <b-row cols = "10" class = " offset-2 productCountContainer">
+    <b-col cols = "10" class = " offset-1 top-container-style ">
+    <h1 class = "companyHeader">Company Name</h1>
+    <b-row  class = "productCountContainer">
     <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
       <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
     </b-col>
@@ -10,7 +11,8 @@
     <b-col sm="12" md="4" color = "#F77575" class = "outOfStockFont"> 
       <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK 
     </b-col>
-  </b-row>
+    </b-row>
+  
     <div cols = "10" sm="12" class = " offset-2 dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
@@ -19,6 +21,7 @@
       <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
     </div>
+  </b-col>
   <BRow>
   <b-col>
     <div sm="12" class = "productListBox">
@@ -128,6 +131,12 @@ export default {
 
 <style scoped>
 
+.top-container-style{
+  width: 100%;
+  height: 270px;
+  flex-shrink: 0;
+  background-color: #F1F6FF;
+}
 .companyHeader{
   color: #47F;
   font-family: "Istok Web", "Sans-serif";

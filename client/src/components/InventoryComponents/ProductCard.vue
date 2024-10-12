@@ -66,14 +66,14 @@ export default {
 
 .attributeLabel {
     font-family: "Istok Web";
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
     text-align: center;
 }
 
 .attributeValue {
     font-family: "Istok Web";
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     text-align: center;
     color: grey;
