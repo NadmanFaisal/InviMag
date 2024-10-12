@@ -1,6 +1,7 @@
+
 <template>
   <div id="app">
-    <Sidebar/>
+    <Sidebar v-if="$route.meta.requiresAuth"/>
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/signup"> Sign Up </router-link>
@@ -12,6 +13,16 @@
     <router-view/>
   </div>
 </template>
+
+<script>
+import Sidebar from './components/InventoryComponents/Sidebar.vue'; // Adjust the path if necessary
+export default {
+  name: 'App',
+  components: {
+    Sidebar, // Register the Sidebar component here
+  },
+};
+</script>
 
 <style>
 #app {
