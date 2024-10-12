@@ -1,17 +1,17 @@
 <template>
   <BContainer fluid>
-    <h1>Inventory Page</h1>
-    <BRow class = "productCountContainer">
-    <BCol sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
-      <span class = "countFont">{{totalProducts}} </span> <br>TOTAL PRODUCTS 
-    </BCol>
-    <BCol sm="12" md="4" color = "#21C21C" class = "inStockFont">
-      <span class = "countFont">{{inStockProducts}}</span> <br>IN STOCK</BCol>
-    <BCol sm="12" md="4" color = "#F77575" class = "outOfStockFont"> 
-      <span class = "countFont">{{outOfStockProducts}} </span> <br>OUT OF STOCK 
-    </BCol>
-    </BRow>
-    <div sm="12" class = "dropdown">
+    <h1 class = "offset-2">Inventory Page</h1>
+    <b-row cols = "10" class = " offset-2 productCountContainer">
+    <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
+      <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
+    </b-col>
+    <b-col sm="12" md="4" color = "#21C21C" class = "inStockFont">
+      <span class = "countFont">{{inStockProducts}}</span> <br><br>IN STOCK</b-col>
+    <b-col sm="12" md="4" color = "#F77575" class = "outOfStockFont"> 
+      <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK 
+    </b-col>
+  </b-row>
+    <div cols = "10" sm="12" class = " offset-2 dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
@@ -20,7 +20,7 @@
       </div>
     </div>
   <BRow>
-  <BCol>
+  <b-col>
     <div sm="12" class = "productListBox">
     <div v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
@@ -32,7 +32,7 @@
           <p>No products available.</p>
         </div>
       </div> 
-    </Bcol>
+    </b-col>
   </BRow>
   </BContainer>
 </template>
