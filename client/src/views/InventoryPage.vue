@@ -1,8 +1,13 @@
 <template>
-  <BContainer fluid>
+  <b-container fluid>
+
     <b-col cols = "10" class = " offset-1 top-container-style ">
+
+    <!--This is the Header where the business Owners company name will be placed-->  
     <h1 class = "companyHeader">Company Name</h1>
-    <b-row  class = "productCountContainer">
+
+    <!--This is the containers that display total, in-stock, and out-of-stock products-->
+    <b-row  class = "productCountContainer justify-content-center">
     <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
       <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
     </b-col>
@@ -12,8 +17,8 @@
       <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK 
     </b-col>
     </b-row>
-  
-    <div cols = "10" sm="12" class = " offset-2 dropdown">
+    <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
+    <div cols = "10" sm="12" class = " justify-content-center dropdown">
       <button class = "dropdown-button" onClick = "toggleDropdown()"> Sort By</button>
       <div id = "dropdown-content" class = "dropdown-content">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
@@ -23,6 +28,7 @@
     </div>
   </b-col>
   <BRow>
+    <!--This is the list of products displayed along with their attributes-->
   <b-col>
     <div sm="12" class = "productListBox">
     <div v-if="products.length">
@@ -37,7 +43,7 @@
       </div> 
     </b-col>
   </BRow>
-  </BContainer>
+  </b-container>
 </template>
 <script>
 import { productApi } from '@/api/ProductApi'
