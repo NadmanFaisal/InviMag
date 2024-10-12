@@ -156,9 +156,9 @@ export default {
   background: #FFF;
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
   flex-grow: 1; /* Remaining space after the sidebar */
-  position: absolute;
+  position: relative;
+  padding: 20px;
   left: 25%; /* Center horizontally based on left edge */
-  bottom: -1000px; /* 20px from the bottom of the screen */
 }
 .customHeader{
   padding-top: 30px;
