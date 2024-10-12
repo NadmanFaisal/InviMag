@@ -5,8 +5,11 @@
 
         <!-- Navigation bar on the left -->
 
-    <b-col cols = "10" class = "offset-2 content-section" >    
       <b-row>
+        <!-- Empty section to align the middle section and right section properly-->
+        <b-col cols="2" class="empty-left-section">
+        </b-col>
+
         <b-col cols="5" class="middle-section">
           <!-- Profile Overview -->
           <ProfileOverview />
@@ -21,7 +24,6 @@
           <BudgetSettings/>
         </b-col>
       </b-row>
-    </b-col>
 
       </b-row>
     </b-container>
@@ -41,8 +43,7 @@ export default {
     ProfileOverview,
     AccountSettings,
     PasswordSettings,
-    BudgetSettings,
-    NavigationBar
+    BudgetSettings
   },
   data() {
     return {
@@ -64,14 +65,12 @@ export default {
   padding: 0;
 }
 
-
 .middle-section, .right-section {
   display: flex;
   flex-direction: column;
   padding: 20px;
   background: #f1f1f1;
 }
-
 
 .content-section {
   padding: 20px;
@@ -99,6 +98,5 @@ export default {
    }
 
 }
-
 
 </style>
