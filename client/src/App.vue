@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import Sidebar from './components/InventoryComponents/Sidebar.vue'; // Adjust the path if necessary
+import Sidebar from './components/Sidebar.vue' // Adjust the path if necessary
 export default {
   name: 'App',
   components: {
-    Sidebar, // Register the Sidebar component here
-  },
-};
+    Sidebar // Register the Sidebar component here
+  }
+}
 </script>
 
 <style>

@@ -36,7 +36,6 @@ import ProfileOverview from '../components/SettingsForms/ProfileOverviewForm.vue
 import AccountSettings from '../components/SettingsForms/AccountSettingsForm.vue'
 import PasswordSettings from '../components/SettingsForms/PasswordSettingsForm.vue'
 import BudgetSettings from '../components/SettingsForms/BudgetSettingsForm.vue'
-import NavigationBar from '../components/SettingsForms/NavigationForm.vue'
 
 export default {
   components: {
@@ -63,6 +62,13 @@ export default {
 
 .container-fluid {
   padding: 0;
+}
+
+.empty-left-section {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: #f1f1f1;
 }
 
 .middle-section, .right-section {
