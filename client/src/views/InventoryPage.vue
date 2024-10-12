@@ -19,7 +19,7 @@
       <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
     </div>
-<BRow>
+  <BRow>
   <BCol>
     <div sm="12" class = "productListBox">
     <div v-if="products.length">
@@ -29,11 +29,11 @@
         </ul>
       </div>
         <div v-else>
-        <p>No products available.</p>
-      </div>
-    </div> 
-  </Bcol>
-</BRow>
+          <p>No products available.</p>
+        </div>
+      </div> 
+    </Bcol>
+  </BRow>
   </BContainer>
 </template>
 <script>
