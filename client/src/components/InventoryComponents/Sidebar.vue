@@ -1,25 +1,28 @@
 <template>
-    <Bcol class="col-2 sidebar sidebarResponsive ">
-        <div class = "header-container sideBarHeaderFont">
+    <b-col cols="2" class=" sidebar sidebarResponsive ">
+        <b-col class = "header-container sideBarHeaderFont">
           <div class = "sideBarHeaderFont">COMP NAME</div>
       <ul>
-        <li class = "card " v-for="item in navItems" :key="item.name">
-          <router-link :to="item.route" class="nav-link">{{ item.name }}</router-link>
+        <li v-for="item in navItems" :key="item.name">
+            <b-card class = "card" >
+            <router-link :to="item.route" class="nav-link">{{ item.name }}</router-link>
+            </b-card>
         </li>
       </ul>
-        </div>
+    </b-col>
         <div class="bottom-navigation-container">
-            <div class="card settings-card">
-              <a class="nav-link active" href="#">Settings</a>
-            </div>
-            <div class="card">
-              <a class="nav-link" href="#">Log out</a>
-            </div>
+            <b-card class="card settings-card">
+              <router-link class="nav-link" to="/settings" >Settings</router-link>
+            </b-card>
+            <b-card class="card">
+              <a class="nav-link" href = "#" @click = "logOut">Log out</a>
+            </b-card>
           </div>
-        </Bcol>
+        </b-col>
   </template>
   
   <script>
+  import axios from "axios"
   export default {
     name: "Sidebar",
     data() {
@@ -27,11 +30,22 @@
         navItems: [
           { name: "Home", route: "/" },
           { name: "Inventory", route: "/inventoryPage" },
-          {name: "Settings", route: "/settings"}
           // Add more navigation items here
-        ]
+        ],
       };
+    },
+    methods: {
+        async logOut() {
+        try {
+            await axios.post('http://localhost:3000/v1/api/BusinessOwners/logout')
+            localStorage.removeItem('businessOwner')
+            this.$router.push('/login')
+        } catch (error) {
+            console.error('Error during logout:', error)
+        }
     }
+  }
+    
   }
   </script>
   
