@@ -41,8 +41,8 @@ exports.signUpBusinessOwner = async (req, res, next) => {
         total_budget: req.body.total_budget || 0,
         email: req.body.email,
         password: req.body.password,
-        products: req.body.products || null,
-        orderHistories: req.body.orderHistories || null
+        products: req.body.products || [],
+        orderHistories: req.body.orderHistories || []
     });
 
     // Error handling in regards to empty names and regex like a character before, and after the @ symbol and the dot , the symbol itself and a character after the dot
@@ -140,7 +140,7 @@ exports.logOutBusinessOwner = (req, res, next) => {
 
 // checks authentication for each HTTP request with JWT verify
 
-exports.checkAuthStatus = async (req, res) => {
+exports.checkAuthStatus = async (req, res, next) => {
     try {
         const token = req.cookies.auth_token;
         if (!token) {
@@ -269,17 +269,29 @@ exports.updateBusinessOwnerByID = async  (req, res) => {
 exports.partialUpdateBusinessOwner =  async (req, res) => {
     try {
         var id = req.params.id;
+        const { currentPassword, newPassword } = req.body;
+        
+
         var initialOwner = await BusinessOwner.findById(id);
-        // Prevents code break if initial owner is not found
         if (!initialOwner) {
             return res.status(404).json({ message: 'Business owner does not exist' });
+        }
+
+        if (currentPassword && newPassword) {
+            const isPasswordValid = await comparePassword(currentPassword, initialOwner.password);
+            if (!isPasswordValid) {
+                return res.status(401).json({ message: 'Invalid current password' });
+            }
+
+            const hashedNewPassword = await hashPassword(newPassword);
+            initialOwner.password = hashedNewPassword;
         }
 
         var updatedBusinessOwner = {
             name: (req.body.name || initialOwner.name),
             total_budget: (req.body.total_budget || initialOwner.total_budget),
             email: (req.body.email || initialOwner.email),
-            password: (req.body.password || initialOwner.password)
+            password: initialOwner.password
         };
 
         // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it

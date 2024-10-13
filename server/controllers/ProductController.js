@@ -28,10 +28,12 @@ exports.createProduct = async (req, res, next ) => {
     if(!product.category || product.category === ''){
         return res.status(400).json({ error: 'Bad Request, category field cannot be empty'});
     }
-    if(!product.in_stock || product.in_stock === ''){
+    if(product.in_stock === null){
         return res.status(400).json({ error: 'Bad Request, in_stock field cannot be empty'});
     }
-
+    if(product.in_stock === false && product.quantity > 0){
+        return res.status(400).json({ error: 'Out of stock product needs to have a quantity of 0'});
+    }
     try{
         await product.save();
         res.status(201).json(product);

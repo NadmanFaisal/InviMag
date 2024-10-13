@@ -27,15 +27,28 @@
               <a class="nav-link active" href="#">Settings</a>
             </b-card>
             <b-card>
-              <a class="nav-link" href="#">Log out</a>
+              <a class="nav-link" href="/login" @click="logOut">Log out</a>
             </b-card>
           </div>
         </b-col>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'NavigationBar'
+  name: 'NavigationBar',
+  methods: {
+    async logOut() {
+      try {
+        await axios.post('http://localhost:3000/v1/api/BusinessOwners/logout')
+        localStorage.removeItem('businessOwner')
+        this.$router.push('/login')
+      } catch (error) {
+        console.error('Error during logout:', error)
+      }
+    }
+  }
 }
 </script>
 

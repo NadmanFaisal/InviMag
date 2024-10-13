@@ -8,29 +8,82 @@
 
         <b-col cols="11" class="current-password-container">
             <label for="current-password" class="current-password-label form-label">Current password</label>
-            <input type="text" class="current-password-input-field form-control" placeholder="Type in your password" label="Recipient's username">
+            <input type="password" v-model="currentPassword" class="current-password-input-field form-control" placeholder="Type in your password">
         </b-col>
 
         <b-col cols="11" class="new-password-container">
             <label for="new-password" class="new-password-label form-label">New password</label>
-            <input type="text" class="new-password-input-field form-control" placeholder="Type in your new password" label="Recipient's name">
+            <input type="password" v-model="newPassword" class="new-password-input-field form-control" placeholder="Type in your new password" label="Recipient's name">
         </b-col>
 
         <b-col cols="11" class="confirm-password-container">
             <label for="confirm-password" class="confirm-password-label form-label">Confirm password</label>
-            <input type="text" class="confirm-password-input-field form-control" placeholder="Confirm your password" label="Recipient's password">
+            <input type="password" v-model="confirmPassword" class="confirm-password-input-field form-control" placeholder="Confirm your password">
         </b-col>
 
         <b-col cols="11" class="button-container">
-            <button type="button" class="password-details-save-button btn btn-primary">Save changes</button>
+            <button type="button" class="password-details-save-button btn btn-primary" @click="savePasswordChanges">Save changes</button>
         </b-col>
 
     </b-col>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
-  name: 'PasswordSettings'
+  name: 'AccountSettings',
+  data() {
+    return {
+      userId: '',
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
+    }
+  },
+  mounted() {
+    const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    if (businessOwner && businessOwner.id) {
+      this.userId = businessOwner.id
+    }
+  },
+  methods: {
+    async savePasswordChanges() {
+      if (!this.newPassword || !this.currentPassword || !this.confirmPassword) {
+        alert('Please fill out all fields.')
+        return
+      }
+
+      if (this.newPassword !== this.confirmPassword) {
+        alert('New password and confirmation do not match.')
+        return
+      }
+
+      try {
+        // Send PATCH request to update password
+        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, {
+          currentPassword: this.currentPassword,
+          newPassword: this.newPassword
+        })
+
+        if (response.status === 200) {
+          alert('Password updated successfully!')
+          this.currentPassword = ''
+          this.newPassword = ''
+          this.confirmPassword = ''
+        } else {
+          alert('Failed to update password.')
+        }
+      } catch (error) {
+        if (error.response) {
+          alert('Error updating password: ' + error.response.data.message)
+        } else {
+          alert('Error updating password: ' + error.message)
+        }
+      }
+    }
+  }
 }
 </script>
 
