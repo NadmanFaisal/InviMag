@@ -11,6 +11,7 @@ const orderHistoryRoutes = require('../server/routes/OrderHistoryRoutes');
 const supplierRoutes = require('../server/routes/SupplierRoutes');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const { WebSocketServer } = require('ws');
 
 const corsOptions = {
     origin: 'http://localhost:5173', 
@@ -85,6 +86,36 @@ app.use(function(err, req, res, next) {
     }
     res.status(err.status || 500);
     res.json(err_res);
+});
+
+// initialize a websocket server with port 8080
+const wss = new WebSocketServer({ port: 8080 });
+
+// Check for web socket connections
+wss.on('connection', (ws) => {
+    console.log('A new client connected');
+
+    // Incoming messages arre processed here
+    ws.on('message', (message) => {
+        console.log(`Received message => ${message}`);
+
+        // event 'updateName' to receive message from accountSettingsForm
+        const data = JSON.parse(message);
+        if (data.event === 'updateName') {
+            // Broadcast the message to all the clients
+            wss.clients.forEach(client => {
+                if (client !== ws && client.readyState === WebSocket.OPEN) {
+                    client.send(JSON.stringify({ event: 'nameUpdated', data }));
+                    console.log('Message sent from app.js')
+                }
+            });
+        }
+    });
+
+    // Handle disconnection
+    ws.on('close', () => {
+        console.log('A client disconnected');
+    });
 });
 
 app.listen(port, function(err) {
