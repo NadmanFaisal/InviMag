@@ -11,7 +11,7 @@ const orderHistoryRoutes = require('../server/routes/OrderHistoryRoutes');
 const supplierRoutes = require('../server/routes/SupplierRoutes');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-const { WebSocketServer } = require('ws');
+const { WebSocketServer, WebSocket } = require('ws');
 
 const corsOptions = {
     origin: 'http://localhost:5173', 
