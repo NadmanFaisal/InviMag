@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 import axios from 'axios'
 
 export default {
@@ -46,6 +45,17 @@ export default {
     if (businessOwner && businessOwner.id) {
       this.userId = businessOwner.id
     }
+
+    // Initialize WebSocket connection
+    this.ws = new WebSocket('ws://localhost:8080')
+
+    this.ws.onopen = () => {
+      console.log('WebSocket connection opened in account settings form')
+    }
+
+    this.ws.onclose = () => {
+      console.log('WebSocket connection closed in account settings form')
+    }
   },
   methods: {
     async updateBusinessOwner() {
@@ -59,11 +69,14 @@ export default {
       try {
         const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
         alert('Your details have been updated successfully!')
-        this.name = ''
-        this.email = ''
+
+        // Notify other clients about the name change
+        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+          this.ws.send(JSON.stringify({ event: 'updateName', data: { name: this.name } }))
+        }
       } catch (error) {
-        console.error('Error updating your details:', error)
-        alert('Could not update your details. Please try again.')
+        console.error('Error updating your details:', error);
+        alert('Could not update your details. Please try again.');
       }
     }
   }

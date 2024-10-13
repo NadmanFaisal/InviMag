@@ -29,6 +29,23 @@ export default {
     }
   },
   mounted() {
+    this.ws = new WebSocket('ws://localhost:8080')
+
+    this.ws.onopen = () => {
+      console.log('WebSocket connection opened in profile overview form')
+    }
+
+    this.ws.onmessage = (message) => {
+      const data = JSON.parse(message.data)
+      if (data.event === 'nameUpdated') {
+        this.displayUserName()
+      }
+    }
+
+    this.ws.onclose = () => {
+      console.log('WebSocket connection closed in profile overview form')
+    }
+
     const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
     if (businessOwner && businessOwner.id) {
       this.userId = businessOwner.id
