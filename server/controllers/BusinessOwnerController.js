@@ -291,7 +291,8 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
             name: (req.body.name || initialOwner.name),
             total_budget: (req.body.total_budget || initialOwner.total_budget),
             email: (req.body.email || initialOwner.email),
-            password: initialOwner.password
+            password: initialOwner.password,
+            orderHistories: req.body.orderHistories || initialOwner.orderHistories
         };
 
         // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it
