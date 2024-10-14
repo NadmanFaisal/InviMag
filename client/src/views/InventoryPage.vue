@@ -75,7 +75,6 @@ export default {
             try{
                 const response = await productApi.getAllProducts();
                 this.products = response.data.Products;
-                console.log(this.products);
 
             }catch(error){
                 console.error('An Error occured when fetching products:', error);
