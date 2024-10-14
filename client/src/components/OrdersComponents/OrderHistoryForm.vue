@@ -7,6 +7,10 @@
         <label class="order-id-label form-label">Order ID: {{ order._id }}</label>
       </b-col>
 
+      <b-col cols="3" class="date-container">
+        <label class="date-label form-label">Date: {{ order.date_of_order }}</label>
+      </b-col>
+
     </b-col>
 
   </b-col>
