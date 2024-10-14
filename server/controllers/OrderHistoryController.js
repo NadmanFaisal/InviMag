@@ -1,5 +1,6 @@
 
 const OrderHistory = require('../models/OrderHistory');
+const BusinessOwner = require('../models/BusinessOwner');
 
 // Creates an orderHistory with POST method with already specified IDs
 exports.createOrderHistory = async  (req, res, next) => {
@@ -11,7 +12,16 @@ exports.createOrderHistory = async  (req, res, next) => {
             products: req.body.products
     });
         
-        await orderHistory.save();
+
+        const savedOrderHistory = await orderHistory.save();
+
+        const businessOwnerId = req.body.businessOwner;
+        await BusinessOwner.findByIdAndUpdate(
+            businessOwnerId,
+            { $push: { orderHistories: savedOrderHistory } },
+            { new: true }
+        );
+        
         res.status(201).json(orderHistory);
     } catch (error) {
         next(error);
