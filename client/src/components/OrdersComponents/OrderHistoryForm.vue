@@ -1,6 +1,14 @@
 <template>
   <b-col cols="12" class="order-history-container">
 
+    <b-col cols="11" v-for="order in orders" :key="order._id" class="order-card">
+
+      <b-col cols="4" class="product-container">
+        <label class="order-id-label form-label">Order ID: {{ order._id }}</label>
+      </b-col>
+
+    </b-col>
+
   </b-col>
 </template>
 
