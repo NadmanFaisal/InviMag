@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Product = require('../models/Product');
 
 // Defines schema for order history
 const Schema = mongoose.Schema;
@@ -12,7 +13,7 @@ const  orderHistorySchema = new Schema ({
     businessOwner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: true},
     
     // One order history can have many products
-    products: [{type: Schema.Types.ObjectId, ref: "Product", required: true}] // Needs to be changed to true
+    products: [{type: Schema.Types.Object, ref: "Product", required: true}] // Needs to be changed to true
 });
 
 // Compiles the model from the defined schema

@@ -12,6 +12,9 @@
 
               <b-col cols="12" class="my-order-container">
               </b-col>
+
+              <OrderHistoryContainer />
+
             </b-col>
 
           </b-col>
@@ -27,6 +30,9 @@ import axios from 'axios'
 import OrderHistoryContainer from '../components/OrdersComponents/OrderHistoryForm.vue'
 
 export default {
+  components: {
+    OrderHistoryContainer
+  },
   name: 'OrderHistoryPage',
   data() {
     return {

@@ -14,7 +14,7 @@ const  businessOwnerSchema = new Schema ({
     products: [{type: Schema.Types.ObjectId, ref: "Product", required: false}],
 
     // One business owner can have multiple order histories
-    orderHistories: [{type: Schema.Types.ObjectId, ref: "OrderHistory", required: false}]
+    orderHistories: [{type: Schema.Types.Object, ref: "OrderHistory", required: false}]
 });
 
 businessOwnerSchema.virtual('loginCredentials').get(function(){ 
