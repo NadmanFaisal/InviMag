@@ -63,6 +63,20 @@ exports.addProductToSupplier = async(req, res, next) => {
     }
 }
 
+exports.getSuppliersByName = async (req, res, next) => {
+    const supplierName = req.query.name;
+    try{
+        const suppliers = await Supplier.find({name: {$regex: supplierName, $options: 'i'}});
+        if(suppliers.length === 0){
+            res.status(404).json({message: 'No suppliers found with the given name'});
+        }
+        return res.status(200).json({"Suppliers": suppliers});
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while fetching Suppliers' })
+        next(error)
+    }
+}
+
 // Get all products from a specific supplier
 
 exports.getProductsBySupplierId = async (req, res, next) => {
