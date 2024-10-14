@@ -11,6 +11,30 @@
         <label class="date-label form-label">Date: {{ order.date_of_order }}</label>
       </b-col>
 
+      <b-col cols="1" class="quantity-container">
+        <label class="date-label form-label">QTY</label>
+      </b-col>
+
+      <b-col cols="4" class="payment-container">
+
+        <b-col cols="12" class="sub-total-container">
+          Subtotal:
+        </b-col>
+
+        <b-col cols="12" class="shipping-container">
+          Shipping:
+        </b-col>
+
+        <b-col cols="12" class="to-pay-container">
+          Total:
+        </b-col>
+
+        <b-col cols="12" class="status-bar">
+          <label class="status-bar-label form-label">Paid!</label>
+        </b-col>
+
+      </b-col>
+
     </b-col>
 
   </b-col>
