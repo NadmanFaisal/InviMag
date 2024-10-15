@@ -10,10 +10,18 @@ exports.createSupplier = async (req, res, next) => {
     const supplier = new Supplier({
         name: req.body.name,
         location_of_origin: req.body.location_of_origin,
+        description: req.body.description,
         products: req.body.products
     });
 
     try {
+        if(!supplier.name){
+            return res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
+        }else if (!supplier.location_of_origin){
+            return res.status(400).json({ error: 'Bad Request, location of origin field cannot be empty'});
+        }else if (!supplier.description){
+            return res.status(400).json({ error: 'Bad Request, description field cannot be empty'});
+        }
         await supplier.save();
         res.status(201).json(supplier); //201: Created entity, usually used for POST only
     } catch (error) {
@@ -237,6 +245,8 @@ exports.updateSupplierByID = async  (req, res, next) => {
             return res.status(404).json({ message: 'Name cannot be empty' });
         } else if (!req.body.location_of_origin) {
             return res.status(404).json({ message: 'Location of origin cannot be empty' });
+        } else if(!req.body.description){
+            return res.status(404).json({ message: 'Description cannot be empty' });
         }
 
         let updatedSupplier = {name, location_of_origin};
@@ -269,7 +279,8 @@ exports.partialUpdateSupplier =  async  (req, res, next) => {
 
         let updatedSupplier = {
             name: (req.body.name || initialSupplier.name),
-            location_of_origin: (req.body.location_of_origin || initialSupplier.location_of_origin)
+            location_of_origin: (req.body.location_of_origin || initialSupplier.location_of_origin),
+            description: (req.body.description || initialSupplier.description)
         };
 
         // update with new values, and we want the new values hence new: true

@@ -6,6 +6,7 @@ const supplierSchema = new Schema({
 
     name: String,
     location_of_origin: String,
+    description: String,
     products: [{type: Schema.Types.ObjectId, ref: "Product", required: false}]
 })
 
