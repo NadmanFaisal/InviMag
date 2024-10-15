@@ -3,6 +3,10 @@
 
     <b-col cols="12" class="my-order-container">
 
+      <b-col cols="12" class="title-container">
+        <label class="title-label form-label">My Orders</label>
+      </b-col>
+
     </b-col>
 
   <b-col cols="12" class="order-history-container">
@@ -100,6 +104,23 @@ export default {
   border-bottom: 1px solid #787676;
 }
 
+.title-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 40%;
+}
+
+.title-label {
+  color: #606060;
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
 
 .order-history-container {
   display: flex;
