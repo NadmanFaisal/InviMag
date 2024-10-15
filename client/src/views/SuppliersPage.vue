@@ -6,7 +6,9 @@
         <b-col :cols="10" class = "supplierCardStyle">
           <h1 class="input-hint-style">Click the supplier to view their products.</h1>
         <ul>
-          <SupplierCard v-for="supplier in suppliers" :key="supplier._id" :supplier = "supplier"></SupplierCard>  
+          <b-col v-for="supplier in suppliers" :key="supplier._id" @click.native="goToSupplierDetail(supplier)">
+          <SupplierCard :supplier = "supplier"></SupplierCard>
+          </b-col>
         </ul>
         </b-col>
         <p class="fs-4"></p>
@@ -43,6 +45,14 @@ export default {
           console.error('An Error occured when fetching suppliers:', error);
         }
       },
+      
+      goToSupplierDetail(supplier){
+        this.$router.push({
+        name: 'SupplierDetail',
+        params: { id: supplier._id }
+      });
+      },
+
 
     },
 
