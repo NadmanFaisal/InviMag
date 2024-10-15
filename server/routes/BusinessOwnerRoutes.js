@@ -13,6 +13,7 @@ router.delete('/BusinessOwners/:id', businessOwnerController.deleteBusinessOwner
 router.put('/BusinessOwners/:id', businessOwnerController.updateBusinessOwnerByID);
 router.patch('/BusinessOwners/:id', businessOwnerController.partialUpdateBusinessOwner);
 router.post('/login', businessOwnerController.loginBusinessOwner);
+router.get('/BusinessOwners/:id/orderHistories', businessOwnerController.getOrderHistories);
 
 
 module.exports = router;

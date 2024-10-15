@@ -308,3 +308,36 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
         next(error);
     }
 }
+
+// Get order histories from a specific business owner using userId and sorted by date
+exports.getOrderHistories = async (req, res, next) => {
+    try {
+        const businessOwnerId = req.params.id;
+        const { sort_date } = req.query;
+
+        const businessOwner = await BusinessOwner.findById(businessOwnerId);
+
+        if (!businessOwner) {
+            return res.status(404).json({ message: 'Business owner not found' });
+        }
+
+        // Creates a copy of the orderHistories
+        let orderHistories = [...businessOwner.orderHistories];
+
+        if (sort_date === 'newest') {
+            // Sorts order histories in descending
+            orderHistories.sort((a, b) => new Date(b.date_of_order) - new Date(a.date_of_order));
+        } else {
+            // Sorts order histories in descending
+            orderHistories.sort((a, b) => new Date(a.date_of_order) - new Date(b.date_of_order));
+        }
+
+        res.status(200).json({ orderHistories });
+    } catch (error) {
+        console.error('Error fetching order histories:', error);
+        res.status(500).json({ message: 'An error occurred while retrieving order histories', error: error.message });
+        next(error);
+    }
+};
+
+
