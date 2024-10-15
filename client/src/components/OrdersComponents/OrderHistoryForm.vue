@@ -69,6 +69,7 @@ export default {
   data() {
     return {
       userId: '',
+      orderHistoryId: '',
       orderHistories: [],
       basket: [],
       sortBy: 'newest'

@@ -18,7 +18,7 @@ exports.createOrderHistory = async  (req, res, next) => {
         const businessOwnerId = req.body.businessOwner;
         await BusinessOwner.findByIdAndUpdate(
             businessOwnerId,
-            { $push: { orderHistories: savedOrderHistory } },
+            { $push: { orderHistories: savedOrderHistory._id } },
             { new: true }
         );
         

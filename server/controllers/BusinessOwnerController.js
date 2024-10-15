@@ -1,4 +1,5 @@
 const BusinessOwner = require('../models/BusinessOwner');
+const OrderHistory = require('../models/OrderHistory');
 const { hashPassword, comparePassword } = require('../utilities/Authentication');
 const jwt = require('../utilities/jwtUtils');
 
@@ -321,14 +322,17 @@ exports.getOrderHistories = async (req, res, next) => {
             return res.status(404).json({ message: 'Business owner not found' });
         }
 
-        // Creates a copy of the orderHistories
-        let orderHistories = [...businessOwner.orderHistories];
+        const orderHistoryIds = businessOwner.orderHistories;
+        console.log(orderHistoryIds);
 
+        let orderHistories = await OrderHistory.find({
+            _id: { $in: orderHistoryIds }
+        }).populate('products');
+
+        // Sort the order histories based on date_of_order
         if (sort_date === 'newest') {
-            // Sorts order histories in descending
             orderHistories.sort((a, b) => new Date(b.date_of_order) - new Date(a.date_of_order));
         } else {
-            // Sorts order histories in descending
             orderHistories.sort((a, b) => new Date(a.date_of_order) - new Date(b.date_of_order));
         }
 
