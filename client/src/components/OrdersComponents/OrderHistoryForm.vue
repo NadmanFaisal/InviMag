@@ -1,14 +1,20 @@
 <template>
+  <b-col cols="12" class="order-container">
+
+    <b-col cols="12" class="my-order-container">
+
+    </b-col>
+
   <b-col cols="12" class="order-history-container">
 
-    <b-col cols="11" v-for="order in orders" :key="order._id" class="order-card">
+    <b-col cols="11" v-for="orderHistory in orderHistoriess" :key="orderHistory._id" class="order-card">
 
       <b-col cols="4" class="product-container">
-        <label class="order-id-label form-label">Order ID: {{ order._id }}</label>
+        <label class="order-id-label form-label">Order ID: {{ orderHistory._id }}</label>
       </b-col>
 
       <b-col cols="3" class="date-container">
-        <label class="date-label form-label">Date: {{ order.date_of_order }}</label>
+        <label class="date-label form-label">Date: {{ orderHistory.date_of_order }}</label>
       </b-col>
 
       <b-col cols="1" class="quantity-container">
@@ -38,6 +44,7 @@
     </b-col>
 
   </b-col>
+  </b-col>
 </template>
 
 <script>
@@ -49,7 +56,8 @@ export default {
   data() {
     return {
       userId: '',
-      orders: []
+      orderHistoriess: [],
+      basket: []
     }
   },
   mounted() {
@@ -63,8 +71,8 @@ export default {
     async fetchOrderHistories() {
       try {
         const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`) // Replace with your actual endpoint
-        this.orders = response.data.orderHistories // Assuming the response contains the order histories
-        console.log(this.orders)
+        this.orderHistoriess = response.data.orderHistories // Assuming the response contains the order histories
+        console.log(this.orderHistoriess)
       } catch (error) {
         console.error('Error fetching order histories:', error)
       }
@@ -74,6 +82,25 @@ export default {
 </script>
 
 <style scoped>
+
+.order-container {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background: #FFF;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  height: 95%;
+}
+
+.my-order-container {
+  display: flex;
+  flex-direction: column;
+  height: 20%;
+  border-bottom: 1px solid #787676;
+}
+
+
 .order-history-container {
   display: flex;
   flex-direction: column;
@@ -133,6 +160,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
+  border: 3px solid #00a123;
   width: 100%;
   height: 55%;
   background: rgb(188, 255, 157);
