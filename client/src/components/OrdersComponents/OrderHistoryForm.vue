@@ -23,19 +23,35 @@
     <b-col cols="11" v-for="orderHistory in orderHistories" :key="orderHistory._id" class="order-card">
 
       <b-col cols="4" class="product-container">
-        <label class="order-id-label form-label">Order ID: {{ orderHistory._id }}</label>
+
+        <b-col cols="12" class="order-id-label-container">
+          <label class="order-id-label form-label">Order ID: {{ orderHistory._id }}</label>
+        </b-col>
 
         <b-col cols="12" class="product-name-container" v-for="product in orderHistory.products" :key="product._id">
           <label class="product-name-label form-label">{{ product.name }}</label>
         </b-col>
+
       </b-col>
 
       <b-col cols="4" class="date-container">
-        <label class="date-label form-label">Date: {{ orderHistory.date_of_order }}</label>
+
+        <b-col cols="12" class="date-label-container">
+          <label class="date-label form-label">Date: {{ orderHistory.date_of_order }}</label>
+        </b-col>
+
+        <b-col cols="12" class="empty-container" v-for="product in orderHistory.products" :key="product._id">
+        <hr>
+        </b-col>
+
       </b-col>
 
       <b-col cols="1" class="quantity-container">
-        <label class="date-label form-label">QTY</label>
+
+        <b-col cols="12" class="quantity-label-container">
+          <label class="quantity-label form-label">QTY</label>
+        </b-col>
+
         <b-col cols="12" class="product-quantity-container" v-for="product in orderHistory.products" :key="product._id">
           <label class="product-quantity-label form-label">{{ product.quantity }}</label>
         </b-col>
@@ -159,6 +175,33 @@ export default {
   align-items: center
 }
 
+.order-card {
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  border-radius: 5px;
+  border: 2px solid #b0caff;
+  margin-top: 1rem;
+  overflow-y: auto;
+}
+
+.order-container, .quantity-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.order-id-label-container, .date-label-container, .quantity-label-container {
+  display: block;
+  flex-direction: column;
+  background: #e0e0e0;
+}
+
 .order-id-label, .date-label, .quantity-label {
   color: #606060;
   font-family: "Istok Web";
@@ -168,21 +211,33 @@ export default {
   line-height: normal;
 }
 
-.order-card {
+.product-name-container, .empty-container, .product-quantity-container {
+  height: 30px;
   display: flex;
-  flex-direction: row;
-  height: 200px;
-  border-radius: 5px;
-  border: 2px solid #b0caff;
-  background: #FFF;
-  margin-top: 1rem;
-  overflow-y: auto;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.empty-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name-label, .product-quantity-label {
+  margin-top: 7px;
+  color: #606060;
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .payment-container {
   display: flex;
   flex-direction: column;
-  background: rgba(51, 119, 255, 0.25);
+  background: rgba(88, 144, 255, 0.25);
   padding: 5px;
 }
 
