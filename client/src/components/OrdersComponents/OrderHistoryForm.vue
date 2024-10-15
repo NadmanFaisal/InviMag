@@ -36,6 +36,9 @@
 
       <b-col cols="1" class="quantity-container">
         <label class="date-label form-label">QTY</label>
+        <b-col cols="12" class="product-quantity-container" v-for="product in orderHistory.products" :key="product._id">
+          <label class="product-quantity-label form-label">{{ product.quantity }}</label>
+        </b-col>
       </b-col>
 
       <b-col cols="3" class="payment-container">
