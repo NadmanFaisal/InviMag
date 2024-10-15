@@ -10,8 +10,8 @@
       <b-col cols="12" class="filter-container">
 
         <b-dropdown text="Filter Orders" class="sort-order-button" variant="primary">
-          <b-dropdown-item href="#">Newest</b-dropdown-item>
-          <b-dropdown-item href="#">Oldest</b-dropdown-item>
+          <b-dropdown-item @click="setSort('oldest')" href="#">Newest</b-dropdown-item>
+          <b-dropdown-item @click="setSort('oldest')" href="#">Oldest</b-dropdown-item>
         </b-dropdown>
 
       </b-col>
@@ -20,7 +20,7 @@
 
   <b-col cols="12" class="order-history-container">
 
-    <b-col cols="11" v-for="orderHistory in orderHistoriess" :key="orderHistory._id" class="order-card">
+    <b-col cols="11" v-for="orderHistory in orderHistories" :key="orderHistory._id" class="order-card">
 
       <b-col cols="4" class="product-container">
         <label class="order-id-label form-label">Order ID: {{ orderHistory._id }}</label>
@@ -69,8 +69,9 @@ export default {
   data() {
     return {
       userId: '',
-      orderHistoriess: [],
-      basket: []
+      orderHistories: [],
+      basket: [],
+      sortBy: ''
     }
   },
   mounted() {
@@ -83,12 +84,16 @@ export default {
   methods: {
     async fetchOrderHistories() {
       try {
-        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
-        this.orderHistoriess = response.data.orderHistories
-        console.log(this.orderHistoriess)
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/orderHistories?sort_date=${this.sortBy}`)
+        this.orderHistories = response.data.orderHistories
+        console.log(this.orderHistories)
       } catch (error) {
         console.error('Error fetching order histories:', error)
       }
+    },
+    setSort(sortAlgorithm) {
+      this.sortBy = sortAlgorithm
+      this.fetchOrderHistories()
     }
   }
 }
