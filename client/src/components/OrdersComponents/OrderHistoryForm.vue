@@ -107,7 +107,7 @@ export default {
   border-radius: 15px;
   background: #FFF;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
-  height: 95%;
+  height: 950px;
 }
 
 .my-order-container {
@@ -147,7 +147,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  height: 80%;
+  max-height: 80%;
   align-items: center
 }
 
@@ -163,7 +163,7 @@ export default {
 .order-card {
   display: flex;
   flex-direction: row;
-  height: 30%;
+  height: 200px;
   border-radius: 5px;
   border: 2px solid #b0caff;
   background: #FFF;
