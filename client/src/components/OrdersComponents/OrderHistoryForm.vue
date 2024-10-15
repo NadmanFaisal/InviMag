@@ -24,9 +24,13 @@
 
       <b-col cols="4" class="product-container">
         <label class="order-id-label form-label">Order ID: {{ orderHistory._id }}</label>
+
+        <b-col cols="12" class="product-name-container" v-for="product in orderHistory.products" :key="product._id">
+          <label class="product-name-label form-label">{{ product.name }}</label>
+        </b-col>
       </b-col>
 
-      <b-col cols="3" class="date-container">
+      <b-col cols="4" class="date-container">
         <label class="date-label form-label">Date: {{ orderHistory.date_of_order }}</label>
       </b-col>
 
@@ -34,7 +38,7 @@
         <label class="date-label form-label">QTY</label>
       </b-col>
 
-      <b-col cols="4" class="payment-container">
+      <b-col cols="3" class="payment-container">
 
         <b-col cols="12" class="sub-total-container">
           Subtotal:
