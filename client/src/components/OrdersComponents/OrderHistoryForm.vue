@@ -9,8 +9,8 @@
 
       <b-col cols="12" class="filter-container">
 
-        <b-dropdown text="Filter Orders" class="sort-order-button" variant="primary">
-          <b-dropdown-item @click="setSort('oldest')" href="#">Newest</b-dropdown-item>
+        <b-dropdown text="Filter Orders" class="sort-order-button" variant="light">
+          <b-dropdown-item @click="setSort('newest')" href="#">Newest</b-dropdown-item>
           <b-dropdown-item @click="setSort('oldest')" href="#">Oldest</b-dropdown-item>
         </b-dropdown>
 
@@ -71,7 +71,7 @@ export default {
       userId: '',
       orderHistories: [],
       basket: [],
-      sortBy: ''
+      sortBy: 'newest'
     }
   },
   mounted() {
@@ -86,7 +86,6 @@ export default {
       try {
         const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/orderHistories?sort_date=${this.sortBy}`)
         this.orderHistories = response.data.orderHistories
-        console.log(this.orderHistories)
       } catch (error) {
         console.error('Error fetching order histories:', error)
       }
