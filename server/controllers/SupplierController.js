@@ -237,7 +237,7 @@ exports.deleteAllSuppliers = async (req, res, next) => {
 exports.updateSupplierByID = async  (req, res, next) => {
     try {
         const id = req.params.id;
-        const {name, location_of_origin} = req.body;
+        const {name, location_of_origin, description} = req.body;
 
         // this to ensure that put does not act like patch.
 
@@ -249,7 +249,7 @@ exports.updateSupplierByID = async  (req, res, next) => {
             return res.status(404).json({ message: 'Description cannot be empty' });
         }
 
-        let updatedSupplier = {name, location_of_origin};
+        let updatedSupplier = {name, location_of_origin, description};
 
         // true: to always return updated supplier
         const supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true }).populate('products');
