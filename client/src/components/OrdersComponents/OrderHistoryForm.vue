@@ -7,6 +7,15 @@
         <label class="title-label form-label">My Orders</label>
       </b-col>
 
+      <b-col cols="12" class="filter-container">
+
+        <b-dropdown text="Filter Orders" class="sort-order-button" variant="primary">
+          <b-dropdown-item href="#">Newest</b-dropdown-item>
+          <b-dropdown-item href="#">Oldest</b-dropdown-item>
+        </b-dropdown>
+
+      </b-col>
+
     </b-col>
 
   <b-col cols="12" class="order-history-container">
@@ -74,8 +83,8 @@ export default {
   methods: {
     async fetchOrderHistories() {
       try {
-        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`) // Replace with your actual endpoint
-        this.orderHistoriess = response.data.orderHistories // Assuming the response contains the order histories
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        this.orderHistoriess = response.data.orderHistories
         console.log(this.orderHistoriess)
       } catch (error) {
         console.error('Error fetching order histories:', error)
@@ -120,6 +129,14 @@ export default {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+.filter-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 60%;
 }
 
 .order-history-container {
