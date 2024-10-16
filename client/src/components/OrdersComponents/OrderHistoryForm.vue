@@ -20,6 +20,55 @@
 
   <b-col cols="12" class="order-history-container">
 
+    <b-col cols=11 class="basket-container" v-if="basket.length > 0">
+
+      <b-col cols="4" class="product-container">
+
+        <b-col cols="12" class="order-id-label-container">
+          <label class="order-id-label form-label">Order ID: </label>
+        </b-col>
+
+      </b-col>
+
+      <b-col cols="4" class="date-container">
+
+        <b-col cols="12" class="date-label-container">
+          <label class="date-label form-label">Date: </label>
+        </b-col>
+
+      </b-col>
+
+      <b-col cols="1" class="quantity-container">
+
+        <b-col cols="12" class="quantity-label-container">
+          <label class="quantity-label form-label">QTY</label>
+        </b-col>
+
+      </b-col>
+
+      <b-col cols="3" class="payment-container">
+
+        <b-col cols="12" class="sub-total-container">
+          Subtotal:
+        </b-col>
+
+        <b-col cols="12" class="shipping-container">
+          Shipping:
+        </b-col>
+
+        <b-col cols="12" class="to-pay-container">
+          Total:
+        </b-col>
+
+        <b-col cols="12" class="button-container">
+          <button type="button" class="accept-button btn btn-primary">Accept!</button>
+          <button type="button" class="reject-button btn btn-danger">Reject!</button>
+        </b-col>
+
+      </b-col>
+
+    </b-col>
+
     <b-col cols="11" v-for="orderHistory in orderHistories" :key="orderHistory._id" class="order-card">
 
       <b-col cols="4" class="product-container">
@@ -37,7 +86,7 @@
       <b-col cols="4" class="date-container">
 
         <b-col cols="12" class="date-label-container">
-          <label class="date-label form-label">Date: {{ orderHistory.date_of_order }}</label>
+          <label class="date-label form-label">Date: {{ new Date(orderHistory.date_of_order).toLocaleDateString('sv-SE') }}</label>
         </b-col>
 
         <b-col cols="12" class="empty-container" v-for="product in orderHistory.products" :key="product._id">
@@ -175,6 +224,51 @@ export default {
   align-items: center
 }
 
+.basket-container {
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  border-radius: 5px;
+  border: 2px solid #b0caff;
+  margin-top: 1rem;
+  overflow-y: auto;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.accept-button {
+  color: var(--Schemes-On-Primary, #FFF);
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: #37F;
+  width: 70%;
+}
+
+.reject-button {
+  color: var(--Schemes-On-Primary, #FFF);
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-top: 10px;
+  border-radius: 5px;
+  background: #F60101;
+  width: 70%;
+}
+
 .order-card {
   display: flex;
   flex-direction: row;
@@ -197,9 +291,12 @@ export default {
 }
 
 .order-id-label-container, .date-label-container, .quantity-label-container {
-  display: block;
+  display: flex;
   flex-direction: column;
   background: #e0e0e0;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
 }
 
 .order-id-label, .date-label, .quantity-label {
