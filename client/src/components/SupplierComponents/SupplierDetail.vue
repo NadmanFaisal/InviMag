@@ -91,27 +91,50 @@ export default{
         }
     },
 
-    async addToBasket(id){
-        const inputQuantity = Number(this.inputQuantities[id]);
-        let previousAmountBought = Number(localStorage.getItem(`amountOfProductBought${id}`)) || 0;
-        const totalAmountBought = previousAmountBought+inputQuantity;
+    async addToBasket(productID){
+        const inputQuantity = Number(this.inputQuantities[productID]);
+        if(inputQuantity === 0){
+            alert("Please Provide an input quantity")
+        }else {
+        //let previousAmountBought = Number(localStorage.getItem(`amountOfProductBought${id}`)) || 0;
+        //const totalAmountBought = previousAmountBought+inputQuantity;
+        let basket = JSON.parse(localStorage.getItem('basket')) || [];
+        const supplierId = this.id;
         try{
-        const response = await productApi.getProductByID(id);
-        const quantity = Number(response.data.quantity);
-        if(totalAmountBought > quantity){
-            alert(`Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${quantity}`);
-        }else{
-        
+
+        const response = await productApi.getProductByID(productID);
         const product = response.data;
-        previousAmountBought = totalAmountBought;
-        localStorage.setItem(`product${id}`, JSON.stringify(product));
-        localStorage.setItem(`amountOfProductBought${id}`, JSON.stringify(totalAmountBought));
-            alert(`${inputQuantity} ${product.name} have been added to the basket`)
+        const avaiableQuantity = Number(response.data.quantity);
+         
+        let existingProductInBasket = basket.find(item => item.id === productID);
+        let totalQuantityInBasket = (existingProductInBasket ? existingProductInBasket.quantity : 0) + inputQuantity;
+
+
+    
+        if(totalQuantityInBasket > avaiableQuantity){
+            alert(`Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${avaiableQuantity}`);
+        }else{
+            if (existingProductInBasket) {
+                // If product exists in the basket, update its quantity
+                existingProductInBasket.quantity += inputQuantity;
+            } else {
+        
+                basket.push({
+                    id: productID,
+                    name: product.name,
+                    price: product.selling_price,
+                    quantity: inputQuantity,
+                    supplierID: supplierId
+                });
+            }
+                localStorage.setItem(`basket`, JSON.stringify(basket));
+                alert(`${inputQuantity} ${product.name} have been added to the basket`)
         }
 
         }catch(error){
             console.error('Error fetching supplier and products:', error);
         }
+    }
     }
 
   },
