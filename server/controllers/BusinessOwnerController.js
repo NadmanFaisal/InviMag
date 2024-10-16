@@ -155,6 +155,44 @@ exports.checkAuthStatus = async (req, res, next) => {
     }
 };
 
+exports.addProductToBusinessOwner = async (req, res, next) => {
+    const id = req.params.id;
+    
+    try{
+        const businessOwner = await BusinessOwner.findById(id).populate('products');
+
+        if(!businessOwner){
+            return res.status(404).json({message: 'Did not find Business Owner'});
+        }
+
+        const newProduct = new Product({
+            name: req.body.name,
+            quantity: req.body.quantity,
+            buying_price: req.body.buying_price,
+            selling_price: req.body.selling_price,
+            category: req.body.category,
+            in_stock: req.body.in_stock,
+            supplier: req.body.supplier,
+            order_history: req.body.order_history
+        });
+
+        const savedProduct = await newProduct.save();
+        businessOwner.products.push(savedProduct);
+
+        await businessOwner.save();
+
+        res.status(201).json({
+            message: 'Product has been added to Business Owner.',
+            supplier: supplier,
+            product_id: savedProduct._id
+        });
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred when adding a product to a business owner' });
+        next(error);
+    }
+}
+
+
 
 // Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
 // If multiple business owners with the same total budget exist, it sorts by name.
