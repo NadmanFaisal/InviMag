@@ -10,10 +10,18 @@ exports.createSupplier = async (req, res, next) => {
     const supplier = new Supplier({
         name: req.body.name,
         location_of_origin: req.body.location_of_origin,
+        description: req.body.description,
         products: req.body.products
     });
 
     try {
+        if(!supplier.name){
+            return res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
+        }else if (!supplier.location_of_origin){
+            return res.status(400).json({ error: 'Bad Request, location of origin field cannot be empty'});
+        }else if (!supplier.description){
+            return res.status(400).json({ error: 'Bad Request, description field cannot be empty'});
+        }
         await supplier.save();
         res.status(201).json(supplier); //201: Created entity, usually used for POST only
     } catch (error) {
@@ -42,7 +50,6 @@ exports.addProductToSupplier = async(req, res, next) => {
             selling_price: req.body.selling_price,
             category: req.body.category,
             in_stock: req.body.in_stock,
-            business_owner: req.body.business_owner,
             order_history: req.body.order_history
         });
 
@@ -60,6 +67,20 @@ exports.addProductToSupplier = async(req, res, next) => {
     }
     catch(error) {
         next(error);
+    }
+}
+
+exports.getSuppliersByName = async (req, res, next) => {
+    const supplierName = req.query.name;
+    try{
+        const suppliers = await Supplier.find({name: {$regex: supplierName, $options: 'i'}});
+        if(suppliers.length === 0){
+            res.status(404).json({message: 'No suppliers found with the given name'});
+        }
+        return res.status(200).json({"Suppliers": suppliers});
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while fetching Suppliers' })
+        next(error)
     }
 }
 
@@ -215,7 +236,7 @@ exports.deleteAllSuppliers = async (req, res, next) => {
 exports.updateSupplierByID = async  (req, res, next) => {
     try {
         const id = req.params.id;
-        const {name, location_of_origin} = req.body;
+        const {name, location_of_origin, description} = req.body;
 
         // this to ensure that put does not act like patch.
 
@@ -223,9 +244,11 @@ exports.updateSupplierByID = async  (req, res, next) => {
             return res.status(404).json({ message: 'Name cannot be empty' });
         } else if (!req.body.location_of_origin) {
             return res.status(404).json({ message: 'Location of origin cannot be empty' });
+        } else if(!req.body.description){
+            return res.status(404).json({ message: 'Description cannot be empty' });
         }
 
-        let updatedSupplier = {name, location_of_origin};
+        let updatedSupplier = {name, location_of_origin, description};
 
         // true: to always return updated supplier
         const supplier = await Supplier.findByIdAndUpdate(id, updatedSupplier, { new: true }).populate('products');
@@ -255,7 +278,8 @@ exports.partialUpdateSupplier =  async  (req, res, next) => {
 
         let updatedSupplier = {
             name: (req.body.name || initialSupplier.name),
-            location_of_origin: (req.body.location_of_origin || initialSupplier.location_of_origin)
+            location_of_origin: (req.body.location_of_origin || initialSupplier.location_of_origin),
+            description: (req.body.description || initialSupplier.description)
         };
 
         // update with new values, and we want the new values hence new: true

@@ -4,6 +4,7 @@ const supplierController = require('../controllers/SupplierController');
 
 router.post('/suppliers', supplierController.createSupplier);
 router.post('/suppliers/:id/Products', supplierController.addProductToSupplier);
+router.get('/suppliers/search/',supplierController.getSuppliersByName);
 router.get('/suppliers/:id/Products', supplierController.getProductsBySupplierId);
 router.get('/suppliers/:id/Products/:product_id', supplierController.getSpecificProductBySupplierId);
 router.get('/suppliers/', supplierController.getAllSuppliers);

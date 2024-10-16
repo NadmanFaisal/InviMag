@@ -7,10 +7,8 @@ const Schema = mongoose.Schema;
 const  orderHistorySchema = new Schema ({
     total_price: {type: Number, required: true},
     date_of_order: {type: Date, required: true},
-
     // Many order history -> only one business owner.
     businessOwner: {type: Schema.Types.ObjectId, ref: "BusinessOwner", required: true},
-    
     // One order history can have many products
     products: [{type: Schema.Types.ObjectId, ref: "Product", required: true}] // Needs to be changed to true
 });

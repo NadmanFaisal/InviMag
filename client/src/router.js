@@ -6,6 +6,8 @@ import LogIn from './views/loginPage.vue'
 import SignUp from './views/SignUp.vue'
 import Settings from './views/SettingsPage.vue'
 import InventoryPage from './views/InventoryPage.vue'
+import SuppliersPage from './views/SuppliersPage.vue'
+import SupplierDetail from './components/SupplierComponents/SupplierDetail.vue'
 
 
 const routes = [
@@ -14,6 +16,8 @@ const routes = [
   { path: '/signup', name: 'signup', component: SignUp, meta: { requiresAuth: false } },
   { path: '/settings', name: 'settings', component: Settings, meta: { requiresAuth: true } },
   {path: '/inventoryPage', name:'InventoryPage', component: InventoryPage, meta: { requiresAuth: true }},
+  {path: '/suppliersPage', name: 'Suppliers', component: SuppliersPage, meta: { requiresAuth: true }},
+  {path: '/supplier/:id', name: 'SupplierDetail', component: SupplierDetail, meta: { requiresAuth: true}, props: true}
 ]
 
 const router = createRouter({
