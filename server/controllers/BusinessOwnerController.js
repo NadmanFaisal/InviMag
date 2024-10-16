@@ -1,5 +1,7 @@
 const BusinessOwner = require('../models/BusinessOwner');
 const OrderHistory = require('../models/OrderHistory');
+const Product = require('../models/Product')
+const Supplier = require('../models/Supplier')
 const { hashPassword, comparePassword } = require('../utilities/Authentication');
 const jwt = require('../utilities/jwtUtils');
 
@@ -158,6 +160,7 @@ exports.checkAuthStatus = async (req, res, next) => {
 
 exports.addProductToBusinessOwner = async (req, res, next) => {
     const id = req.params.id;
+    const orderHistoryId = req.body.orderHistory
     
     try{
         const businessOwner = await BusinessOwner.findById(id).populate('products');
@@ -174,17 +177,22 @@ exports.addProductToBusinessOwner = async (req, res, next) => {
             category: req.body.category,
             in_stock: req.body.in_stock,
             supplier: req.body.supplier,
-            order_history: req.body.order_history
+            order_history: orderHistoryId
         });
 
         const savedProduct = await newProduct.save();
         businessOwner.products.push(savedProduct);
 
+        await OrderHistory.findByIdAndUpdate(
+            orderHistoryId,
+            { $push: { products: savedProduct._id } },
+            { new: true }
+        );
+
         await businessOwner.save();
 
         res.status(201).json({
             message: 'Product has been added to Business Owner.',
-            supplier: supplier,
             product_id: savedProduct._id
         });
     }catch(error){
@@ -349,7 +357,8 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
             total_budget: (req.body.total_budget || initialOwner.total_budget),
             email: (req.body.email || initialOwner.email),
             password: initialOwner.password,
-            orderHistories: req.body.orderHistories || initialOwner.orderHistories
+            orderHistories: req.body.orderHistories || initialOwner.orderHistories,
+            products: req.body.products || initialOwner.products
         };
 
         // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it
