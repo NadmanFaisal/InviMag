@@ -71,7 +71,7 @@
 <script>
 
 import { Api } from '@/Api'
-import textureImage from '/src/texturePacks/login_texture.png'
+import textureImage from '../texturePacks/login_texture.png'
 
 export default {
   name: 'LogIn',

@@ -188,6 +188,7 @@ export default {
   flex-direction: column;
   height: 20%;
   border-bottom: 1px solid #787676;
+  box-shadow: 0px 7px 5px -5px rgba(0, 0, 0, 0.3);
 }
 
 .title-container {
@@ -253,6 +254,7 @@ export default {
   border-radius: 5px;
   background: #37F;
   width: 70%;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .reject-button {
@@ -267,6 +269,7 @@ export default {
   border-radius: 5px;
   background: #F60101;
   width: 70%;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .order-card {
