@@ -1,14 +1,14 @@
 <template>
-    <button class="supplier-container">
-    <ul>
-        <div class = "supplier-info">
-        <img :src= "supplierimage" class="supplier-image">
-        <div class="supplier-title">{{ supplier.name }}
-            <span class = "location-style">Location: {{ supplier.location_of_origin }}</span><br>
-            <span class = "supplier-description">{{ supplier.description }}</span></div><br>
-        </div>
-    </ul>
-    </button>
+    <div class="supplier-container">
+            <div class = "supplier-info">
+                <img :src= "supplierimage" class="supplier-image">
+                <div class="supplier-title">{{ supplier.name }}
+                    <span class = "location-style">Location: {{ supplier.location_of_origin }}</span><br>
+                    <span class = "supplier-description">{{ supplier.description }}</span><br>
+                    <button @click="gotoSupplierDetail" class="detail-button">View Supplier Details</button>
+                </div>
+            </div>
+    </div>
 </template>
 <script>
 import supplierimage from '../SupplierComponents/Images/purple-user-icon.png'
@@ -26,6 +26,13 @@ export default {
             type: Object,
             required: true
         }
+    },
+    methods:{
+
+        goToSupplierDetail(){
+            this.$router.push({name: 'SupplierDetail', params: {id: this.supplier._id, supplier: this.supplier}})
+        }
+
     }
 }
 </script>
@@ -38,7 +45,7 @@ export default {
     align-items: flex-start;                 
     padding-top: 30px;
     width: 100%;                  
-    height: 177px;                 
+    height: 200px;                 
     border-radius: 10px;
     background: #FFF;
     margin-bottom: 20px;
@@ -52,10 +59,10 @@ export default {
 }
 
 .supplier-image {
-    width: 120px;                  /* Adjust the width of the image */
-    height: 120px;                 /* Adjust the height of the image */
+    width: 140px;                  /* Adjust the width of the image */
+    height: 140px;                 /* Adjust the height of the image */
     object-fit: cover;            /* Keeps the aspect ratio of the image */
-    padding: 5px;
+    padding: 15px;
     align-self: flex-start;
 }
 
@@ -66,7 +73,6 @@ export default {
     color:black;
     font-family: "Istok Web";
     font-weight: bold;
-    margin-top: -5px;
     align-self: flex-start; 
     text-align: left;
 }
@@ -92,7 +98,22 @@ export default {
     margin-left: 0 !important;
 }
 
-
+.detail-button {
+    background-color: #37F;
+    color: white;
+    font-family: "Istok Web";
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    padding: 10px;
+    height: 40px;
+    width: 200px;
+}
 
 @media (max-width: 768px) {
     .supplierDisplay{
