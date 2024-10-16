@@ -1,11 +1,11 @@
 {
 	"info": {
-		"_postman_id": "2357ea3b-e8f5-4c59-aea7-e2098130b42b",
+		"_postman_id": "a07d624d-ea61-478e-97e8-5505c1baddcd",
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38198193",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-2357ea3b-e8f5-4c59-aea7-e2098130b42b?action=share&source=collection_link&creator=38198193"
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38198193-a07d624d-ea61-478e-97e8-5505c1baddcd?action=share&source=collection_link&creator=38198193"
 	},
 	"item": [
 		{
@@ -329,14 +329,6 @@
 			"response": []
 		},
 		{
-			"name": "GET /v1/api/businessOwners/:id/orderHistories",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
 			"name": "PUT /v1/api/businessOwners/:id",
 			"event": [
 				{
@@ -520,7 +512,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Netflix\",\r\n    \"location_of_origin\": \"US\",\r\n    \"description\": \"At Netflix, we want to entertain the world. Whatever your taste, and no matter where you live, we give you access to best-in-class TV series, documentaries, feature films and games.\"\r\n}",
+					"raw": "{\r\n    \"name\": \"DEF Company\",\r\n    \"location_of_origin\": \"Azerbaijan\",\r\n    \"description\": \"We love the world\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -733,47 +725,6 @@
 			"response": []
 		},
 		{
-			"name": "GET /v1/api/suppliers/search",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{host}}/v1/api/suppliers/search/?name=Netflix",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"suppliers",
-						"search",
-						""
-					],
-					"query": [
-						{
-							"key": "name",
-							"value": "Netflix"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GET /v1/api/suppliers/:id",
 			"event": [
 				{
@@ -828,7 +779,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ABC Company, Ltd\",\r\n    \"location_of_origin\": \"Daka, Bangladesh\",\r\n    \"description\": \"We create new opportunities for people\"\r\n}",
+					"raw": "{\r\n    \"name\": \"ABC Company, Ltd\",\r\n    \"location_of_origin\": \"Daka, Bangladesh\",\r\n    \"description\": \"I love diddy\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
