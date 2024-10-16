@@ -520,7 +520,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Rainy Days\",\r\n    \"location_of_origin\": \"US\",\r\n    \"description\": \"At Netflix, we want to entertain the world. Whatever your taste, and no matter where you live, we give you access to best-in-class TV series, documentaries, feature films and games.\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Netflix\",\r\n    \"location_of_origin\": \"US\",\r\n    \"description\": \"At Netflix, we want to entertain the world. Whatever your taste, and no matter where you live, we give you access to best-in-class TV series, documentaries, feature films and games.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -733,7 +733,7 @@
 			"response": []
 		},
 		{
-			"name": "GET /v1/api/suppliers/serach",
+			"name": "GET /v1/api/suppliers/search",
 			"event": [
 				{
 					"listen": "test",
