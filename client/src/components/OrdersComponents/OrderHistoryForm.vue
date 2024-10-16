@@ -34,10 +34,14 @@
 
       </b-col>
 
-      <b-col cols="4" class="date-container">
+      <b-col cols="4" class="price-container">
 
-        <b-col cols="12" class="date-label-container">
-          <label class="date-label form-label">Date: </label>
+        <b-col cols="12" class="price-label-container">
+          <label class="price-label form-label">Price </label>
+        </b-col>
+
+        <b-col cols="12" class="product-price-container" v-for="product in basket" :key="product._id">
+          <label class="product-price-label form-label">{{ product.price }}</label>
         </b-col>
 
       </b-col>
@@ -57,15 +61,15 @@
       <b-col cols="3" class="payment-container">
 
         <b-col cols="12" class="sub-total-container">
-          Subtotal: {{ subtotal }}
+          Subtotal: {{ basketSubtotal }}
         </b-col>
 
         <b-col cols="12" class="shipping-container">
-          Shipping: {{ shipping }}
+          Shipping: {{ basketShipping }}
         </b-col>
 
         <b-col cols="12" class="to-pay-container">
-          Total: {{ subtotal }}
+          Total: {{ basketSubtotal }}
         </b-col>
 
         <b-col cols="12" class="button-container">
@@ -153,9 +157,9 @@ export default {
       orderHistories: [],
       basket: [],
       sortBy: 'newest',
-      subtotal: '',
-      shipping: 'Free',
-      total: ''
+      basketSubtotal: '',
+      basketShipping: 'Free',
+      basketTotal: ''
     }
   },
   mounted() {
@@ -165,7 +169,7 @@ export default {
     if (businessOwner && businessOwner.id) {
       this.userId = businessOwner.id
       this.fetchOrderHistories()
-      this.basketSubtotal()
+      this.getBasketSubtotal()
     }
   },
   methods: {
@@ -181,8 +185,8 @@ export default {
       this.sortBy = sortAlgorithm
       this.fetchOrderHistories()
     },
-    basketSubtotal() {
-      this.subtotal = this.basket.reduce((total, product) => {
+    getBasketSubtotal() {
+      this.basketSubtotal = this.basket.reduce((total, product) => {
         const productQuantity = product.quantity || 0
         const productPrice = product.price || 0
         return total + (productQuantity * productPrice)
@@ -254,6 +258,39 @@ export default {
   border: 2px solid #b0caff;
   margin-top: 1rem;
   overflow-y: auto;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.price-label-container {
+  display: flex;
+  flex-direction: column;
+  background: #e0e0e0;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-price-label {
+  margin-top: 7px;
+  color: #606060;
+  text-align: center;
+  font-family: "Istok Web";
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.product-price-container {
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .button-container {
