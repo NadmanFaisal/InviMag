@@ -329,6 +329,14 @@
 			"response": []
 		},
 		{
+			"name": "GET /v1/api/businessOwners/:id/orderHistories",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
 			"name": "PUT /v1/api/businessOwners/:id",
 			"event": [
 				{
