@@ -99,9 +99,11 @@ export default {
           alert(`Login successful! Welcome back ${businessOwnerName}!`)
         }, 500)
         this.$router.push('/')
+        let basket = []
 
         // Stores the business owners details in local storage
         localStorage.setItem('businessOwner', JSON.stringify(businessOwner))
+        localStorage.setItem('basket', JSON.stringify(basket))
       } catch (err) {
         console.error(err)
         this.error = err.response?.data?.message || 'An error occurred during login'
