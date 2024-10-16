@@ -240,6 +240,24 @@ exports.getBusinessOwnerByID = async (req, res) => {
     }
 }
 
+exports.getProductsByBusinessOwnerID = async (req, res, next) => {
+    const id = req.params.id
+    try{
+        const businessOwner = await BusinessOwner.findById(id).populate('products')
+
+        if(!businessOwner){
+            return res.status(404).json({message: 'Did not find Business Owner'});
+        }
+
+        res.status(200).json({'products': businessOwner.products});
+
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' });
+        next(error);
+    }
+}
+
+
 // Will delete business owner according to its id
 exports.deleteBusinessOwnerByID = async (req, res) =>{
     try {
