@@ -19,7 +19,6 @@
 
 <script>
 
-import axios from 'axios'
 import OrderHistoryContainer from '../components/OrdersComponents/OrderHistoryForm.vue'
 
 export default {

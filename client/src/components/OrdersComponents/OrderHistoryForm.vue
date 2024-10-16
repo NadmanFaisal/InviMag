@@ -28,6 +28,10 @@
           <label class="order-id-label form-label">Order ID: </label>
         </b-col>
 
+        <b-col cols="12" class="product-name-container" v-for="product in basket" :key="product._id">
+          <label class="product-name-label form-label">{{ product.name }}</label>
+        </b-col>
+
       </b-col>
 
       <b-col cols="4" class="date-container">
@@ -44,20 +48,24 @@
           <label class="quantity-label form-label">QTY</label>
         </b-col>
 
+        <b-col cols="12" class="product-name-container" v-for="product in basket" :key="product._id">
+          <label class="product-name-label form-label">{{ product.quantity }}</label>
+        </b-col>
+
       </b-col>
 
       <b-col cols="3" class="payment-container">
 
         <b-col cols="12" class="sub-total-container">
-          Subtotal:
+          Subtotal: {{ subtotal }}
         </b-col>
 
         <b-col cols="12" class="shipping-container">
-          Shipping:
+          Shipping: {{ shipping }}
         </b-col>
 
         <b-col cols="12" class="to-pay-container">
-          Total:
+          Total: {{ subtotal }}
         </b-col>
 
         <b-col cols="12" class="button-container">
@@ -144,14 +152,20 @@ export default {
       orderHistoryId: '',
       orderHistories: [],
       basket: [],
-      sortBy: 'newest'
+      sortBy: 'newest',
+      subtotal: '',
+      shipping: 'Free',
+      total: ''
     }
   },
   mounted() {
     const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    this.basket = JSON.parse(localStorage.getItem('basket'))
+
     if (businessOwner && businessOwner.id) {
       this.userId = businessOwner.id
       this.fetchOrderHistories()
+      this.basketSubtotal()
     }
   },
   methods: {
@@ -166,6 +180,13 @@ export default {
     setSort(sortAlgorithm) {
       this.sortBy = sortAlgorithm
       this.fetchOrderHistories()
+    },
+    basketSubtotal() {
+      this.subtotal = this.basket.reduce((total, product) => {
+        const productQuantity = product.quantity || 0
+        const productPrice = product.price || 0
+        return total + (productQuantity * productPrice)
+      }, 0)
     }
   }
 }
