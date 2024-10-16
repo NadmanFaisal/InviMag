@@ -73,7 +73,7 @@
         </b-col>
 
         <b-col cols="12" class="button-container">
-          <button type="button" class="accept-button btn btn-primary" @click="createProducts">Accept!</button>
+          <button type="button" class="accept-button btn btn-primary" @click="createOrderHistory">Accept!</button>
           <button type="button" class="reject-button btn btn-danger">Reject!</button>
         </b-col>
 
@@ -192,6 +192,17 @@ export default {
         return total + (productQuantity * productPrice)
       }, 0)
     },
+    async createOrderHistory() {
+      const orderHistoryData = {
+        businessOwner: this.userId,
+        date_of_order: new Date(),
+        total_price: 0
+      }
+      const response = await axios.post('http://localhost:3000/v1/api//orderHistories', orderHistoryData)
+      this.orderHistories.push(response.data.orderHistories)
+      this.orderHistoryId = response.data._id
+      this.createProducts()
+    },
     async createProducts() {
       if (!this.basket || this.basket.length === 0) {
         console.log('No products in the basket.')
@@ -207,11 +218,13 @@ export default {
             selling_price: product.price,
             category: product.category,
             supplier: product.supplierID,
-            orderHistory: '671022c2979e66046b1c4ddf'
+            orderHistory: this.orderHistoryId
           }
 
           const response = await axios.post(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/products`, productData)
           console.log('Product added successfully:', response.data)
+          localStorage.setItem('basket', JSON.stringify([]))
+          this.basket = []
         } catch (error) {
           console.error('Error adding product to business owner:', error)
         }
