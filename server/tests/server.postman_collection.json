@@ -520,7 +520,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"DEF Company\",\r\n    \"location_of_origin\": \"Azerbaijan\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Rainy Days\",\r\n    \"location_of_origin\": \"US\",\r\n    \"description\": \"At Netflix, we want to entertain the world. Whatever your taste, and no matter where you live, we give you access to best-in-class TV series, documentaries, feature films and games.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -752,14 +752,22 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/v1/api/suppliers",
+					"raw": "{{host}}/v1/api/suppliers/search/?name=Netflix",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"v1",
 						"api",
-						"suppliers"
+						"suppliers",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Netflix"
+						}
 					]
 				}
 			},
@@ -820,7 +828,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"ABC Company, Ltd\",\r\n    \"location_of_origin\": \"Daka, Bangladesh\"\r\n}",
+					"raw": "{\r\n    \"name\": \"ABC Company, Ltd\",\r\n    \"location_of_origin\": \"Daka, Bangladesh\",\r\n    \"description\": \"We create new opportunities for people\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
