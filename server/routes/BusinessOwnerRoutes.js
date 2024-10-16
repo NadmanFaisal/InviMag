@@ -14,6 +14,6 @@ router.put('/BusinessOwners/:id', businessOwnerController.updateBusinessOwnerByI
 router.patch('/BusinessOwners/:id', businessOwnerController.partialUpdateBusinessOwner);
 router.post('/login', businessOwnerController.loginBusinessOwner);
 router.get('/BusinessOwners/:id/orderHistories', businessOwnerController.getOrderHistories);
-
+router.post('/BusinessOwners/:id/products', businessOwnerController.addProductToBusinessOwner)
 
 module.exports = router;
