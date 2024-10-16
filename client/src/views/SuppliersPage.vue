@@ -22,8 +22,8 @@
           <!-- Search Button -->
           <b-input-group-append>
             <b-button variant="primary" @click="filterSuppliers">Search</b-button>
-          </b-input-group-append>
-        </b-input-group>
+            </b-input-group-append>
+          </b-input-group>
       </b-col>
         <b-col v-if="filteredSuppliers.length" :cols="10" class = "supplierCardStyle">
         <ul>

@@ -1,5 +1,5 @@
 <template>
-    <b-col>
+    <b-col :cols="10">
         <img :src= "supplierimage" class="supplier-image">
         <b-col class="supplier-detail-style" :cols="10" v-if="supplier">
         <h1 class="supplier-title-font">{{supplier.name}}</h1>
@@ -24,6 +24,14 @@
                     <p class="attributeValue">{{ supplier.location_of_origin }}</p>
                     </div>
                 </div>
+                <div class="add-to-basket-style attributeDisplayContainer">
+                <b-form-input
+                    v-model="inputQuantities[product._id]"
+                    placeholder="Input Quantity"
+                    class="quantity-input"
+                ></b-form-input>
+                <b-button variant="primary" @click="addToBasket(product._id)">Add to basket</b-button>
+                </div>
                 </li>
             </div>
             </ul>
@@ -37,6 +45,7 @@
 
 <script>
 import {supplierApi} from '../../api/SupplierApi'; 
+import {productApi} from '../../api/ProductApi'
 import supplierimage from '../SupplierComponents/Images/purple-user-icon.png'
 
 export default{
@@ -46,7 +55,8 @@ export default{
         return{
             supplier: {},
             products: [],
-            supplierimage
+            supplierimage,
+            inputQuantities: {},
         }
     },
     created() {
@@ -79,6 +89,26 @@ export default{
             console.error('Error fetching supplier and products:', error);
         }
     },
+
+    async addToBasket(id){
+        const inputQuantity = Number(this.inputQuantities[id]);
+        try{
+        const response = await productApi.getProductByID(id);
+        const quantity = Number(response.data.quantity);
+        if(inputQuantity > quantity){
+            alert(`Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${quantity}`);
+        }else{
+        
+        const product = response.data;
+        localStorage.setItem('product', JSON.stringify(product));
+        localStorage.setItem('AmountOfProductBought', JSON.stringify(inputQuantity));
+            alert(`${inputQuantity} ${product.name} have been added to the basket`)
+        }
+
+        }catch(error){
+            console.error('Error fetching supplier and products:', error);
+        }
+    }
 
   },
 
@@ -178,4 +208,14 @@ export default{
     justify-content: center;
 
 }
+
+.quantity-input{
+    width: 22%;
+}
+
+.add-to-basket-style{
+    justify-content: right;
+    margin-top: -50px;
+}
+
 </style>
