@@ -59,14 +59,15 @@ export default{
             inputQuantities: {},
         }
     },
+    
     created() {
-    // If no supplier prop, fetch supplier by id
-    if(this.id){
-        this.fetchSupplierDetails();
-        this.fetchSupplierProducts();
-    }
-        
-  },
+        this.products = this.products || []; 
+        if (this.id) {
+            this.fetchSupplierDetails();
+            this.fetchSupplierProducts();
+        }
+    },
+
   methods: {
     
     async fetchSupplierDetails(){
@@ -92,16 +93,19 @@ export default{
 
     async addToBasket(id){
         const inputQuantity = Number(this.inputQuantities[id]);
+        let previousAmountBought = Number(localStorage.getItem(`amountOfProductBought${id}`)) || 0;
+        const totalAmountBought = previousAmountBought+inputQuantity;
         try{
         const response = await productApi.getProductByID(id);
         const quantity = Number(response.data.quantity);
-        if(inputQuantity > quantity){
+        if(totalAmountBought > quantity){
             alert(`Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${quantity}`);
         }else{
         
         const product = response.data;
-        localStorage.setItem('product', JSON.stringify(product));
-        localStorage.setItem('AmountOfProductBought', JSON.stringify(inputQuantity));
+        previousAmountBought = totalAmountBought;
+        localStorage.setItem(`product${id}`, JSON.stringify(product));
+        localStorage.setItem(`amountOfProductBought${id}`, JSON.stringify(totalAmountBought));
             alert(`${inputQuantity} ${product.name} have been added to the basket`)
         }
 
