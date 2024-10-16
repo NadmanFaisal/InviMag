@@ -73,7 +73,7 @@
         </b-col>
 
         <b-col cols="12" class="button-container">
-          <button type="button" class="accept-button btn btn-primary">Accept!</button>
+          <button type="button" class="accept-button btn btn-primary" @click="createProducts">Accept!</button>
           <button type="button" class="reject-button btn btn-danger">Reject!</button>
         </b-col>
 
@@ -191,6 +191,31 @@ export default {
         const productPrice = product.price || 0
         return total + (productQuantity * productPrice)
       }, 0)
+    },
+    async createProducts() {
+      if (!this.basket || this.basket.length === 0) {
+        console.log('No products in the basket.')
+        return
+      }
+
+      for (const product of this.basket) {
+        try {
+          const productData = {
+            name: product.name,
+            quantity: product.quantity,
+            buying_price: 0,
+            selling_price: product.price,
+            category: product.category,
+            supplier: product.supplierID,
+            orderHistory: '671022c2979e66046b1c4ddf'
+          }
+
+          const response = await axios.post(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/products`, productData)
+          console.log('Product added successfully:', response.data)
+        } catch (error) {
+          console.error('Error adding product to business owner:', error)
+        }
+      }
     }
   }
 }
