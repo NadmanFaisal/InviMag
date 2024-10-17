@@ -223,7 +223,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('http://localhost:3000/v1/api//orderHistories', orderHistoryData)
+        const response = await axios.post('http://localhost:3000/v1/api/orderHistories', orderHistoryData)
         this.orderHistories.push(response.data.orderHistories)
         this.orderHistoryId = response.data._id
         this.createProducts()
@@ -568,7 +568,7 @@ export default {
     font-size: 13px;
   }
 
-  .order-id-label, .product-name-label .product-quantity-label, .product-price-label {
+  .order-id-label, .product-name-label, .product-quantity-label, .product-price-label {
     font-size: 13px;
   }
 
