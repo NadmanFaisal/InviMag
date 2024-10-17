@@ -1,14 +1,14 @@
 <template>
-    <div class="supplier-container">
-            <div class = "supplier-info">
+    <b-col :cols="10" class="supplier-container">
+            <b-col class = "supplier-info">
                 <img :src= "supplierimage" class="supplier-image">
-                <div class="supplier-title">{{ supplier.name }}
+                <b-col class="supplier-title">{{ supplier.name }}
                     <span class = "location-style">Location: {{ supplier.location_of_origin }}</span><br>
                     <span class = "supplier-description">{{ supplier.description }}</span><br>
                     <button @click="gotoSupplierDetail" class="detail-button">View Supplier Details</button>
-                </div>
-            </div>
-    </div>
+                </b-col>
+            </b-col>
+    </b-col>
 </template>
 <script>
 import supplierimage from '../SupplierComponents/Images/purple-user-icon.png'
@@ -41,11 +41,12 @@ export default {
 
 .supplier-container {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;                 
+    justify-content: center;
+    align-items: center;                 
     padding-top: 30px;
-    width: 100%;                  
-    height: 200px;                 
+    padding-bottom: 15px;
+    width: 115%;                  
+    height: auto;                 
     border-radius: 10px;
     background: #FFF;
     margin-bottom: 20px;
@@ -87,15 +88,17 @@ export default {
 }
 
 
-.supplier-description{
-    font-size: 15px;              /* Adjust font size */
-    margin: 0;                    /* Remove default margin */
-    padding: 0;                   /* Remove default padding */
+.supplier-description{            
     color: gray;
     font-family: "Istok Web";
-    padding: 20px;
-    margin-top: 0 !important;
-    margin-left: 0 !important;
+    padding: 50px;         /* Adjust bottom padding for more space */
+    font-size: 14px;              /* Reduced font size */
+    margin: 0;                    /* Remove default margin */
+    padding: 5px 0;               /* Compact padding */
+    color: gray;
+    font-family: "Istok Web";
+    line-height: 1;  
+    width: 95%;
 }
 
 .detail-button {
@@ -116,9 +119,19 @@ export default {
 }
 
 @media (max-width: 768px) {
+
     .supplierDisplay{
         margin: 0 auto;
         width: 100%; /* Take full width on small screens */
+    }
+
+    .supplier-description{
+        font-size: 14px;              /* Reduced font size */
+        margin: 0;                    /* Remove default margin */
+        padding: 5px 0;               /* Compact padding */
+        color: gray;
+        font-family: "Istok Web";
+        line-height: 1.2;  
     }
 }
 </style>
