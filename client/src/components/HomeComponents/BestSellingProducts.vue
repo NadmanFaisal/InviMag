@@ -1,12 +1,9 @@
 <template>
     <b-card class="mb-3 best-selling-products-card">
-      <div class="d-flex justify-content-between align-items-center">
-        <h5 class="card-title">BEST SELLING PRODUCTS</h5>
-        <b-dropdown text="This Month" right>
-          <b-dropdown-item>Last Month</b-dropdown-item>
-          <b-dropdown-item>Last Year</b-dropdown-item>
-        </b-dropdown>
+      <div class="title-container">
+        <b class="title">BEST SELLING PRODUCTS</b>
       </div>
+      <hr />
       <div class="d-flex mt-3">
         <div class="product-item me-3">
           <p>Blue polo tshirt<br><strong>35 Pcs</strong></p>
@@ -42,5 +39,33 @@ export default {
     width: 50px;
     height: 50px;
     margin-bottom: 5px;
+  }
+
+  hr {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    height: 2px;
+    background: #494949;
+    width: 100%;
+  }
+
+  .title-container {
+    width: 100%;
+  }
+
+  .title {
+    color: #787676;
+    font-family: "Istok Web";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
+  }
+
+  /* Media query to adjust the height */
+  @media (min-width: 992px) {
+    .best-selling-products-card {
+      min-height: 94%; /* Adjust this height as needed */
+    }
   }
   </style>
