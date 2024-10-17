@@ -206,6 +206,7 @@ export default {
         this.orderHistories.push(response.data.orderHistories)
         this.orderHistoryId = response.data._id
         this.createProducts()
+        this.updateBusinessOwner()
         alert('Thank you for buying!')
       } catch (error) {
         console.error('Error creating order history: ', error)
@@ -236,6 +237,23 @@ export default {
         } catch (error) {
           console.error('Error adding product to business owner:', error)
         }
+      }
+    },
+    async updateBusinessOwner() {
+      if (!this.userId) return
+
+      const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+      const updatedTotalBudget = response.data.total_budget - this.basketSubtotal
+      const updatedData = {
+        total_budget: updatedTotalBudget
+      }
+
+      try {
+        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
+        console.log('Your total budget have been updated successfully!')
+      } catch (error) {
+        console.error('Error updating your total budget:', error)
+        console.log('Could not update your total budget. Please try again.')
       }
     }
   }
