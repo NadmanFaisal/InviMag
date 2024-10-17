@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <Sidebar v-if="$route.meta.requiresAuth"/>
@@ -9,6 +8,7 @@
       <router-link to="/login">Log in</router-link>
       <router-link to="/settings"> Settings </router-link>
       <router-link to = "/inventoryPage"> Inventory Page</router-link>
+      <router-link to="/orders">Order history</router-link>
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>
@@ -21,7 +21,7 @@ export default {
   name: 'App',
   components: {
     Sidebar // Register the Sidebar component here
-  },
+  }
 }
 </script>
 
