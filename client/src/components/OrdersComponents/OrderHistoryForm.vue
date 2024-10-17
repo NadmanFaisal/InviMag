@@ -251,14 +251,22 @@ export default {
             orderHistory: this.orderHistoryId
           }
 
+          const originalProduct = await axios.get(`http://localhost:3000/v1/api/Products/${product.id}`)
+          const newQuantity = originalProduct.data.quantity - product.quantity
+          const updatedProduct = {
+            quantity: newQuantity
+          }
+          await axios.patch(`http://localhost:3000/v1/api/Products/${product.id}`, updatedProduct)
+
           const response = await axios.post(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/products`, productData)
           console.log('Product added successfully:', response.data)
-          localStorage.setItem('basket', JSON.stringify([]))
-          this.basket = []
         } catch (error) {
           console.error('Error adding product to business owner:', error)
         }
       }
+
+      localStorage.setItem('basket', JSON.stringify([]))
+      this.basket = []
     },
     async updateBusinessOwner() {
       if (!this.userId) return
