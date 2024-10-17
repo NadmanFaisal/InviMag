@@ -23,25 +23,25 @@ export default {
     height: 70px;
     background-color: #ffffff;
     display: flex;
-    justify-content: flex-end; /* Aligns the content to the right */
+    justify-content: flex-end;
     align-items: center;
-    padding-right: 20px; /* Optional padding to provide some spacing from the edge */
+    padding-right: 20px;
   }
 
   .profile-block {
     display: flex;
-    align-items: center; /* Align avatar and text vertically */
+    align-items: center;
   }
 
   .generic-avatar-icon {
-    width: 40px; /* Adjust size as needed */
-    height: 40px; /* Adjust size as needed */
-    margin-right: 5px; /* Adds space between the avatar and the text */
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
   }
 
   .text-container {
     display: flex;
-    flex-direction: column; /* Stacks name and job title vertically */
+    flex-direction: column;
     justify-content: center;
   }
 
@@ -53,7 +53,7 @@ export default {
   }
 
   .job-title {
-    font-size: 14px; /* Slightly smaller font for job title */
+    font-size: 14px;
     line-height: 120%;
     font-weight: normal;
     font-family: 'Istok Web', sans-serif;
