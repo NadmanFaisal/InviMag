@@ -74,7 +74,7 @@
 
         <b-col cols="12" class="button-container">
           <button type="button" class="accept-button btn btn-primary" @click="createOrderHistory">Accept!</button>
-          <button type="button" class="reject-button btn btn-danger">Reject!</button>
+          <button type="button" class="reject-button btn btn-danger" @click="deleteBasket">Reject!</button>
         </b-col>
 
       </b-col>
@@ -187,6 +187,13 @@ export default {
     setSort(sortAlgorithm) {
       this.sortBy = sortAlgorithm
       this.fetchOrderHistories()
+    },
+    async deleteBasket() {
+      const deleteBasket = window.confirm('Are you sure you want to delete the basket? This action cannot be undone.')
+      if (deleteBasket) {
+        this.basket = []
+        localStorage.setItem('basket', JSON.stringify([]))
+      }
     },
     getBasketSubtotal() {
       this.basketSubtotal = this.basket.reduce((total, product) => {
