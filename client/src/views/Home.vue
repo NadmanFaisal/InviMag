@@ -1,18 +1,50 @@
- <template>
+<template>
   <div>
     <b-container fluid>
-      <h1 class="display-5 fw-bold">DIT342 Frontend</h1>
-      <p class="fs-4">Welcome to your DIT342 Frontend Vue.js App</p>
-      <b-button class="btn_message" variant="primary" v-on:click="getMessage()" >Get Message from Server</b-button>
-      <p class="col-xl-9">Message from the server:<br/>
-      {{ message }}</p>
-      <b-button @click="logOut()">Logout</b-button>
+      <b-row class="min-vh-100">
+        <b-row>
+          <!-- Left Section (Empty or Sidebar Space) -->
+          <b-col cols="2" class="empty-left-section">
+          </b-col>
+
+          <!-- Main Content Section -->
+          <b-col cols="10" class="home-section">
+            <!-- Profile Picture and Overview at the top -->
+            <ProfilePic />
+            <Overview />
+
+            <!-- Four Boxes (Responsive) -->
+            <b-row class="mt-4">
+              <!-- Products Details -->
+              <b-col lg="6" md="12" class="mb-3">
+                <ProductDetails />
+              </b-col>
+
+              <!-- Best Selling Products -->
+              <b-col lg="6" md="12" class="mb-3">
+                <BestSellingProducts />
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <!-- Costly Products -->
+              <b-col lg="6" md="12" class="mb-3">
+                <CostlyProducts />
+              </b-col>
+
+              <!-- Popular Products -->
+              <b-col lg="6" md="12" class="mb-3">
+                <PopularProducts />
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import { Api } from '@/Api'
 export default {
   name: 'home',
@@ -30,22 +62,57 @@ export default {
         .catch(error => {
           this.message = error
         })
-    },
-    async logOut() {
-      try {
-        await Api.post('http://localhost:3000/v1/api/BusinessOwners/logout')
-        localStorage.removeItem('businessOwner')
-        this.$router.push('/login')
-      } catch (error) {
-        console.error('Error during logout:', error)
-      }
     }
   }
 }
 </script>
 
-<style>
-.btn_message {
-  margin-bottom: 1em;
+<style scoped>
+.row {
+  margin: 0;
 }
+
+.container-fluid {
+  padding: 0;
+}
+
+.empty-left-section {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.home-section{
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.content-section {
+  padding: 20px;
+  background: #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .home-section {
+    flex: none;
+    width: 100%;
+    padding: 10px;
+  }
+  .content-section {
+    flex: none;
+    width: 100%;
+    padding: 10px;
+  }
+
+   .left-section {
+    display: none;
+   }
+
+}
+
 </style>

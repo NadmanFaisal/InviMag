@@ -1,21 +1,21 @@
 <template>
   <b-container fluid>
-    <b-row> 
+    <b-row>
     <b-col :cols = "2"></b-col>
     <b-col :cols = "10" class = "top-container-style ">
 
-    <!--This is the Header where the business Owners company name will be placed-->  
+    <!--This is the Header where the business Owners company name will be placed-->
     <h1 class = "companyHeader">Company Name</h1>
 
     <!--This is the containers that display total, in-stock, and out-of-stock products-->
     <b-row :cols = "10"  class = "productCountContainer justify-content-center main-content">
-    <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
-      <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
+    <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont">
+      <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS
     </b-col>
     <b-col sm="12" md="4" color = "#21C21C" class = "inStockFont">
       <span class = "countFont">{{inStockProducts}}</span> <br><br>IN STOCK</b-col>
-    <b-col sm="12" md="4" color = "#F77575" class = "outOfStockFont"> 
-      <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK 
+    <b-col sm="12" md="4" color = "#F77575" class = "outOfStockFont">
+      <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK
     </b-col>
     </b-row>
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
@@ -42,98 +42,95 @@
         <b-col v-else>
           <p>No products available.</p>
         </b-col>
-      </b-col> 
+      </b-col>
     </b-col>
   </b-row>
   </b-container>
 </template>
 <script>
 import { productApi } from '@/api/ProductApi'
-import ProductCard from '../components/InventoryComponents/ProductCard.vue';
+import ProductCard from '../components/InventoryComponents/ProductCard.vue'
 
 export default {
   components: { ProductCard },
-    name: "inventoryPage",
-    components: {
+  name: 'inventoryPage',
+  components: {
     ProductCard // Register the ProductComponent
   },
-    data(){
-        return {
-          search: "",  
-          products: [],  
-        }
+  data() {
+    return {
+      search: '',
+      products: []
+    }
+  },
+
+  created() {
+    this.fetchProducts()
+    window.addEventListener('resize', this.checkScreenSize)
+  },
+
+  methods: {
+
+    async fetchProducts() {
+      try {
+        const response = await productApi.getAllProducts()
+        this.products = response.data.Products
+        console.log(this.products)
+      } catch (error) {
+        console.error('An Error occured when fetching products:', error)
+      }
     },
 
-    created(){
-        this.fetchProducts();
-        window.addEventListener('resize', this.checkScreenSize);
+    toggleDropdown() {
+      const dropdownElement = document.getElementById('dropdown-content')
+      if (dropdownContent.style.display === 'block') {
+        dropdownContent.style.display = 'none'
+      } else {
+        dropdownContent.style.display = 'block'
+      }
     },
-    
-    methods:{
 
-        async fetchProducts(){
-            try{
-                const response = await productApi.getAllProducts();
-                this.products = response.data.Products;
-                console.log(this.products);
+    async sortByBuyingPrice() {
+      try {
+        const response = await productApi.getAllProductsByBuyingPrice()
+        this.products = response.data.Products
+      } catch (error) {
+        console.error('An Error occured when sorting products:', error)
+      }
+    },
 
-            }catch(error){
-                console.error('An Error occured when fetching products:', error);
-            }
-        },
+    async sortBySellingPrice() {
+      try {
+        const response = await productApi.getAllProductsBySellingPrice()
+        this.products = response.data.Products
+      } catch (error) {
+        console.error('An Error occured when sorting products:', error)
+      }
+    },
 
-        toggleDropdown(){
-          const dropdownElement = document.getElementById('dropdown-content')
-          if (dropdownContent.style.display === 'block') {
-            dropdownContent.style.display = 'none';
-          } else {
-            dropdownContent.style.display = 'block';
-          }
-        },
+    async sortByQuantity() {
+      try {
+        const response = await productApi.getAllProductsByQuantity()
+        this.products = response.data.Products
+      } catch (error) {
+        console.error('An Error occured when sorting products:', error)
+      }
+    }
+  },
+  computed: {
+    totalProducts() {
+      return this.products.length
+    },
 
-        async sortByBuyingPrice(){
-          try{
-            const response = await productApi.getAllProductsByBuyingPrice();
-            this.products = response.data.Products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
-        },
+    inStockProducts() {
+      return this.products.filter(product => product.in_stock === true).length
+    },
+    outOfStockProducts() {
+      return this.totalProducts - this.inStockProducts
+    }
 
-        async sortBySellingPrice(){
-          try{
-            const response = await productApi.getAllProductsBySellingPrice();
-            this.products = response.data.Products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
-        },
-
-        async sortByQuantity(){
-          try{
-            const response = await productApi.getAllProductsByQuantity();
-            this.products = response.data.Products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
-        }
-      },
-    computed:{
-        totalProducts(){
-          return this.products.length;
-        },
-
-        inStockProducts(){
-          return this.products.filter(product => product.in_stock === true).length;
-        },
-        outOfStockProducts(){
-          return this.totalProducts - this.inStockProducts;
-        },
-
-    },  
+  }
 }
-          
-
 
 </script>
 
@@ -293,7 +290,7 @@ export default {
     width: 100%;
   }
   .main-content {
-    width: 100%; 
+    width: 100%;
     padding: 0 10px;
 }
   .productListBox{
