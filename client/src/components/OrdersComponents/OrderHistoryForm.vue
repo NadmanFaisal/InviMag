@@ -201,6 +201,20 @@ export default {
         date_of_order: new Date(),
         total_price: this.basketSubtotal
       }
+
+      try {
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        const currentBudget = response.data.total_budget
+
+        if (currentBudget < this.basketSubtotal) {
+          alert('Insufficient budget! You cannot buy everything in the basket right now.')
+          return
+        }
+      } catch (error) {
+        console.error('Error getting business owner budget:', error)
+        return
+      }
+
       try {
         const response = await axios.post('http://localhost:3000/v1/api//orderHistories', orderHistoryData)
         this.orderHistories.push(response.data.orderHistories)

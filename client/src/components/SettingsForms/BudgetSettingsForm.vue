@@ -55,10 +55,10 @@ export default {
 
       try {
         const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
-        alert('Your details have been updated successfully!')
+        alert('Your total budget have been updated successfully!')
       } catch (error) {
-        console.error('Error updating your details:', error)
-        alert('Could not update your details. Please try again.')
+        console.error('Error updating your total budget:', error)
+        alert('Could not update your total budget. Please try again.')
       }
     }
   }
