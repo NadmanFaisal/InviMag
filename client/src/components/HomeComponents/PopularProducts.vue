@@ -1,6 +1,9 @@
 <template>
     <b-card class="mb-3 popular-products-card">
-      <h5 class="card-title">POPULAR PRODUCTS</h5>
+        <div class="title-container">
+        <b class="title">POPULAR PRODUCTS</b>
+      </div>
+      <hr />
       <div class="d-flex justify-content-around">
         <div class="product-item">
           <p>Blue polo tshirt<br><strong>35 Pcs</strong></p>
@@ -36,5 +39,25 @@ export default {
     width: 50px;
     height: 50px;
     margin-bottom: 5px;
+  }
+  hr {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    height: 2px;
+    background: #494949;
+    width: 100%;
+  }
+
+  .title-container {
+    width: 100%;
+  }
+
+  .title {
+    color: #787676;
+    font-family: "Istok Web";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%;
   }
   </style>
