@@ -354,7 +354,7 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
 
         var updatedBusinessOwner = {
             name: (req.body.name || initialOwner.name),
-            total_budget: (req.body.total_budget || initialOwner.total_budget),
+            total_budget: (req.body.total_budget !== undefined ? req.body.total_budget : initialOwner.total_budget),
             email: (req.body.email || initialOwner.email),
             password: initialOwner.password,
             orderHistories: req.body.orderHistories || initialOwner.orderHistories,
