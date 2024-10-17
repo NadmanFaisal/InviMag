@@ -1,8 +1,8 @@
-
 <template>
   <div id="app">
+    <b-col cols="2">
     <Sidebar v-if="$route.meta.requiresAuth"/>
-
+    </b-col>
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/signup"> Sign Up </router-link>
