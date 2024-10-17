@@ -120,7 +120,7 @@ export default {
 }
 .search-bar {
   display: flex;
-  width: 712px;              
+  width: 80%;              
   margin-left: auto;      
   margin-right: auto;  
   align-items: center;      
@@ -140,7 +140,12 @@ export default {
   color: black;
 }
 
-
+@media (max-width: 768px) {
+  .supplier-page-style{
+    margin-left: 0;
+  }
+  
+}
 
 
   </style>
