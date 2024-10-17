@@ -3,36 +3,28 @@
     <b-container fluid>
       <b-row class="min-vh-100">
         <b-row>
-          <!-- Left Section (Empty or Sidebar Space) -->
           <b-col cols="2" class="empty-left-section">
           </b-col>
 
-          <!-- Main Content Section -->
           <b-col cols="10" class="home-section">
-            <!-- Profile Picture and Overview at the top -->
             <ProfilePic />
             <Overview />
 
-            <!-- Four Boxes (Responsive) -->
             <b-row class="mt-4">
-              <!-- Products Details -->
               <b-col lg="6" md="12" class="mb-3">
                 <ProductDetails />
               </b-col>
 
-              <!-- Best Selling Products -->
               <b-col lg="6" md="12" class="mb-3">
                 <BestSellingProducts />
               </b-col>
             </b-row>
 
             <b-row>
-              <!-- Costly Products -->
               <b-col lg="6" md="12" class="mb-3">
                 <CostlyProducts />
               </b-col>
 
-              <!-- Popular Products -->
               <b-col lg="6" md="12" class="mb-3">
                 <PopularProducts />
               </b-col>

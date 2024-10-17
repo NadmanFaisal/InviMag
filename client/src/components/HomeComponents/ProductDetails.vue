@@ -1,22 +1,19 @@
 <template>
     <b-card class="mb-3 products-details-card">
-      <!-- Title Container -->
+
       <div class="title-container">
         <b class="title">PRODUCTS DETAILS</b>
       </div>
-      <hr /> <!-- Move outside of text-container to allow full width -->
+      <hr />
 
-      <!-- All Items Container -->
       <div class="text-container">
         <p>All Items: <strong>3042</strong></p>
       </div>
 
-      <!-- Item Types Container -->
       <div class="text-container">
         <p>Item Types: <strong>63</strong></p>
       </div>
 
-      <!-- Out of Stock Items Container -->
       <div class="text-container">
         <p class="text-danger">Out of Stock Items: <strong>144</strong></p>
       </div>
@@ -36,7 +33,7 @@ export default {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   hr {
