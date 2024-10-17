@@ -244,8 +244,8 @@ export default {
           const productData = {
             name: product.name,
             quantity: product.quantity,
-            buying_price: 0,
-            selling_price: product.price,
+            buying_price: product.price,
+            selling_price: 0,
             category: product.category,
             supplier: product.supplierID,
             orderHistory: this.orderHistoryId
