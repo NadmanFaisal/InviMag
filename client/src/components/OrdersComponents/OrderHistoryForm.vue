@@ -444,7 +444,7 @@ export default {
   height: 100%;
 }
 
-.order-id-label-container, .date-label-container, .quantity-label-container {
+.order-id-label-container, .date-label-container, .quantity-label-container, .prince-label-container {
   display: flex;
   flex-direction: column;
   background: #e0e0e0;
@@ -453,7 +453,7 @@ export default {
   align-items: center;
 }
 
-.order-id-label, .date-label, .quantity-label {
+.order-id-label, .date-label, .quantity-label, .price-label {
   color: #606060;
   font-family: "Istok Web";
   font-size: 16px;
@@ -531,5 +531,70 @@ export default {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+@media screen and (max-width: 608px) {
+
+.empty-section {
+  display: none;
+}
+
+.content-section {
+  flex: 1
+}
+
+.status-bar-label {
+  font-size: 40px;
+}
+
+}
+
+/* For iPhone SE mainly */
+
+@media screen and (max-width: 580px) {
+  .date-container {
+    display: none;
+  }
+
+  .quantity-container {
+    flex:1;
+  }
+
+  .payment-container {
+    flex:1
+  }
+
+  .quantity-label, .price-label {
+    font-size: 13px;
+  }
+
+  .order-id-label, .product-name-label .product-quantity-label, .product-price-label {
+    font-size: 13px;
+  }
+
+  .sub-total-container, .shipping-container, .to-pay-container {
+    font-size: 13px;
+  }
+
+  .accept-button, .reject-button {
+  font-size: 10px;
+  }
+
+}
+
+@media screen and (max-width: 580px) {
+
+  .sub-total-container, .shipping-container, .to-pay-container {
+    font-size: 10px;
+  }
+
+  .status-bar-label {
+  font-size: 30px;
+  }
+
+  .accept-button, .reject-button {
+    font-size: 7px;
+  }
+
 }
 </style>

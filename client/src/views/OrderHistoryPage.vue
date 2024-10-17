@@ -36,5 +36,16 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 768px) {
+
+.empty-section {
+  display: none;
+}
+
+.content-section {
+  flex: 1
+}
+
+}
 
 </style>
