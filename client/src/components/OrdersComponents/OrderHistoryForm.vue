@@ -121,15 +121,15 @@
       <b-col cols="3" class="payment-container">
 
         <b-col cols="12" class="sub-total-container">
-          Subtotal:
+          Subtotal: {{ orderHistory.total_price }}
         </b-col>
 
         <b-col cols="12" class="shipping-container">
-          Shipping:
+          Shipping: {{ orderHistoryShipping }}
         </b-col>
 
         <b-col cols="12" class="to-pay-container">
-          Total:
+          Total: {{ orderHistory.total_price }}
         </b-col>
 
         <b-col cols="12" class="status-bar">
@@ -159,7 +159,10 @@ export default {
       sortBy: 'newest',
       basketSubtotal: '',
       basketShipping: 'Free',
-      basketTotal: ''
+      basketTotal: '',
+      orderHistorySubtotal: '',
+      orderHistoryShipping: 'Free',
+      orderHistoryTotal: ''
     }
   },
   mounted() {
@@ -196,12 +199,17 @@ export default {
       const orderHistoryData = {
         businessOwner: this.userId,
         date_of_order: new Date(),
-        total_price: 0
+        total_price: this.basketSubtotal
       }
-      const response = await axios.post('http://localhost:3000/v1/api//orderHistories', orderHistoryData)
-      this.orderHistories.push(response.data.orderHistories)
-      this.orderHistoryId = response.data._id
-      this.createProducts()
+      try {
+        const response = await axios.post('http://localhost:3000/v1/api//orderHistories', orderHistoryData)
+        this.orderHistories.push(response.data.orderHistories)
+        this.orderHistoryId = response.data._id
+        this.createProducts()
+        alert('Thank you for buying!')
+      } catch (error) {
+        console.error('Error creating order history: ', error)
+      }
     },
     async createProducts() {
       if (!this.basket || this.basket.length === 0) {
