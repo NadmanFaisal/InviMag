@@ -250,6 +250,7 @@ export default {
             selling_price: 0,
             category: product.category,
             supplier: product.supplierID,
+            in_stock: true,
             orderHistory: this.orderHistoryId
           }
 
