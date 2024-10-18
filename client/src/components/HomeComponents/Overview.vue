@@ -1,10 +1,9 @@
 <template>
   <b-container fluid class="light-blue-container">
     <b-row class="justify-content-center">
-      <!-- Wrap the overview section -->
       <div class="overview-section text-center">
-        <b class="overview-text">Overview</b>
-        <b-row class="justify-content-center g-3"> <!-- Add gutters (spacing) between components -->
+        <b id="overview">Overview</b>
+        <b-row class="justify-content-center g-3">
           <b-col cols="auto" class="group-child me-4">
             <b class="b">98</b>
             <b class="to-be-shipped">TO BE SHIPPED</b>
@@ -22,10 +21,9 @@
         </b-row>
       </div>
 
-      <!-- Wrap the budget section -->
       <div class="budget-section text-center mt-4">
-        <b class="overview-text">Budget</b>
-        <b-row class="justify-content-center g-3"> <!-- Add gutters (spacing) between components -->
+        <b id="budget">Budget</b>
+        <b-row class="justify-content-center g-3">
           <b-col cols="auto" class="group-child">
             <b class="b" style="color: blue;">98</b>
           </b-col>
@@ -43,18 +41,25 @@ export default {
 </script>
 
 <style scoped>
-/* Text and component layout */
 .overview-section, .budget-section {
   text-align: center;
-  margin-bottom: 20px; /* Add space between overview and budget sections */
+  margin-bottom: 20px;
 }
 
-.overview-text {
+#overview {
   color: #787676;
   font-family: "Istok Web";
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 15px; /* Add some space between the text and the components */
+  margin-bottom: 15px;
+}
+
+#budget {
+  color: #787676;
+  font-family: "Istok Web";
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
 }
 
 .light-blue-container {
@@ -66,7 +71,7 @@ export default {
 }
 
 .group-child {
-  width: 250px; /* Set a fixed width for consistency */
+  width: 250px;
   height: 103px;
   border-radius: 10px;
   background: #FFF;
@@ -89,7 +94,6 @@ export default {
   color: #ff8833;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .group-child {
     width: 100px;
