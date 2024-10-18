@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <Sidebar v-if="$route.meta.requiresAuth"/>
@@ -7,10 +6,9 @@
       <router-link to="/">Home</router-link>
       <router-link to = "/inventoryPage"> Inventory</router-link>
       <router-link to = "/suppliersPage"> Suppliers</router-link>
-      <router-link to = "/orders"></router-link>
+      <router-link to="/orders">Order history</router-link>
       <router-link to="/settings"> Settings </router-link>
       <router-link @click="logOut" to="/login">Log Out</router-link>
-
     </div>
     <!-- Render the content of the current page view -->
     <router-view/>

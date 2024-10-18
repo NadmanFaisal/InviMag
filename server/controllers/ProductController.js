@@ -1,4 +1,5 @@
 const Product = require('../models/Product')
+const OrderHistory = require('../models/OrderHistory')
 
 exports.createProduct = async (req, res, next ) => {
 
@@ -35,7 +36,14 @@ exports.createProduct = async (req, res, next ) => {
         return res.status(400).json({ error: 'Out of stock product needs to have a quantity of 0'});
     }
     try{
-        await product.save();
+        const savedProduct = await product.save();
+        const orderHistoryId = req.body.order_history;
+
+        await OrderHistory.findByIdAndUpdate(
+            orderHistoryId,
+            { $push: { products: savedProduct._id } },
+            { new: true }
+        );
         res.status(201).json(product);
 
     }catch (error){
