@@ -1,45 +1,45 @@
 <template>
-    <b-col :cols="10">
+    <b-col :cols="10" class="supplier-detail-style">
         <img :src= "supplierimage" class="supplier-image">
-        <b-col class="supplier-detail-style" :cols="10" v-if="supplier">
+        <b-col  :cols="10" v-if="supplier">
         <h1 class="supplier-title-font">{{supplier.name}}</h1>
             <!-- Display other supplier details -->
         <b-col v-if="products && products.length">
             <h2>Products I sell</h2>
             <ul>
-            <div v-for="product in products" :key="product._id">
+            <b-col v-for="product in products" :key="product._id">
                 <li class="productDisplay">
-                    <p class="productTitle">Name: {{ product.name }}</p>
-                <div class="attributeDisplayContainer">
-                    <div class="attributeDisplayWidget">
+                    <p class="productTitle">{{ product.name }}</p>
+                <b-col class="attributeDisplayContainer">
+                    <b-col>
                     <p class="attributeLabel">Quantity</p>
                     <p class="attributeValue">{{ product.quantity }} Units</p>
-                    </div>
-                    <div class="attributeDisplayWidget">
+                    </b-col>
+                    <b-col>
                     <p class="attributeLabel">Price</p>
                     <p class="attributeValue">${{ product.selling_price }}</p>
-                    </div>
-                    <div class="attributeDisplayWidget">
+                    </b-col>
+                    <b-col>
                     <p class="attributeLabel">Location</p>
                     <p class="attributeValue">{{ supplier.location_of_origin }}</p>
-                    </div>
-                </div>
-                <div class="add-to-basket-style attributeDisplayContainer">
+                    </b-col>
+                </b-col>
+                <b-col class="add-to-basket-style">
                 <b-form-input
                     v-model="inputQuantities[product._id]"
                     placeholder="Input Quantity"
                     class="quantity-input"
                 ></b-form-input>
-                <b-button variant="primary" @click="addToBasket(product._id)">Add to basket</b-button>
-                </div>
+                <b-button variant="primary" @click="addToBasket(product._id)" class="button-style">Add to basket</b-button>
+                </b-col>
                 </li>
-            </div>
+            </b-col>
             </ul>
             </b-col>
         </b-col>
-            <div v-else>
+            <b-col v-else>
             <p></p>
-            </div>
+            </b-col>
     </b-col>
 </template>
 
@@ -155,6 +155,13 @@ export default{
 .supplier-detail-style{
     margin-left: 16.666667%;
     font-family: "Istok Web";
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-right: auto;
+    justify-content: center;
+    margin-bottom: 20px;
+
 }
 
 .productDisplay {
@@ -171,35 +178,22 @@ export default{
 
 .attributeDisplayContainer {
     display: flex;
-    justify-content: left; /* Spacing between widgets */
+    justify-content: center; /* Spacing between widgets */
     margin-top: 20px;
-    text-align: left;
+    text-align: center;
 }
 
-.attributeDisplayWidget {
-    width: 130px;
-    height: 130px;
-    border-radius: 10px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    margin-right: 50px;
-}
 
 .attributeLabel {
     font-family: "Istok Web";
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
     text-align: center;
 }
 
 .attributeValue {
     font-family: "Istok Web";
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
     color: grey;
@@ -210,7 +204,6 @@ export default{
     color: black;
     text-align: left;
     font-family: "Istok Web";
-    font-size: 15px;
     font-weight: 700;
     line-height: 1.5;
 }
@@ -224,10 +217,11 @@ export default{
     font-weight: var(--sds-typography-heading-font-weight);
     line-height: 120%; /* 28.8px */
     letter-spacing: -0.48px;
+    font-weight: bold;
+    font-size: 30px;
 }
 
 .supplier-image {
-    margin-left: 16.6667%;
     width: 250px;                  /* Adjust the width of the image */
     height: 250px;                 /* Adjust the height of the image */
     object-fit: cover;            /* Keeps the aspect ratio of the image */
@@ -237,12 +231,66 @@ export default{
 }
 
 .quantity-input{
-    width: 22%;
+    width: 30%;
+    margin-top: 5px;
+    height: 50px;
 }
 
 .add-to-basket-style{
-    justify-content: right;
-    margin-top: -50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
 }
+
+.button-style{
+    margin-top: 10px;
+    width:30%;
+}
+
+@media (max-width: 768px) {
+    .supplier-detail-style{
+        margin-left: 0;
+        padding-left: 16.66666667%;
+        padding-right: 0%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .productDisplay{
+        margin: 5px auto;
+        padding: 10px;
+        width: 90%;
+    }
+    .attributeDisplayContainer{
+        justify-content: center;
+        text-align: center;
+    }
+
+    .productTitle {
+        font-size: 20px;
+    }
+
+
+    .attributeLabel, .attributeValue{
+        font-size: 15px;
+    }
+
+    .add-to-basket-style {
+        justify-content: center;
+        height:20px;
+    }
+
+    .quantity-input{
+        width: 65%;
+        height: 30px;
+        padding-top: 10px;
+    }
+
+    .button-style{
+        width: 65%;
+    }
+}
+
 
 </style>
