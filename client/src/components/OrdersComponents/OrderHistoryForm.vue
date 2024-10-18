@@ -273,14 +273,13 @@ export default {
     async updateBusinessOwner() {
       if (!this.userId) return
 
-      const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
-      const updatedTotalBudget = response.data.total_budget - this.basketSubtotal
-      const updatedData = {
-        total_budget: updatedTotalBudget
-      }
-
       try {
-        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        const updatedTotalBudget = response.data.total_budget - this.basketSubtotal
+        const updatedData = {
+          total_budget: updatedTotalBudget
+        }
+        await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
         console.log('Your total budget have been updated successfully!')
       } catch (error) {
         console.error('Error updating your total budget:', error)
@@ -294,7 +293,12 @@ export default {
       }
       const deleteAllOrderHistories = window.confirm('Are you sure you want to delete all the order histories? This action cannot be undone.')
       if (deleteAllOrderHistories) {
-        const response = await axios.delete('http://localhost:3000/v1/api/OrderHistories')
+        try {
+          await axios.delete('http://localhost:3000/v1/api/OrderHistories')
+          alert('All order histories have been deleted!')
+        } catch (error) {
+          console.error('Error deleting all the order histories: ', error)
+        }
       }
     }
   }
