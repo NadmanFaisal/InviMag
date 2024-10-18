@@ -1,5 +1,6 @@
 
 const OrderHistory = require('../models/OrderHistory');
+const BusinessOwner = require('../models/BusinessOwner');
 
 // Creates an orderHistory with POST method with already specified IDs
 exports.createOrderHistory = async  (req, res, next) => {
@@ -11,7 +12,16 @@ exports.createOrderHistory = async  (req, res, next) => {
             products: req.body.products
     });
         
-        await orderHistory.save();
+
+        const savedOrderHistory = await orderHistory.save();
+
+        const businessOwnerId = req.body.businessOwner;
+        await BusinessOwner.findByIdAndUpdate(
+            businessOwnerId,
+            { $push: { orderHistories: savedOrderHistory._id } },
+            { new: true }
+        );
+        
         res.status(201).json(orderHistory);
     } catch (error) {
         next(error);
@@ -146,6 +156,8 @@ exports.deleteAllOrderHistories = async  (req, res) => {
             return res.status(404).json({ message: 'Order histories were not found' });
         }
         
+        await BusinessOwner.updateMany({}, { $set: { orderHistories: [] } });
+
         res.status(200).json(orderHistories); // Returns the count of deleted order histories
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });

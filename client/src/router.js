@@ -6,14 +6,19 @@ import LogIn from './views/loginPage.vue'
 import SignUp from './views/SignUp.vue'
 import Settings from './views/SettingsPage.vue'
 import InventoryPage from './views/InventoryPage.vue'
-
+import OrderHistoryPage from './views/OrderHistoryPage.vue'
+import SuppliersPage from './views/SuppliersPage.vue'
+import SupplierDetail from './components/SupplierComponents/SupplierDetail.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { requiresAuth: true } },
   { path: '/login', name: 'login', component: LogIn, meta: { requiresAuth: false } },
   { path: '/signup', name: 'signup', component: SignUp, meta: { requiresAuth: false } },
   { path: '/settings', name: 'settings', component: Settings, meta: { requiresAuth: true } },
-  {path: '/inventoryPage', name:'InventoryPage', component: InventoryPage, meta: { requiresAuth: true }},
+  { path: '/inventoryPage', name: 'InventoryPage', component: InventoryPage, meta: { requiresAuth: true } },
+  { path: '/orders', name: 'OrderHistoryPage', component: OrderHistoryPage, meta: { requiresAuth: true } },
+  { path: '/suppliersPage', name: 'Suppliers', component: SuppliersPage, meta: { requiresAuth: true } },
+  { path: '/supplier/:id', name: 'SupplierDetail', component: SupplierDetail, meta: { requiresAuth: true }, props: true }
 ]
 
 const router = createRouter({

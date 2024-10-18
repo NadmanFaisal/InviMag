@@ -1,4 +1,7 @@
 const BusinessOwner = require('../models/BusinessOwner');
+const OrderHistory = require('../models/OrderHistory');
+const Product = require('../models/Product')
+const Supplier = require('../models/Supplier')
 const { hashPassword, comparePassword } = require('../utilities/Authentication');
 const jwt = require('../utilities/jwtUtils');
 
@@ -155,6 +158,50 @@ exports.checkAuthStatus = async (req, res, next) => {
     }
 };
 
+exports.addProductToBusinessOwner = async (req, res, next) => {
+    const id = req.params.id;
+    const orderHistoryId = req.body.orderHistory
+    
+    try{
+        const businessOwner = await BusinessOwner.findById(id).populate('products');
+
+        if(!businessOwner){
+            return res.status(404).json({message: 'Did not find Business Owner'});
+        }
+
+        const newProduct = new Product({
+            name: req.body.name,
+            quantity: req.body.quantity,
+            buying_price: req.body.buying_price,
+            selling_price: req.body.selling_price,
+            category: req.body.category,
+            in_stock: req.body.in_stock,
+            supplier: req.body.supplier,
+            order_history: orderHistoryId
+        });
+
+        const savedProduct = await newProduct.save();
+        businessOwner.products.push(savedProduct);
+
+        await OrderHistory.findByIdAndUpdate(
+            orderHistoryId,
+            { $push: { products: savedProduct._id } },
+            { new: true }
+        );
+
+        await businessOwner.save();
+
+        res.status(201).json({
+            message: 'Product has been added to Business Owner.',
+            product_id: savedProduct._id
+        });
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred when adding a product to a business owner' });
+        next(error);
+    }
+}
+
+
 
 // Gets all the businessOwners from the database, and if there is a sort condition, it sorts.
 // If multiple business owners with the same total budget exist, it sorts by name.
@@ -201,6 +248,24 @@ exports.getBusinessOwnerByID = async (req, res) => {
         next(error);
     }
 }
+
+exports.getProductsByBusinessOwnerID = async (req, res, next) => {
+    const id = req.params.id
+    try{
+        const businessOwner = await BusinessOwner.findById(id).populate('products')
+
+        if(!businessOwner){
+            return res.status(404).json({message: 'Did not find Business Owner'});
+        }
+
+        res.status(200).json({'products': businessOwner.products});
+
+    }catch(error){
+        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' });
+        next(error);
+    }
+}
+
 
 // Will delete business owner according to its id
 exports.deleteBusinessOwnerByID = async (req, res) =>{
@@ -289,9 +354,11 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
 
         var updatedBusinessOwner = {
             name: (req.body.name || initialOwner.name),
-            total_budget: (req.body.total_budget || initialOwner.total_budget),
+            total_budget: (req.body.total_budget !== undefined ? req.body.total_budget : initialOwner.total_budget),
             email: (req.body.email || initialOwner.email),
-            password: initialOwner.password
+            password: initialOwner.password,
+            orderHistories: req.body.orderHistories || initialOwner.orderHistories,
+            products: req.body.products || initialOwner.products
         };
 
         // { new: true } means that mongooseDB is to return only the updated business owner, and not the previous instance of it
@@ -307,3 +374,39 @@ exports.partialUpdateBusinessOwner =  async (req, res) => {
         next(error);
     }
 }
+
+// Get order histories from a specific business owner using userId and sorted by date
+exports.getOrderHistories = async (req, res, next) => {
+    try {
+        const businessOwnerId = req.params.id;
+        const { sort_date } = req.query;
+
+        const businessOwner = await BusinessOwner.findById(businessOwnerId);
+
+        if (!businessOwner) {
+            return res.status(404).json({ message: 'Business owner not found' });
+        }
+
+        const orderHistoryIds = businessOwner.orderHistories;
+        console.log(orderHistoryIds);
+
+        let orderHistories = await OrderHistory.find({
+            _id: { $in: orderHistoryIds }
+        }).populate('products');
+
+        // Sort the order histories based on date_of_order
+        if (sort_date === 'newest') {
+            orderHistories.sort((a, b) => new Date(b.date_of_order) - new Date(a.date_of_order));
+        } else {
+            orderHistories.sort((a, b) => new Date(a.date_of_order) - new Date(b.date_of_order));
+        }
+
+        res.status(200).json({ orderHistories });
+    } catch (error) {
+        console.error('Error fetching order histories:', error);
+        res.status(500).json({ message: 'An error occurred while retrieving order histories', error: error.message });
+        next(error);
+    }
+};
+
+

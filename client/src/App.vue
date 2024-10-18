@@ -5,22 +5,36 @@
     </b-col>
     <div id="nav">
       <router-link to="/">Home</router-link>
-      <router-link to="/signup"> Sign Up </router-link>
-      <router-link to="/login">Log in</router-link>
+      <router-link to = "/inventoryPage"> Inventory</router-link>
+      <router-link to = "/suppliersPage"> Suppliers</router-link>
+      <router-link to="/orders">Order history</router-link>
       <router-link to="/settings"> Settings </router-link>
-      <router-link to = "/inventoryPage"> Inventory Page</router-link>
+      <router-link @click="logOut" to="/login">Log Out</router-link>
     </div>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Sidebar from './components/Sidebar.vue'
+import Sidebar from './components/Sidebar.vue' // Adjust the path if necessary
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
-    Sidebar
+    Sidebar // Register the Sidebar component here
+  },
+  methods: {
+    async logOut() {
+      try {
+        await axios.post('http://localhost:3000/v1/api/BusinessOwners/logout')
+        localStorage.removeItem('businessOwner')
+        this.$router.push('/login')
+      } catch (error) {
+        console.error('Error during logout:', error)
+      }
+    }
   }
+
 }
 </script>
 

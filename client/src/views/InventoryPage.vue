@@ -32,7 +32,7 @@
   <b-row class="justify-content-center">
     <!--This is the list of products displayed along with their attributes-->
   <b-col :cols="10" sm="12" md="8">
-    <b-col class = "offset-2 justify-content-center productListBox">
+    <b-col class = "justify-content-center productListBox">
     <b-col v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
         <ul>
