@@ -1,5 +1,6 @@
 <template>
     <b-card class="mb-3 best-selling-products-card">
+     <div class="content-wrapper">
       <div class="title-container">
         <b class="title">BEST SELLING PRODUCTS</b>
       </div>
@@ -15,6 +16,7 @@
           <p>Blue polo tshirt<br><strong>67 Pcs</strong></p>
         </div>
       </div>
+     </div>
     </b-card>
   </template>
 
@@ -49,8 +51,16 @@ export default {
     width: 100%;
   }
 
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .title-container {
     width: 100%;
+    align-content: start;
   }
 
   .title {
@@ -62,10 +72,9 @@ export default {
     line-height: 100%;
   }
 
-  /* Media query to adjust the height */
   @media (min-width: 992px) {
     .best-selling-products-card {
-      min-height: 94%; /* Adjust this height as needed */
+      min-height: 94%;
     }
   }
   </style>

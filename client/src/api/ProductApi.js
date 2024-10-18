@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Api } from '../Api'
 
 export const productApi = {

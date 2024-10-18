@@ -10,18 +10,17 @@
       <router-link to="/settings"> Settings </router-link>
       <router-link to = "/inventoryPage"> Inventory Page</router-link>
     </div>
-    <!-- Render the content of the current page view -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import Sidebar from './components/Sidebar.vue' // Adjust the path if necessary
+import Sidebar from './components/Sidebar.vue'
 export default {
   name: 'App',
   components: {
-    Sidebar // Register the Sidebar component here
-  },
+    Sidebar
+  }
 }
 </script>
 
