@@ -271,13 +271,15 @@ exports.getProductsByBusinessOwnerAndSortByBuyingPrice = async (req, res, next) 
     try{
         const businessOwner = await BusinessOwner.findById(id).populate('products').sort({buying_price: 1})
         if(!businessOwner){
-            return res.status(404).json({message: 'Did not find Business Owner'});
+            return res.status(404).json({message: 'Did not find Business Owner'})
         }
+
+        const sortedProducts = businessOwner.products.sort((a, b) => a.buying_price - b.buying_price)
         
-        res.status(200).json({'products': businessOwner.products})
+        res.status(200).json({'products': sortedProducts})
 
     }catch(error){
-        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' });
+        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' })
         next(error);
     }
 
@@ -286,15 +288,17 @@ exports.getProductsByBusinessOwnerAndSortByBuyingPrice = async (req, res, next) 
 exports.getProductsByBusinessOwnerAndSortByQuantity = async (req, res, next) => {
     const id = req.params.id
     try{
-        const businessOwner = await BusinessOwner.findById(id).populate('products').sort({quantity: 1})
+        const businessOwner = await BusinessOwner.findById(id).populate('products')
         if(!businessOwner){
-            return res.status(404).json({message: 'Did not find Business Owner'});
+            return res.status(404).json({message: 'Did not find Business Owner'})
         }
         
-        res.status(200).json({'products': businessOwner.products})
+        const sortedProducts = businessOwner.products.sort((a, b) => a.quantity - b.quantity)
+
+        res.status(200).json({'products': sortedProducts})
 
     }catch(error){
-        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' });
+        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' })
         next(error);
     }
 
