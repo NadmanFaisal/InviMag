@@ -14,6 +14,8 @@
           <b-dropdown-item @click="setSort('oldest')" href="#">Oldest</b-dropdown-item>
         </b-dropdown>
 
+        <button type="button" class="btn btn-danger" @click="deleteAllOrderHistories">Delete all order histories</button>
+
       </b-col>
 
     </b-col>
@@ -283,6 +285,12 @@ export default {
       } catch (error) {
         console.error('Error updating your total budget:', error)
         console.log('Could not update your total budget. Please try again.')
+      }
+    },
+    async deleteAllOrderHistories() {
+      const deleteAllOrderHistories = window.confirm('Are you sure you want to delete all the order histories? This action cannot be undone.')
+      if (deleteAllOrderHistories) {
+        const response = await axios.delete('http://localhost:3000/v1/api/OrderHistories')
       }
     }
   }
