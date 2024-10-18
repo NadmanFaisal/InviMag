@@ -7,7 +7,7 @@
       <hr />
       <div class="d-flex mt-3">
         <div class="product-item me-3">
-          <label class="inventory-value-label form-label">SEK {{ inventoryValue }}</label>
+          <label class="inventory-value-label form-label">${{ inventoryValue }}</label>
         </div>
       </div>
      </div>

@@ -6,13 +6,13 @@
         </div>
         <hr />
         <div class="text-container">
-          <p>All Items: <strong>3042</strong></p>
+          <p>All Products: <strong>3042</strong></p>
         </div>
         <div class="text-container">
-          <p>Item Types: <strong>63</strong></p>
+          <p>Product Types: <strong>63</strong></p>
         </div>
         <div class="text-container">
-          <p class="text-danger">Out of Stock Items: <strong>144</strong></p>
+          <p class="text-danger">Out of Stock Products: <strong>144</strong></p>
         </div>
       </div>
     </b-card>

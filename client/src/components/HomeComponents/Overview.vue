@@ -24,8 +24,8 @@
       <div class="budget-section text-center mt-4">
         <b id="budget">Budget</b>
         <b-row class="justify-content-center g-3">
-          <b-col cols="auto" class="group-child">
-            <b class="b" style="color: blue;">{{ total_budget }}</b>
+          <b-col cols="auto" class="budget-container">
+            <b class="b" style="color: #37F;">{{ `$${formattedBudget} `}}</b>
           </b-col>
         </b-row>
       </div>
@@ -43,6 +43,11 @@ export default {
     return {
       userId: '',
       total_budget: 0
+    }
+  },
+  computed: {
+    formattedBudget() {
+      return this.total_budget.toLocaleString()
     }
   },
   mounted() {
@@ -98,6 +103,19 @@ export default {
 
 .group-child {
   width: 250px;
+  height: 103px;
+  border-radius: 10px;
+  background: #FFF;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+.budget-container {
+  min-width: 250px;
+  width: auto;
   height: 103px;
   border-radius: 10px;
   background: #FFF;
