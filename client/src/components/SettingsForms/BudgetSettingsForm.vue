@@ -49,6 +49,11 @@ export default {
     async updateBusinessOwner() {
       if (!this.userId) return
 
+      if (isNaN(this.total_budget) || this.total_budget < 0) {
+        alert('Total budget cannot be a negative number')
+        return
+      }
+
       const updatedData = {
         total_budget: this.total_budget
       }

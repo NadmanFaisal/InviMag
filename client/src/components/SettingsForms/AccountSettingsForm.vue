@@ -67,7 +67,7 @@ export default {
       }
 
       try {
-        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
+        await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
         alert('Your details have been updated successfully!')
 
         // Notify other clients about the name change
@@ -75,8 +75,8 @@ export default {
           this.ws.send(JSON.stringify({ event: 'updateName', data: { name: this.name } }))
         }
       } catch (error) {
-        console.error('Error updating your details:', error);
-        alert('Could not update your details. Please try again.');
+        console.error('Error updating your details:', error)
+        alert('Could not update your details. Please try again.')
       }
     }
   }
