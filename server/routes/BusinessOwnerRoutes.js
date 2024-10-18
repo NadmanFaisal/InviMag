@@ -14,6 +14,9 @@ router.put('/BusinessOwners/:id', businessOwnerController.updateBusinessOwnerByI
 router.patch('/BusinessOwners/:id', businessOwnerController.partialUpdateBusinessOwner);
 router.post('/login', businessOwnerController.loginBusinessOwner);
 router.get('/BusinessOwners/:id/orderHistories', businessOwnerController.getOrderHistories);
-router.post('/BusinessOwners/:id/products', businessOwnerController.addProductToBusinessOwner)
+router.post('/BusinessOwners/:id/products', businessOwnerController.addProductToBusinessOwner);
+router.get('/BusinessOwners/:id/products', businessOwnerController.getProductsByBusinessOwnerID);
+router.get('/BusinessOwners/:id/products/orderByBuyingPrice', businessOwnerController.getProductsByBusinessOwnerAndSortByBuyingPrice);
+router.get('/BusinessOwners/:id/products/orderByQuantity', businessOwnerController.getProductsByBusinessOwnerAndSortByQuantity);
 
 module.exports = router;
