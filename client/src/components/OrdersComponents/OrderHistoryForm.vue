@@ -14,7 +14,7 @@
           <b-dropdown-item @click="setSort('oldest')" href="#">Oldest</b-dropdown-item>
         </b-dropdown>
 
-        <button type="button" class="btn btn-danger" @click="deleteAllOrderHistories">Delete all order histories</button>
+        <button type="button" class="delete-button btn btn-danger" @click="deleteAllOrderHistories">Delete all order histories</button>
 
       </b-col>
 
@@ -288,6 +288,10 @@ export default {
       }
     },
     async deleteAllOrderHistories() {
+      if (this.orderHistories.length < 1) {
+        alert('There are no order histories to delete!')
+        return
+      }
       const deleteAllOrderHistories = window.confirm('Are you sure you want to delete all the order histories? This action cannot be undone.')
       if (deleteAllOrderHistories) {
         const response = await axios.delete('http://localhost:3000/v1/api/OrderHistories')
@@ -329,7 +333,7 @@ export default {
   color: #606060;
   text-align: center;
   font-family: "Istok Web";
-  font-size: 24px;
+  font-size: 35px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -341,6 +345,20 @@ export default {
   flex-direction: row;
   align-items: center;
   height: 60%;
+}
+
+.delete-button {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 20px;
+  background: #F60101;
 }
 
 .order-history-container {
