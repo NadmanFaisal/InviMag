@@ -30,7 +30,7 @@
                     placeholder="Input Quantity"
                     class="quantity-input"
                 ></b-form-input>
-                <b-button variant="primary" @click="addToBasket(product._id)">Add to basket</b-button>
+                <b-button variant="primary" @click="addToBasket(product._id)" class="button-style">Add to basket</b-button>
                 </b-col>
                 </li>
             </b-col>
@@ -160,6 +160,7 @@ export default{
     flex-direction: column;
     padding-right: auto;
     justify-content: center;
+    margin-bottom: 20px;
 
 }
 
@@ -185,14 +186,14 @@ export default{
 
 .attributeLabel {
     font-family: "Istok Web";
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
     text-align: center;
 }
 
 .attributeValue {
     font-family: "Istok Web";
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
     color: grey;
@@ -203,7 +204,6 @@ export default{
     color: black;
     text-align: left;
     font-family: "Istok Web";
-    font-size: 15px;
     font-weight: 700;
     line-height: 1.5;
 }
@@ -218,7 +218,7 @@ export default{
     line-height: 120%; /* 28.8px */
     letter-spacing: -0.48px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .supplier-image {
@@ -231,14 +231,21 @@ export default{
 }
 
 .quantity-input{
-    width: 100%;
+    width: 30%;
     margin-top: 5px;
+    height: 50px;
 }
 
 .add-to-basket-style{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items:center;
+}
+
+.button-style{
+    margin-top: 10px;
+    width:30%;
 }
 
 @media (max-width: 768px) {
@@ -260,8 +267,13 @@ export default{
         text-align: center;
     }
 
-    .attributeLabel, .attributeValue, .productTitle {
-        font-size: 12px;
+    .productTitle {
+        font-size: 20px;
+    }
+
+
+    .attributeLabel, .attributeValue{
+        font-size: 15px;
     }
 
     .add-to-basket-style {
@@ -270,9 +282,13 @@ export default{
     }
 
     .quantity-input{
-        width: 100%;
-        height:20px;
+        width: 65%;
+        height: 30px;
         padding-top: 10px;
+    }
+
+    .button-style{
+        width: 65%;
     }
 }
 
