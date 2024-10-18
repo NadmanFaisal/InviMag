@@ -56,6 +56,11 @@ export default {
     this.ws.onclose = () => {
       console.log('WebSocket connection closed in account settings form')
     }
+
+    this.ws.onerror = (error) => {
+      console.error('WebSocket error:', error)
+      alert('There was a problem with the websocket connection in the budgetSettingsForm.')
+  }
   },
   methods: {
     async updateBusinessOwner() {

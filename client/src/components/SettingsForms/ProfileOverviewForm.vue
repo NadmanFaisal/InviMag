@@ -42,6 +42,11 @@ export default {
       }
     }
 
+    this.ws.onerror = (error) => {
+      console.error('WebSocket error:', error)
+      alert('There was a problem with the websocket connection in the profileOverviewForm.')
+    }
+
     this.ws.onclose = () => {
       console.log('WebSocket connection closed in profile overview form')
     }
