@@ -16,7 +16,7 @@
               </b-col>
 
               <b-col lg="6" md="12" class="mb-3">
-                <BestSellingProducts />
+                <TotalInventoryValue />
               </b-col>
             </b-row>
 
