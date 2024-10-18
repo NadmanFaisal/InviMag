@@ -60,7 +60,7 @@ export default {
     this.ws.onerror = (error) => {
       console.error('WebSocket error:', error)
       alert('There was a problem with the websocket connection in the budgetSettingsForm.')
-  }
+    }
   },
   methods: {
     async updateBusinessOwner() {
