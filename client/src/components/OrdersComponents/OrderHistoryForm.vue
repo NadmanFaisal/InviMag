@@ -14,6 +14,8 @@
           <b-dropdown-item @click="setSort('oldest')" href="#">Oldest</b-dropdown-item>
         </b-dropdown>
 
+        <button type="button" class="delete-button btn btn-danger" @click="deleteAllOrderHistories">Delete all order histories</button>
+
       </b-col>
 
     </b-col>
@@ -223,7 +225,7 @@ export default {
       }
 
       try {
-        const response = await axios.post('http://localhost:3000/v1/api//orderHistories', orderHistoryData)
+        const response = await axios.post('http://localhost:3000/v1/api/orderHistories', orderHistoryData)
         this.orderHistories.push(response.data.orderHistories)
         this.orderHistoryId = response.data._id
         this.createProducts()
@@ -271,18 +273,32 @@ export default {
     async updateBusinessOwner() {
       if (!this.userId) return
 
-      const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
-      const updatedTotalBudget = response.data.total_budget - this.basketSubtotal
-      const updatedData = {
-        total_budget: updatedTotalBudget
-      }
-
       try {
-        const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
+        const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        const updatedTotalBudget = response.data.total_budget - this.basketSubtotal
+        const updatedData = {
+          total_budget: updatedTotalBudget
+        }
+        await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
         console.log('Your total budget have been updated successfully!')
       } catch (error) {
         console.error('Error updating your total budget:', error)
         console.log('Could not update your total budget. Please try again.')
+      }
+    },
+    async deleteAllOrderHistories() {
+      if (this.orderHistories.length < 1) {
+        alert('There are no order histories to delete!')
+        return
+      }
+      const deleteAllOrderHistories = window.confirm('Are you sure you want to delete all the order histories? This action cannot be undone.')
+      if (deleteAllOrderHistories) {
+        try {
+          await axios.delete('http://localhost:3000/v1/api/OrderHistories')
+          alert('All order histories have been deleted!')
+        } catch (error) {
+          console.error('Error deleting all the order histories: ', error)
+        }
       }
     }
   }
@@ -321,7 +337,7 @@ export default {
   color: #606060;
   text-align: center;
   font-family: "Istok Web";
-  font-size: 24px;
+  font-size: 35px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -333,6 +349,20 @@ export default {
   flex-direction: row;
   align-items: center;
   height: 60%;
+}
+
+.delete-button {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+  font-family: "Istok Web";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 20px;
+  background: #F60101;
 }
 
 .order-history-container {
@@ -444,7 +474,7 @@ export default {
   height: 100%;
 }
 
-.order-id-label-container, .date-label-container, .quantity-label-container {
+.order-id-label-container, .date-label-container, .quantity-label-container, .prince-label-container {
   display: flex;
   flex-direction: column;
   background: #e0e0e0;
@@ -453,7 +483,7 @@ export default {
   align-items: center;
 }
 
-.order-id-label, .date-label, .quantity-label {
+.order-id-label, .date-label, .quantity-label, .price-label {
   color: #606060;
   font-family: "Istok Web";
   font-size: 16px;
@@ -531,5 +561,70 @@ export default {
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+@media screen and (max-width: 608px) {
+
+.empty-section {
+  display: none;
+}
+
+.content-section {
+  flex: 1
+}
+
+.status-bar-label {
+  font-size: 40px;
+}
+
+}
+
+/* For iPhone SE mainly */
+
+@media screen and (max-width: 580px) {
+  .date-container {
+    display: none;
+  }
+
+  .quantity-container {
+    flex:1;
+  }
+
+  .payment-container {
+    flex:1
+  }
+
+  .quantity-label, .price-label {
+    font-size: 13px;
+  }
+
+  .order-id-label, .product-name-label, .product-quantity-label, .product-price-label {
+    font-size: 13px;
+  }
+
+  .sub-total-container, .shipping-container, .to-pay-container {
+    font-size: 13px;
+  }
+
+  .accept-button, .reject-button {
+  font-size: 10px;
+  }
+
+}
+
+@media screen and (max-width: 580px) {
+
+  .sub-total-container, .shipping-container, .to-pay-container {
+    font-size: 10px;
+  }
+
+  .status-bar-label {
+  font-size: 30px;
+  }
+
+  .accept-button, .reject-button {
+    font-size: 7px;
+  }
+
 }
 </style>
