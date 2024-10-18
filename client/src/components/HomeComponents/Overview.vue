@@ -25,7 +25,7 @@
         <b id="budget">Budget</b>
         <b-row class="justify-content-center g-3">
           <b-col cols="auto" class="group-child">
-            <b class="b" style="color: blue;">98</b>
+            <b class="b" style="color: blue;">{{ total_budget }}</b>
           </b-col>
         </b-row>
       </div>
@@ -35,8 +35,34 @@
 </template>
 
 <script>
+import { Api } from '@/Api'
+
 export default {
-  name: 'Overview'
+  name: 'Overview',
+  data() {
+    return {
+      userId: '',
+      total_budget: 0
+    }
+  },
+  mounted() {
+    const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    if (businessOwner && businessOwner.id) {
+      this.userId = businessOwner.id
+      this.displayUserTotalBudget()
+    }
+  },
+  methods: {
+    async displayUserTotalBudget() {
+      try {
+        const response = await Api.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        this.total_budget = response.data.total_budget
+      } catch (error) {
+        console.error('Error getting user total budget:', error)
+        alert('Could not get your total budget. Please try again.')
+      }
+    }
+  }
 }
 </script>
 
