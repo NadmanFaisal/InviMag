@@ -3,23 +3,23 @@
       <h1>Update Product Details</h1>
       <div class="product-details">
         <div>
-          <label>Name:</label>
-          <input type="text" v-model="name" />
+          <label>Name</label>
+          <input type="text" v-model="name" class="input-field"/>
         </div>
         <div>
-          <label>Quantity:</label>
-          <input type="number" v-model="quantity" />
+          <label>Quantity</label>
+          <input type="number" v-model="quantity" class="input-field"/>
         </div>
         <div>
-          <label>Price:</label>
-          <input type="number" v-model="buying_price" />
+          <label>Price</label>
+          <input type="number" v-model="buying_price" class="input-field"/>
         </div>
         <div>
-          <label>Category:</label>
-          <input type="text" v-model="category" />
+          <label>Category</label>
+          <input type="text" v-model="category" class="input-field"/>
         </div>
         <div>
-          <label>Status:</label>
+          <label>Status</label>
           <div>
             <input
               type="radio"
@@ -27,7 +27,7 @@
               value="true"
               v-model="in_stock"
             />
-            <label for="in-stock">In Stock</label>
+            <label for="in-stock">In Stock</label><br>
             <input
               type="radio"
               id="out-of-stock"
@@ -80,6 +80,9 @@
         },
 
         async updateProductDetails(){
+        if(!this.in_stock && this.quantity > 0){
+                alert("Out of stock product MUST have a quantity of 0")
+        }else{    
             try{
             const updatedProduct = {
                 name: this.name,
@@ -90,13 +93,20 @@
                 in_stock: this.in_stock
             }
 
-            const response = await productApi.updateProductById(this.id, updatedProduct);
-            console.log('Product SucessFully Updated', response.data)
-                
+            
+                if((this.product.name === updatedProduct.name) && (this.product.quantity === updatedProduct.quantity) && (this.product.buying_price === updatedProduct.buying_price) && (this.product.category === updatedProduct.buying_price) && (this.product.in_stock === updatedProduct.in_stock)){
+                    alert("Bad request: Updated product has identical fields, Please input new values to update the product");
+                }else{
+                    const response = await productApi.updateProductById(this.id, updatedProduct);
+                    alert('Product SucessFully Updated', response.data)
+                    console.log('Product SucessFully Updated', response.data)
+
+                }
 
             }catch(error){
                 console.error('Error fetching supplier', error);
             }
+        }
         }
     }
   }
@@ -104,15 +114,28 @@
   
   <style scoped>
   .product-details {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    background-color: #f0f8ff; /* Light blue background */
+    border: 1px solid #37f; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Padding inside the input */
+    width: 50%; /* Full width */
+    font-family: 'Istok Web', sans-serif; /* Font family */
+    font-size: 16px; /* Font size */
+    margin-bottom: 10px; /* Space between inputs */
 }
 
 .update-button {
-  background-color: #37f;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #37f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Istok Web', sans-serif; /* Font family for button */
 }
+
   </style>

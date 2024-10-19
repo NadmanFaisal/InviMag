@@ -170,6 +170,7 @@ export default {
   border-radius: 10%;
 }
 .dropdown-content{
+  justify-content: center;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
