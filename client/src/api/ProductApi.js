@@ -22,7 +22,7 @@ import { Api } from '../Api';
     },
 
     updateProductById(id, updatedProduct){
-        return Api.get(`/Products/${id}`, updatedProduct);
+        return Api.put(`/Products/${id}`, updatedProduct);
     },
     
     deleteProductById(id){
