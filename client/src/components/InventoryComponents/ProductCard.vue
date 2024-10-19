@@ -8,11 +8,7 @@
         </div>
         <div class="attributeDisplayWidget">
           <p class="attributeLabel">Buying Price</p>
-          <p class="attributeValue">{{ product.buying_price }}</p>
-        </div>
-        <div class="attributeDisplayWidget">
-          <p class="attributeLabel">Selling Price</p>
-          <p class="attributeValue">{{ product.selling_price }}</p>
+          <p class="attributeValue">${{ product.buying_price }}</p>
         </div>
       </div>
     </li>

@@ -20,10 +20,9 @@
     </b-row>
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
     <div sm="12" class = "dropdown">
-      <button class = "dropdown-button" @click = "toggleDropdown()"> Sort By</button>
-      <div id = "dropdown-content" class = "dropdown-content">
+      <button class = "dropdown-button" @click = "toggleDropdown"> Sort By</button>
+      <div id = "dropdown-element" class = "dropdown-content">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
-      <a href = "#" @click = "sortBySellingPrice"> Selling Price</a>
       <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
     </div>
@@ -47,8 +46,9 @@
   </b-row>
   </b-container>
 </template>
+
 <script>
-import { productApi } from '@/api/ProductApi'
+import { businessOwnerApi } from '@/api/BusinessOwnerApi'
 import ProductCard from '../components/InventoryComponents/ProductCard.vue';
 
 export default {
@@ -72,9 +72,10 @@ export default {
     methods:{
 
         async fetchProducts(){
+          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));
             try{
-                const response = await productApi.getAllProducts();
-                this.products = response.data.Products;
+                const response = await businessOwnerApi.getBusinessOwnerProducts(businessOwner.id);
+                this.products = response.data.products;
 
             }catch(error){
                 console.error('An Error occured when fetching products:', error);
@@ -82,36 +83,29 @@ export default {
         },
 
         toggleDropdown(){
-          const dropdownElement = document.getElementById('dropdown-content')
-          if (dropdownContent.style.display === 'block') {
-            dropdownContent.style.display = 'none';
+          const dropdownElement = document.getElementById('dropdown-element');
+          if (dropdownElement.style.display === 'block') {
+            dropdownElement.style.display = 'none';
           } else {
-            dropdownContent.style.display = 'block';
+            dropdownElement.style.display = 'block';
           }
         },
 
         async sortByBuyingPrice(){
+          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));
           try{
-            const response = await productApi.getAllProductsByBuyingPrice();
-            this.products = response.data.Products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
-        },
-
-        async sortBySellingPrice(){
-          try{
-            const response = await productApi.getAllProductsBySellingPrice();
-            this.products = response.data.Products;
+            const response = await businessOwnerApi.getAllProductsByBuyingPrice(businessOwner.id);
+            this.products = response.data.products;
           }catch (error){
             console.error('An Error occured when sorting products:', error);
           }
         },
 
         async sortByQuantity(){
+          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));          
           try{
-            const response = await productApi.getAllProductsByQuantity();
-            this.products = response.data.Products;
+            const response = await businessOwnerApi.getAllProductsByQuantity(businessOwner.id);
+            this.products = response.data.products;
           }catch (error){
             console.error('An Error occured when sorting products:', error);
           }
@@ -140,7 +134,7 @@ export default {
 
 .top-container-style{
   width: 100%;
-  height: 270px;
+  height: auto;
   flex-shrink: 0;
   background-color: #F1F6FF;
   margin-left: 16.6667%; /* Push content to the right by the width of the sidebar */
@@ -185,7 +179,6 @@ export default {
   border-radius: 10%;
 }
 .dropdown-content{
-  display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -230,6 +223,7 @@ export default {
   gap: 20px; /* Space between items */
   margin-bottom: 20px; /* Add some space below the count containers */
   flex-grow: 1;
+  width: auto;
 }
 
 .countFont{
@@ -292,13 +286,20 @@ export default {
     width: 100%;
   }
   .main-content {
-    width: 100%; 
+    width: auto; 
     padding: 0 10px;
 }
   .productListBox{
     transform: none; /* Remove any left offset */
     margin-left: 0%;
     width: 100%;
+  }
+
+  .countFont{
+    font-size: 20px;
+  }
+  .inStockFont, .outOfStockFont, .totalFont{
+    font-size: 10px;
   }
 }
 </style>
