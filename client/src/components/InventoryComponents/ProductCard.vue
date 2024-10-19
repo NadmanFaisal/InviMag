@@ -16,6 +16,7 @@
           <p class="attributeValue">{{ product.category }}</p>
         </b-col>
       </b-col>
+      <button type="button" @click="goToUpdateProductsPage" class="update-product-button">Update Product details</button>
     </li>
     </b-col>
 </template>
@@ -28,7 +29,21 @@ export default {
             type: Object,
             required: true
         }
+    },
+    data(){
+        return{
+            isModalVisible: false
+        }
+    },
+    methods:{
+        
+        goToUpdateProductsPage(){
+            this.$router.push({name: 'UpdateProductDetails', params: {id: this.product._id, product: this.product}})
+        }
+
     }
+
+
 }
 </script>
 
@@ -95,6 +110,15 @@ export default {
     font-weight: bold;
     color: black;
 
+}
+
+.update-product-button{
+    font-family: "Istok Web";
+    background-color: #37F;
+    color: white;
+    font-weight: bold;
+    border-color: #37F;
+    border-radius: 10px;
 }
 
 @media (max-width: 768px) {
