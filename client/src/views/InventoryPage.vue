@@ -8,7 +8,7 @@
     <h1 class = "companyHeader">Company Name</h1>
 
     <!--This is the containers that display total, in-stock, and out-of-stock products-->
-    <b-row :cols = "10"  class = "productCountContainer justify-content-center main-content">
+    <b-row :cols = "10"  class = "productCountContainer justify-content-center">
     <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
       <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
     </b-col>
@@ -28,13 +28,13 @@
     </div>
   </b-col>
   </b-row>
-  <b-row class="justify-content-center">
+  <b-row class="main-content">
     <!--This is the list of products displayed along with their attributes-->
-  <b-col :cols="10" sm="12" md="8">
-    <b-col class = "justify-content-center productListBox">
+  <b-col :cols="10">
+    <b-col class = "productListBox">
     <b-col v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
-        <ul>
+        <ul style="padding: 0; margin: 0;"> <!-- Flex container for the list -->
           <ProductCard v-for="product in products" :key="product._id" :product="product"></ProductCard>
         </ul>
       </b-col>
@@ -146,18 +146,11 @@ export default {
   font-weight: bold;
 }
 .productListBox{
-  color: black;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-  flex-grow: 1; /* Remaining space after the sidebar */
-  position: relative;
-  transform: none;
-  margin-left: 16.6667%; /* Push content to the right by the width of the sidebar */
-  width: 100%;
-  padding: 20px;
   justify-content: center;
+  display: flex; /* Add display flex */
+  flex-wrap: wrap;
+  margin: 0 auto; /* Center the box itself */
+  width: auto; /* Full width for centering */
 }
 .customHeader{
   padding-top: 30px;
@@ -273,6 +266,9 @@ export default {
 .main-content {
   padding-left: 15px;
   padding-right: 15px;
+  margin-left: 16.66667%;
+  justify-content: center;
+  width: auto;
 }
 
 @media (max-width: 768px) {
@@ -288,18 +284,14 @@ export default {
   .main-content {
     width: auto; 
     padding: 0 10px;
+    margin: auto;
 }
   .productListBox{
-    transform: none; /* Remove any left offset */
     margin-left: 0%;
     width: 100%;
+    justify-content: center;
   }
 
-  .countFont{
-    font-size: 20px;
-  }
-  .inStockFont, .outOfStockFont, .totalFont{
-    font-size: 10px;
-  }
+  
 }
 </style>
