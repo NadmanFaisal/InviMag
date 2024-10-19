@@ -21,7 +21,7 @@
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
     <div sm="12" class = "dropdown">
       <button class = "dropdown-button" @click = "toggleDropdown"> Sort By</button>
-      <div id = "dropdown-element" class = "dropdown-content">
+      <div id = "dropdown-element" class = "dropdown-content" v-if="isDropdownOpen">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
       <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
@@ -60,7 +60,8 @@ export default {
     data(){
         return {
           search: "",  
-          products: [],  
+          products: [], 
+          isDropdownOpen: false, 
         }
     },
 
@@ -83,12 +84,7 @@ export default {
         },
 
         toggleDropdown(){
-          const dropdownElement = document.getElementById('dropdown-element');
-          if (dropdownElement.style.display === 'block') {
-            dropdownElement.style.display = 'none';
-          } else {
-            dropdownElement.style.display = 'block';
-          }
+          this.isDropdownOpen = !this.isDropdownOpen;
         },
 
         async sortByBuyingPrice(){
@@ -99,6 +95,7 @@ export default {
           }catch (error){
             console.error('An Error occured when sorting products:', error);
           }
+          this.isDropdownOpen = false;
         },
 
         async sortByQuantity(){
@@ -109,6 +106,7 @@ export default {
           }catch (error){
             console.error('An Error occured when sorting products:', error);
           }
+          this.isDropdownOpen = false;
         }
       },
     computed:{
