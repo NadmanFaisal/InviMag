@@ -22,6 +22,8 @@
 
   <b-col cols="12" class="order-history-container">
 
+    <!-- The basket container wont appear unless the basket has more than one product -->
+
     <b-col cols=11 class="basket-container" v-if="basket.length > 0">
 
       <b-col cols="4" class="product-container">
@@ -29,6 +31,8 @@
         <b-col cols="12" class="order-id-label-container">
           <label class="order-id-label form-label">Order ID: </label>
         </b-col>
+
+        <!-- Displays name of products for all the products in the basket -->
 
         <b-col cols="12" class="product-name-container" v-for="product in basket" :key="product._id">
           <label class="product-name-label form-label">{{ product.name }}</label>
@@ -42,6 +46,8 @@
           <label class="price-label form-label">Price </label>
         </b-col>
 
+        <!-- Displays price of products for all the products in the basket -->
+
         <b-col cols="12" class="product-price-container" v-for="product in basket" :key="product._id">
           <label class="product-price-label form-label">{{ product.price }}</label>
         </b-col>
@@ -53,6 +59,8 @@
         <b-col cols="12" class="quantity-label-container">
           <label class="quantity-label form-label">QTY</label>
         </b-col>
+
+        <!-- Displays quantity of products for all the products in the basket -->
 
         <b-col cols="12" class="product-name-container" v-for="product in basket" :key="product._id">
           <label class="product-name-label form-label">{{ product.quantity }}</label>
