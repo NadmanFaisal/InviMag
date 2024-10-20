@@ -29,6 +29,8 @@ export default {
       total_budget: 0
     }
   },
+
+  // Fetches the businessOwner ID from local storage as soon as the page loads
   mounted() {
     const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
     if (businessOwner && businessOwner.id) {
@@ -36,6 +38,8 @@ export default {
       this.displayUserTotalBudget()
     }
   },
+
+  // Displays the total budget in the budget input field
   methods: {
     async displayUserTotalBudget() {
       try {
@@ -46,9 +50,12 @@ export default {
         alert('Could not get your total budget. Please try again.')
       }
     },
+
+    // Updates the business owner's total budget through PATCH
     async updateBusinessOwner() {
       if (!this.userId) return
 
+      // Checks whether the value entered is a number and is non negative
       if (isNaN(this.total_budget) || this.total_budget < 0) {
         alert('Total budget cannot be a negative number')
         return
