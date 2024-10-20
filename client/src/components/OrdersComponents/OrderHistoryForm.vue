@@ -250,18 +250,39 @@ export default {
             selling_price: 0,
             category: product.category,
             supplier: product.supplierID,
-            order_history: this.orderHistoryId
+            in_stock: true,
+            orderHistory: this.orderHistoryId
+          }
+
+          const businessOwner = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+          const businessOwnerProductIds = businessOwner.data.products
+
+          let productExists = false
+
+          for (const productId of businessOwnerProductIds) {
+            const response = await axios.get(`http://localhost:3000/v1/api/Products/${productId}`)
+            const productToCompare = response.data
+
+            if (productData.name === productToCompare.name) {
+              const newProductQuantity = Number(productToCompare.quantity) + productData.quantity
+              const updatedProductQuantity = { quantity: newProductQuantity, in_stock: true }
+
+              await axios.patch(`http://localhost:3000/v1/api/Products/${productId}`, updatedProductQuantity)
+              productExists = true
+              console.log(`Updated quantity for product: ${productData.name}`)
+            }
+          }
+
+          if (!productExists) {
+            const response = await axios.post(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/products`, productData)
+            console.log('Product added successfully:', response.data)
           }
 
           const originalProduct = await axios.get(`http://localhost:3000/v1/api/Products/${product.id}`)
           const newQuantity = originalProduct.data.quantity - product.quantity
-          const updatedProduct = {
-            quantity: newQuantity
-          }
-          await axios.patch(`http://localhost:3000/v1/api/Products/${product.id}`, updatedProduct)
+          const updatedProduct = { quantity: newQuantity }
 
-          const response = await axios.post(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/products`, productData)
-          console.log('Product added successfully:', response.data)
+          await axios.patch(`http://localhost:3000/v1/api/Products/${product.id}`, updatedProduct)
         } catch (error) {
           console.error('Error adding product to business owner:', error)
         }

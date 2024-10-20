@@ -159,8 +159,8 @@ exports.checkAuthStatus = async (req, res, next) => {
 };
 
 exports.addProductToBusinessOwner = async (req, res, next) => {
-    const id = req.params.id;
-    const orderHistoryId = req.body.order_history;
+    const id = req.params.id
+    const orderHistoryId = req.body.orderHistory
     
     try{
         const businessOwner = await BusinessOwner.findById(id).populate('products');
