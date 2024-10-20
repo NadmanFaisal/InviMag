@@ -1,177 +1,153 @@
 <template>
     <b-col :cols="10" class="supplier-detail-style">
-        <img :src= "supplierimage" class="supplier-image">
-        <b-col  :cols="10" v-if="supplier">
-        <h1 class="supplier-title-font">{{supplier.name}}</h1>
+        <img :src="supplierimage" class="supplier-image">
+        <b-col :cols="10" v-if="supplier">
+            <h1 class="supplier-title-font">{{supplier.name}}</h1>
             <!-- Display other supplier details -->
-        <b-col v-if="products && products.length">
-            <h2 class="supplier-title-font">Products I sell</h2>
-            <ul>
-            <b-col v-for="product in products" :key="product._id">
-                <li class="productDisplay">
-                    <p class="productTitle">{{ product.name }}</p>
-                <b-col class="attributeDisplayContainer">
-                    <b-col>
-                    <p class="attributeLabel">Quantity</p>
-                    <p class="attributeValue">{{ product.quantity }} Units</p>
+            <b-col v-if="products && products.length">
+                <h2 class="supplier-title-font">Products I sell</h2>
+                <ul>
+                    <b-col v-for="product in products" :key="product._id">
+                        <li class="productDisplay">
+                            <p class="productTitle">{{ product.name }}</p>
+                            <b-col class="attributeDisplayContainer">
+                                <b-col>
+                                    <p class="attributeLabel">Quantity</p>
+                                    <p class="attributeValue">{{ product.quantity }} Units</p>
+                                </b-col>
+                                <b-col>
+                                    <p class="attributeLabel">Price</p>
+                                    <p class="attributeValue">${{ product.selling_price }}</p>
+                                </b-col>
+                                <b-col>
+                                    <p class="attributeLabel">Location</p>
+                                    <p class="attributeValue">{{ supplier.location_of_origin }}</p>
+                                </b-col>
+                            </b-col>
+                            <b-col class="add-to-basket-style">
+                                <b-form-input
+                                    v-model="inputQuantities[product._id]"
+                                    placeholder="Input Quantity"
+                                    class="quantity-input"
+                                ></b-form-input>
+                                <b-button variant="primary" @click="addToBasket(product._id)" class="button-style">Add to basket</b-button>
+                            </b-col>
+                            <b-col v-if="product.quantity === 0">
+                                <b-button variant="danger" @click="deleteProduct(product._id)">Don't show this product anymore</b-button>
+                            </b-col>
+                        </li>
                     </b-col>
-                    <b-col>
-                    <p class="attributeLabel">Price</p>
-                    <p class="attributeValue">${{ product.selling_price }}</p>
-                    </b-col>
-                    <b-col>
-                    <p class="attributeLabel">Location</p>
-                    <p class="attributeValue">{{ supplier.location_of_origin }}</p>
-                    </b-col>
-                </b-col>
-                <b-col class="add-to-basket-style">
-                <b-form-input
-                    v-model="inputQuantities[product._id]"
-                    placeholder="Input Quantity"
-                    class="quantity-input"
-                ></b-form-input>
-                <b-button variant="primary" @click="addToBasket(product._id)" class="button-style">Add to basket</b-button>
-                </b-col>
-                </li>
-            </b-col>
-            </ul>
+                </ul>
             </b-col>
         </b-col>
-            <b-col v-else>
-            <p></p>
-            </b-col>
+        <b-col v-else>
+            <p>No supplier details available.</p>
+        </b-col>
     </b-col>
 </template>
 
 <script>
-import {supplierApi} from '../../api/SupplierApi'; 
-import {productApi} from '../../api/ProductApi'
-import supplierimage from '../SupplierComponents/Images/purple-user-icon.png'
+import { supplierApi } from '../../api/SupplierApi'; 
+import { productApi } from '../../api/ProductApi';
+import supplierimage from '../SupplierComponents/Images/purple-user-icon.png';
 
-export default{
+export default {
     name: 'SupplierDetail',
     props: ['id'],
-    data(){
-        return{
+    data() {
+        return {
             supplier: {},
             products: [],
             supplierimage,
             inputQuantities: {},
-        }
+        };
     },
     
     created() {
-        this.products = this.products || []; 
         if (this.id) {
             this.fetchSupplierDetails();
             this.fetchSupplierProducts();
         }
     },
-    watch:{
-        products:{
-            deep: true,
-            handler(newProducts){
-                newProducts.forEach((product, index) =>{
-                    if(product.quantity === 0){
-                        this.deleteProduct(product.id, index);
+  
+    methods: {
+        async fetchSupplierDetails() {
+            try {
+                const response = await supplierApi.getSupplierByID(this.id);
+                this.supplier = response.data;
+            } catch (error) {
+                console.error('Error fetching supplier', error);
+            }
+        },
+    
+        async fetchSupplierProducts() {
+            try {
+                const response = await supplierApi.getSupplierProducts(this.id);
+                this.products = response.data.products;  
+            } catch (error) {
+                console.error('Error fetching supplier and products:', error);
+            }
+        },
+
+        async addToBasket(productID) {
+            const inputQuantity = Number(this.inputQuantities[productID]);
+            if (inputQuantity === 0) {
+                alert("Please provide an input quantity");
+                return;
+            }
+            
+            let basket = JSON.parse(localStorage.getItem('basket')) || [];
+            const supplierId = this.id;
+
+            try {
+                const response = await productApi.getProductByID(productID);
+                const product = response.data;
+                const availableQuantity = Number(product.quantity);
+                
+                let existingProductInBasket = basket.find(item => item.id === productID);
+                let totalQuantityInBasket = (existingProductInBasket ? existingProductInBasket.quantity : 0) + inputQuantity;
+
+                if (totalQuantityInBasket > availableQuantity) {
+                    alert(`Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${availableQuantity}`);
+                } else {
+                    if (existingProductInBasket) {
+                        existingProductInBasket.quantity += inputQuantity;
+                    } else {
+                        basket.push({
+                            id: productID,
+                            name: product.name,
+                            price: product.selling_price,
+                            category: product.category,
+                            quantity: inputQuantity,
+                            supplierID: supplierId
+                        });
                     }
-                })
-            }
-        }
-    },
-
-  methods: {
-    
-    async fetchSupplierDetails(){
-       try{
-        const response = await supplierApi.getSupplierByID(this.id);
-        this.supplier = response.data;
-       }catch(error){
-            console.error('Error fetching supplier', error);
-       }
-    },
-    
-    
-    
-    async fetchSupplierProducts() {
-        try {
-            const response = await supplierApi.getSupplierProducts(this.id);
-            this.products = response.data.products;  
-            console.log(this.supplier)
-        } catch (error) {
-            console.error('Error fetching supplier and products:', error);
-        }
-    },
-
-    async addToBasket(productID){
-        const inputQuantity = Number(this.inputQuantities[productID]);
-        if(inputQuantity === 0){
-            alert("Please Provide an input quantity")
-        }else {
-        //let previousAmountBought = Number(localStorage.getItem(`amountOfProductBought${id}`)) || 0;
-        //const totalAmountBought = previousAmountBought+inputQuantity;
-        let basket = JSON.parse(localStorage.getItem('basket')) || [];
-        const supplierId = this.id;
-        try{
-
-        const response = await productApi.getProductByID(productID);
-        const product = response.data;
-        const avaiableQuantity = Number(response.data.quantity);
-         
-        let existingProductInBasket = basket.find(item => item.id === productID);
-        let totalQuantityInBasket = (existingProductInBasket ? existingProductInBasket.quantity : 0) + inputQuantity;
-
-
-    
-        if(totalQuantityInBasket > avaiableQuantity){
-            alert(`Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${avaiableQuantity}`);
-        }else{
-            if (existingProductInBasket) {
-                // If product exists in the basket, update its quantity
-                existingProductInBasket.quantity += inputQuantity;
-            } else {
-        
-                basket.push({
-                    id: productID,
-                    name: product.name,
-                    price: product.selling_price,
-                    category: product.category,
-                    quantity: inputQuantity,
-                    supplierID: supplierId
-                });
-            }
-                localStorage.setItem(`basket`, JSON.stringify(basket));
-                alert(`${inputQuantity} ${product.name} have been added to the basket`)
-                if (product.quantity === 0) {
-                    this.deleteProduct(product._id, this.products.indexOf(product)); // Pass the index for removal
+                    localStorage.setItem('basket', JSON.stringify(basket));
+                    alert(`${inputQuantity} ${product.name} have been added to the basket`);
                 }
-        }
+            } catch (error) {
+                console.error('Error fetching supplier and products:', error);
+            }
+        },
 
-        }catch(error){
-            console.error('Error fetching supplier and products:', error);
+        async deleteProduct(productID) {
+            try {
+                await productApi.deleteProductById(productID);
+                alert("Product has been deleted successfully");
+                // Remove product from local products array
+                this.products = this.products.filter(product => product._id !== productID);
+            } catch (error) {
+                console.error('Error deleting product', error);
+            }
         }
-    }
     },
-
-    async deleteProduct(productID, index){
-        try {
-
-            const response = await productApi.deleteProductById(productID);
-            alert("Product has been deleted successfully")
-            this.products.splice(index, 1);
-
-        } catch (error) {
-            console.error('Error deleting product', error);   
-        }
-
-
-    }
-
-  },
-
-    
-}
+};
 </script>
+
+<style scoped>
+/* Your existing styles */
+</style>
+
 
 <style scoped>
 
