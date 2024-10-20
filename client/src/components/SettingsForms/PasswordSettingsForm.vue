@@ -42,6 +42,8 @@ export default {
       confirmPassword: ''
     }
   },
+
+  // Fetches the business owner ID as soon as page reloads
   mounted() {
     const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
     if (businessOwner && businessOwner.id) {
@@ -49,6 +51,8 @@ export default {
     }
   },
   methods: {
+
+    // ALlows user to change password
     async savePasswordChanges() {
       if (!this.newPassword || !this.currentPassword || !this.confirmPassword) {
         alert('Please fill out all fields.')
@@ -61,7 +65,7 @@ export default {
       }
 
       try {
-        // Send PATCH request to update password
+        // Updates password through PATCH
         const response = await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, {
           currentPassword: this.currentPassword,
           newPassword: this.newPassword
@@ -69,6 +73,8 @@ export default {
 
         if (response.status === 200) {
           alert('Password updated successfully!')
+
+          // Resets the fields
           this.currentPassword = ''
           this.newPassword = ''
           this.confirmPassword = ''
