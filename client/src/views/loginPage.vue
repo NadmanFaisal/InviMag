@@ -253,6 +253,8 @@ label[for="email"], label[for="password"] {
 
 .check-box-group {
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 25px;
 }
 
