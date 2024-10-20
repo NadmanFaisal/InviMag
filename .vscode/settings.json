@@ -1,0 +1,13 @@
+{
+    "vetur.completion.scaffoldSnippetSources": {
+        "workspace": "💼",
+        "user": "🗒️",
+        "vetur": "✌"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "vetur.validation.script": true,
+    "vetur.validation.template": true,
+    "vetur.validation.style": true
+}

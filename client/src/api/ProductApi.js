@@ -13,10 +13,6 @@ import { Api } from '../Api';
         return Api.get(`/Products/${id}`);
     },
 
-    getAllProductsByBuyingPrice(sort_order){
-        return Api.get('/Products/orderByBuyingPrice', sort_order);
-    },
-
     getAllProductsBySellingPrice(sort_order){
         return Api.get('/Products/orderBySellingPrice', sort_order);
     },
@@ -26,7 +22,7 @@ import { Api } from '../Api';
     },
 
     updateProductById(id, updatedProduct){
-        return Api.get(`/Products/${id}`, updatedProduct);
+        return Api.put(`/Products/${id}`, updatedProduct);
     },
     
     deleteProductById(id){

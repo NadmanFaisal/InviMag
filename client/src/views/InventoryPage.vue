@@ -8,7 +8,7 @@
     <h1 class = "companyHeader">Company Name</h1>
 
     <!--This is the containers that display total, in-stock, and out-of-stock products-->
-    <b-row :cols = "10"  class = "productCountContainer justify-content-center main-content">
+    <b-row :cols = "10"  class = "productCountContainer justify-content-center">
     <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
       <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
     </b-col>
@@ -20,22 +20,21 @@
     </b-row>
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
     <div sm="12" class = "dropdown">
-      <button class = "dropdown-button" @click = "toggleDropdown()"> Sort By</button>
-      <div id = "dropdown-content" class = "dropdown-content">
+      <button class = "dropdown-button" @click = "toggleDropdown"> Sort By</button>
+      <div id = "dropdown-element" class = "dropdown-content" v-if="isDropdownOpen">
       <a href = "#" @click = "sortByBuyingPrice"> Buying Price</a>
-      <a href = "#" @click = "sortBySellingPrice"> Selling Price</a>
       <a href = "#" @click = "sortByQuantity"> Quantity</a>
       </div>
     </div>
   </b-col>
   </b-row>
-  <b-row class="justify-content-center">
+  <b-row class="main-content">
     <!--This is the list of products displayed along with their attributes-->
-  <b-col :cols="10" sm="12" md="8">
-    <b-col class = "justify-content-center productListBox">
+  <b-col :cols="10">
+    <b-col class = "productListBox">
     <b-col v-if="products.length">
       <h2 class = "customHeader">Current Inventory</h2>
-        <ul>
+        <ul style="padding: 0; margin: 0;"> <!-- Flex container for the list -->
           <ProductCard v-for="product in products" :key="product._id" :product="product"></ProductCard>
         </ul>
       </b-col>
@@ -47,8 +46,9 @@
   </b-row>
   </b-container>
 </template>
+
 <script>
-import { productApi } from '@/api/ProductApi'
+import { businessOwnerApi } from '@/api/BusinessOwnerApi'
 import ProductCard from '../components/InventoryComponents/ProductCard.vue';
 
 export default {
@@ -60,7 +60,8 @@ export default {
     data(){
         return {
           search: "",  
-          products: [],  
+          products: [], 
+          isDropdownOpen: false, 
         }
     },
 
@@ -72,9 +73,10 @@ export default {
     methods:{
 
         async fetchProducts(){
+          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));
             try{
-                const response = await productApi.getAllProducts();
-                this.products = response.data.Products;
+                const response = await businessOwnerApi.getBusinessOwnerProducts(businessOwner.id);
+                this.products = response.data.products;
 
             }catch(error){
                 console.error('An Error occured when fetching products:', error);
@@ -82,39 +84,29 @@ export default {
         },
 
         toggleDropdown(){
-          const dropdownElement = document.getElementById('dropdown-content')
-          if (dropdownContent.style.display === 'block') {
-            dropdownContent.style.display = 'none';
-          } else {
-            dropdownContent.style.display = 'block';
-          }
+          this.isDropdownOpen = !this.isDropdownOpen;
         },
 
         async sortByBuyingPrice(){
+          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));
           try{
-            const response = await productApi.getAllProductsByBuyingPrice();
-            this.products = response.data.Products;
+            const response = await businessOwnerApi.getAllProductsByBuyingPrice(businessOwner.id);
+            this.products = response.data.products;
           }catch (error){
             console.error('An Error occured when sorting products:', error);
           }
-        },
-
-        async sortBySellingPrice(){
-          try{
-            const response = await productApi.getAllProductsBySellingPrice();
-            this.products = response.data.Products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
+          this.isDropdownOpen = false;
         },
 
         async sortByQuantity(){
+          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));          
           try{
-            const response = await productApi.getAllProductsByQuantity();
-            this.products = response.data.Products;
+            const response = await businessOwnerApi.getAllProductsByQuantity(businessOwner.id);
+            this.products = response.data.products;
           }catch (error){
             console.error('An Error occured when sorting products:', error);
           }
+          this.isDropdownOpen = false;
         }
       },
     computed:{
@@ -140,7 +132,7 @@ export default {
 
 .top-container-style{
   width: 100%;
-  height: 270px;
+  height: auto;
   flex-shrink: 0;
   background-color: #F1F6FF;
   margin-left: 16.6667%; /* Push content to the right by the width of the sidebar */
@@ -152,18 +144,11 @@ export default {
   font-weight: bold;
 }
 .productListBox{
-  color: black;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: #FFF;
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-  flex-grow: 1; /* Remaining space after the sidebar */
-  position: relative;
-  transform: none;
-  margin-left: 16.6667%; /* Push content to the right by the width of the sidebar */
-  width: 100%;
-  padding: 20px;
   justify-content: center;
+  display: flex; /* Add display flex */
+  flex-wrap: wrap;
+  margin: 0 auto; /* Center the box itself */
+  width: auto; /* Full width for centering */
 }
 .customHeader{
   padding-top: 30px;
@@ -185,7 +170,7 @@ export default {
   border-radius: 10%;
 }
 .dropdown-content{
-  display: none;
+  justify-content: center;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
@@ -230,6 +215,7 @@ export default {
   gap: 20px; /* Space between items */
   margin-bottom: 20px; /* Add some space below the count containers */
   flex-grow: 1;
+  width: auto;
 }
 
 .countFont{
@@ -279,6 +265,9 @@ export default {
 .main-content {
   padding-left: 15px;
   padding-right: 15px;
+  margin-left: 16.66667%;
+  justify-content: center;
+  width: auto;
 }
 
 @media (max-width: 768px) {
@@ -292,13 +281,16 @@ export default {
     width: 100%;
   }
   .main-content {
-    width: 100%; 
+    width: auto; 
     padding: 0 10px;
+    margin: auto;
 }
   .productListBox{
-    transform: none; /* Remove any left offset */
     margin-left: 0%;
     width: 100%;
+    justify-content: center;
   }
+
+  
 }
 </style>

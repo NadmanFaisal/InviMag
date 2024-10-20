@@ -166,7 +166,7 @@ export default{
 
 .productDisplay {
     width: 100%;
-    height: auto; /* Allow height to adjust based on content */
+    height: auto; 
     padding: 20px;
     margin: 10px 0;
     border-radius: 10px;
@@ -178,7 +178,7 @@ export default{
 
 .attributeDisplayContainer {
     display: flex;
-    justify-content: center; /* Spacing between widgets */
+    justify-content: center; 
     margin-top: 20px;
     text-align: center;
 }

@@ -251,7 +251,7 @@ export default {
             category: product.category,
             supplier: product.supplierID,
             in_stock: true,
-            order_history: this.orderHistoryId
+            orderHistory: this.orderHistoryId
           }
 
           const businessOwner = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
