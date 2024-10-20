@@ -1,18 +1,43 @@
 <template>
     <b-col cols="10" class="white-container">
       <div class="profile-block">
-        <img class="generic-avatar-icon" src="../../images/generic-avatar.png" alt="Avatar">
+        <img class="generic-avatar-icon" src="../../images/profile-picture.jpeg" alt="Avatar">
         <div class="text-container">
-          <b class="name">Name</b>
-          <b class="job-title">Job title</b>
+          <b class="name">{{ name }}</b>
+          <b class="job-title">Business Owner</b>
         </div>
       </div>
     </b-col>
   </template>
 
 <script>
+import { Api } from '@/Api'
+
 export default {
-  name: 'Overview'
+  name: 'ProfilePic',
+  data() {
+    return {
+      userId: '',
+      name: ''
+    }
+  },
+  mounted() {
+    const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+    this.userId = businessOwner.id
+
+    this.displayUserName()
+  },
+  methods: {
+    async displayUserName() {
+      try {
+        const response = await Api.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
+        this.name = response.data.name
+      } catch (error) {
+        console.error('Error getting user name:', error)
+        alert('Could not get your name. Please try again.')
+      }
+    }
+  }
 }
 </script>
 
@@ -37,7 +62,9 @@ export default {
     width: 40px;
     height: 40px;
     margin-right: 5px;
-  }
+    border-radius: 50%;
+    object-fit: cover;
+}
 
   .text-container {
     display: flex;
