@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid>
+    <b-container :cols="10" fluid class="update-product-page-style">
       <h1>Update Product Details</h1>
       <div class="product-details">
         <div>
@@ -118,7 +118,6 @@
   <style scoped>
   .product-details {
     margin-bottom: 20px;
-    justify-content: center;
 
 }
 
@@ -132,6 +131,7 @@
     font-family: 'Istok Web', sans-serif; /* Font family */
     font-size: 16px; /* Font size */
     margin-bottom: 10px; /* Space between inputs */
+    justify-content: center;
 }
 
 .update-button {
@@ -142,6 +142,11 @@
     border-radius: 5px;
     cursor: pointer;
     font-family: 'Istok Web', sans-serif; /* Font family for button */
+}
+
+.update-product-page-style{
+    font-family: "Istok Web";
+    font-weight: bold;
 }
 
   </style>
