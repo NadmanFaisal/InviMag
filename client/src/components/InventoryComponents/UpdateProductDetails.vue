@@ -142,6 +142,7 @@
     border-radius: 5px;
     cursor: pointer;
     font-family: 'Istok Web', sans-serif; /* Font family for button */
+    font-weight: bold;
 }
 
 .update-product-page-style{
