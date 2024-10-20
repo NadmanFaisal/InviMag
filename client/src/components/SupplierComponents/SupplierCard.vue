@@ -41,7 +41,7 @@ export default {
     align-items: center;                 
     padding-top: 30px;
     padding-bottom: 15px;
-    width: 115%;                  
+    width: 120%;                  
     height: auto;                 
     border-radius: 10px;
     background: #FFF;
@@ -116,18 +116,35 @@ export default {
 
 @media (max-width: 768px) {
 
+    .supplier-title{
+        font-size: 15px;
+    }
+
+    .location-style{
+        font-size: 15px;
+    }
+    .supplier-image{
+        height: 110px;
+        width: 110px;
+    }
+
     .supplierDisplay{
         margin: 0 auto;
         width: 100%; /* Take full width on small screens */
     }
 
     .supplier-description{
-        font-size: 14px;              /* Reduced font size */
+        font-size: 12px;              /* Reduced font size */
         margin: 0;                    /* Remove default margin */
         padding: 5px 0;               /* Compact padding */
         color: gray;
         font-family: "Istok Web";
         line-height: 1.2;  
+    }
+
+    .detail-button{
+        font-size: 12px;
+        width:150px
     }
 }
 </style>
