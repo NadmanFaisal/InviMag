@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <b-col cols="2">
     <Sidebar v-if="$route.meta.requiresAuth"/>
-
+    </b-col>
     <div id="nav">
       <router-link to="/">Home</router-link>
       <router-link to = "/inventoryPage"> Inventory</router-link>
@@ -10,20 +11,19 @@
       <router-link to="/settings"> Settings </router-link>
       <router-link @click="logOut" to="/login">Log Out</router-link>
     </div>
-    <!-- Render the content of the current page view -->
     <router-view/>
   </div>
 </template>
 
 <script>
 import Sidebar from './components/Sidebar.vue' // Adjust the path if necessary
-import axios from 'axios';
+import axios from 'axios'
 export default {
   name: 'App',
   components: {
     Sidebar // Register the Sidebar component here
   },
-  methods:{
+  methods: {
     async logOut() {
       try {
         await axios.post('http://localhost:3000/v1/api/BusinessOwners/logout')

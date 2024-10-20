@@ -1,21 +1,21 @@
 <template>
   <b-container fluid>
-    <b-row> 
+    <b-row>
     <b-col :cols = "2"></b-col>
     <b-col :cols = "10" class = "top-container-style ">
 
-    <!--This is the Header where the business Owners company name will be placed-->  
+    <!--This is the Header where the business Owners company name will be placed-->
     <h1 class = "companyHeader">Company Name</h1>
 
     <!--This is the containers that display total, in-stock, and out-of-stock products-->
     <b-row :cols = "10"  class = "productCountContainer justify-content-center">
-    <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont"> 
-      <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS 
+    <b-col sm="12" md="4" color = "#33B8FF" class = "totalFont">
+      <span class = "countFont">{{totalProducts}} </span> <br><br>TOTAL PRODUCTS
     </b-col>
     <b-col sm="12" md="4" color = "#21C21C" class = "inStockFont">
       <span class = "countFont">{{inStockProducts}}</span> <br><br>IN STOCK</b-col>
-    <b-col sm="12" md="4" color = "#F77575" class = "outOfStockFont"> 
-      <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK 
+    <b-col sm="12" md="4" color = "#F77575" class = "outOfStockFont">
+      <span class = "countFont">{{outOfStockProducts}} </span> <br><br>OUT OF STOCK
     </b-col>
     </b-row>
     <!--This is the dropdown container that has the options of sorting the products based on different attribute fields-->
@@ -41,7 +41,7 @@
         <b-col v-else>
           <p>No products available.</p>
         </b-col>
-      </b-col> 
+      </b-col>
     </b-col>
   </b-row>
   </b-container>
@@ -49,82 +49,78 @@
 
 <script>
 import { businessOwnerApi } from '@/api/BusinessOwnerApi'
-import ProductCard from '../components/InventoryComponents/ProductCard.vue';
+import ProductCard from '../components/InventoryComponents/ProductCard.vue'
 
 export default {
-  components: { ProductCard },
-    name: "inventoryPage",
-    components: {
+  name: 'inventoryPage',
+  components: {
     ProductCard // Register the ProductComponent
   },
-    data(){
-        return {
-          search: "",  
-          products: [], 
-          isDropdownOpen: false, 
-        }
+  data() {
+    return {
+      search: '',
+      products: [],
+      isDropdownOpen: false
+    }
+  },
+
+  created() {
+    this.fetchProducts()
+    window.addEventListener('resize', this.checkScreenSize)
+  },
+
+  methods: {
+
+    async fetchProducts() {
+      const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+      try {
+        const response = await businessOwnerApi.getBusinessOwnerProducts(businessOwner.id)
+        this.products = response.data.products
+      } catch (error) {
+        console.error('An Error occured when fetching products:', error)
+      }
     },
 
-    created(){
-        this.fetchProducts();
-        window.addEventListener('resize', this.checkScreenSize);
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen
     },
-    
-    methods:{
 
-        async fetchProducts(){
-          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));
-            try{
-                const response = await businessOwnerApi.getBusinessOwnerProducts(businessOwner.id);
-                this.products = response.data.products;
+    async sortByBuyingPrice() {
+      const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+      try {
+        const response = await businessOwnerApi.getAllProductsByBuyingPrice(businessOwner.id)
+        this.products = response.data.products
+      } catch (error) {
+        console.error('An Error occured when sorting products:', error)
+      }
+      this.isDropdownOpen = false
+    },
 
-            }catch(error){
-                console.error('An Error occured when fetching products:', error);
-            }
-        },
+    async sortByQuantity() {
+      const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
+      try {
+        const response = await businessOwnerApi.getAllProductsByQuantity(businessOwner.id)
+        this.products = response.data.products
+      } catch (error) {
+        console.error('An Error occured when sorting products:', error)
+      }
+      this.isDropdownOpen = false
+    }
+  },
+  computed: {
+    totalProducts() {
+      return this.products.length
+    },
 
-        toggleDropdown(){
-          this.isDropdownOpen = !this.isDropdownOpen;
-        },
+    inStockProducts() {
+      return this.products.filter(product => product.in_stock === true).length
+    },
+    outOfStockProducts() {
+      return this.totalProducts - this.inStockProducts
+    }
 
-        async sortByBuyingPrice(){
-          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));
-          try{
-            const response = await businessOwnerApi.getAllProductsByBuyingPrice(businessOwner.id);
-            this.products = response.data.products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
-          this.isDropdownOpen = false;
-        },
-
-        async sortByQuantity(){
-          const businessOwner = JSON.parse(localStorage.getItem('businessOwner'));          
-          try{
-            const response = await businessOwnerApi.getAllProductsByQuantity(businessOwner.id);
-            this.products = response.data.products;
-          }catch (error){
-            console.error('An Error occured when sorting products:', error);
-          }
-          this.isDropdownOpen = false;
-        }
-      },
-    computed:{
-        totalProducts(){
-          return this.products.length;
-        },
-
-        inStockProducts(){
-          return this.products.filter(product => product.in_stock === true).length;
-        },
-        outOfStockProducts(){
-          return this.totalProducts - this.inStockProducts;
-        },
-
-    },  
+  }
 }
-          
-
 
 </script>
 
@@ -281,7 +277,7 @@ export default {
     width: 100%;
   }
   .main-content {
-    width: auto; 
+    width: auto;
     padding: 0 10px;
     margin: auto;
 }
@@ -291,6 +287,5 @@ export default {
     justify-content: center;
   }
 
-  
 }
 </style>

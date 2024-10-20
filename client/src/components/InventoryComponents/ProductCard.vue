@@ -3,7 +3,7 @@
     <li class="productDisplay product-card-style">
       <p class="productTitle">{{ product.name }}</p>
       <b-col class="attributeDisplayContainer">
-        <b-col> 
+        <b-col>
           <p class="attributeLabel">Quantity</p>
           <p class="attributeValue">{{ product.quantity }} Units</p>
         </b-col>
@@ -23,26 +23,25 @@
 
 <script>
 export default {
-    name: 'ProductCard',
-    props: {
-        product: {
-            type: Object,
-            required: true
-        }
-    },
-    data(){
-        return{
-            isModalVisible: false
-        }
-    },
-    methods:{
-        
-        goToUpdateProductsPage(){
-            this.$router.push({name: 'UpdateProductDetails', params: {id: this.product._id, product: this.product}})
-        }
+  name: 'ProductCard',
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      isModalVisible: false
+    }
+  },
+  methods: {
 
+    goToUpdateProductsPage() {
+      this.$router.push({ name: 'UpdateProductDetails', params: { id: this.product._id, product: this.product } })
     }
 
+  }
 
 }
 </script>
@@ -62,12 +61,12 @@ export default {
 .productDisplay {
     margin-bottom: 40px;
     width: 100%; /* Allow it to use full width */
-    height: auto; 
+    height: auto;
     padding: 35px;
     border-radius: 10px;
     background: #FFF;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-    
+
 }
 
 .attributeDisplayContainer {
@@ -78,7 +77,6 @@ export default {
     text-align: center;
     width: 100%; /* Ensure it takes the full width */
 }
-
 
 .attributeLabel {
     font-family: "Istok Web";
@@ -138,7 +136,6 @@ export default {
     .productTitle{
         font-size: 20px;
     }
-    
 
 }
 
