@@ -1,5 +1,5 @@
 <template>
-    <b-card class="mb-3 best-selling-products-card">
+    <b-card class="mb-3 total-inventory-value-card">
      <div class="content-wrapper">
       <div class="title-container">
         <b class="title">Total Inventory Value</b>
@@ -20,7 +20,7 @@ import axios from 'axios'
 
 export default {
 
-  name: 'BestSellingProducts',
+  name: 'TotalInventoryValue',
   data() {
     return {
       inventoryValue: '',
@@ -52,7 +52,7 @@ export default {
 </script>
 
   <style scoped>
-  .best-selling-products-card {
+  .total-inventory-value-card {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -104,11 +104,11 @@ export default {
     font-size: 40px;
     font-style: normal;
     font-weight: 700;
-    line-height: 100%; /* 40px */
+    line-height: 100%;
   }
 
   @media (min-width: 992px) {
-    .best-selling-products-card {
+    .total-inventory-value-card {
       min-height: 94%;
     }
   }
