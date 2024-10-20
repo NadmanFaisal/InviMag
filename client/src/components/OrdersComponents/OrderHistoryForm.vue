@@ -250,7 +250,7 @@ export default {
             selling_price: 0,
             category: product.category,
             supplier: product.supplierID,
-            orderHistory: this.orderHistoryId
+            order_history: this.orderHistoryId
           }
 
           const originalProduct = await axios.get(`http://localhost:3000/v1/api/Products/${product.id}`)

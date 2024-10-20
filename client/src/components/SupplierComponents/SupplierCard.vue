@@ -13,8 +13,6 @@
 <script>
 import supplierimage from '../SupplierComponents/Images/purple-user-icon.png'
 export default {
-    
-
     name: 'SupplierCard',
     data(){
         return{
@@ -28,11 +26,9 @@ export default {
         }
     },
     methods:{
-
         goToSupplierDetail(){
             this.$router.push({name: 'SupplierDetail', params: {id: this.supplier._id, supplier: this.supplier}})
         }
-
     }
 }
 </script>

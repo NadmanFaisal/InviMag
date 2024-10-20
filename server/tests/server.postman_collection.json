@@ -180,6 +180,142 @@
 			"response": []
 		},
 		{
+			"name": "POST /v1/api/orderHistories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());",
+							"pm.environment.set(\"order_history_ID\", jsonInfo._id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"total_price\": 100.50,\n    \"date_of_order\": \"2020-09-22T14:30:00Z\",\n    \"businessOwner\": \"{{business_owner_ID}}\",\n    \"products\": []\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/orderHistories",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"orderHistories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/suppliers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonInfo = JSON.parse(pm.response.text());\r",
+							"pm.environment.set(\"supplier_ID\", jsonInfo._id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"TEST\",\r\n    \"location_of_origin\": \"UK\",\r\n    \"description\": \"Lando Norris and Oscar Piastri\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/suppliers/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"suppliers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/businessOwners/:id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jeans\",\n    \"quantity\": \"100\",\n    \"buying_price\": \"100\",\n    \"selling_price\": \"100\",\n    \"category\": \"clothes\",\n    \"in_stock\": true,\n    \"supplier\": \"{{supplier_ID}}\",\n    \"order_history\": \"{{order_history_ID}}\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/businessOwners/{{business_owner_ID}}/products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"businessOwners",
+						"{{business_owner_ID}}",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET /v1/api/businessOwners/sorted",
 			"event": [
 				{
@@ -323,6 +459,54 @@
 						"api",
 						"businessOwners",
 						"{{business_owner_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/businessOwners/:id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/BusinessOwners/{{business_owner_ID}}/products",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"BusinessOwners",
+						"{{business_owner_ID}}",
+						"products"
 					]
 				}
 			},
@@ -482,52 +666,6 @@
 						"v1",
 						"api",
 						"businessOwners",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /v1/api/suppliers",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonInfo = JSON.parse(pm.response.text());\r",
-							"pm.environment.set(\"supplier_ID\", jsonInfo._id);\r",
-							"\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"DEF Company\",\r\n    \"location_of_origin\": \"Azerbaijan\",\r\n    \"description\": \"We love the world\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/api/suppliers/",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"suppliers",
 						""
 					]
 				}
@@ -906,51 +1044,6 @@
 						"v1",
 						"api",
 						"suppliers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /v1/api/orderHistories",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonInfo = JSON.parse(pm.response.text());",
-							"pm.environment.set(\"order_history_ID\", jsonInfo._id);",
-							"",
-							"pm.test(\"Status code is 201\", function () {",
-							"  pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"total_price\": 100.50,\n    \"date_of_order\": \"2020-09-22T14:30:00Z\",\n    \"businessOwner\": \"{{business_owner_ID}}\",\n    \"products\": []\n}\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{host}}/v1/api/orderHistories",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"v1",
-						"api",
-						"orderHistories"
 					]
 				}
 			},

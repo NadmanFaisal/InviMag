@@ -9,6 +9,7 @@ import InventoryPage from './views/InventoryPage.vue'
 import OrderHistoryPage from './views/OrderHistoryPage.vue'
 import SuppliersPage from './views/SuppliersPage.vue'
 import SupplierDetail from './components/SupplierComponents/SupplierDetail.vue'
+import UpdateProductDetails from './components/InventoryComponents/UpdateProductDetails.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { requiresAuth: true } },
@@ -18,7 +19,8 @@ const routes = [
   { path: '/inventoryPage', name: 'InventoryPage', component: InventoryPage, meta: { requiresAuth: true } },
   { path: '/orders', name: 'OrderHistoryPage', component: OrderHistoryPage, meta: { requiresAuth: true } },
   { path: '/suppliersPage', name: 'Suppliers', component: SuppliersPage, meta: { requiresAuth: true } },
-  { path: '/supplier/:id', name: 'SupplierDetail', component: SupplierDetail, meta: { requiresAuth: true }, props: true }
+  { path: '/supplier/:id', name: 'SupplierDetail', component: SupplierDetail, meta: { requiresAuth: true }, props: true },
+  { path: '/product/:id', name: 'UpdateProductDetails', component: UpdateProductDetails, meta: { requiresAuth: true }, props: true }
 ]
 
 const router = createRouter({
