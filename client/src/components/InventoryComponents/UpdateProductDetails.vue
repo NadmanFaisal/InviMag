@@ -24,14 +24,14 @@
             <input
               type="radio"
               id="in-stock"
-              value="true"
+              :value="true"
               v-model="in_stock"
             />
             <label for="in-stock">In Stock</label><br>
             <input
               type="radio"
               id="out-of-stock"
-              value="false"
+              :value="false"
               v-model="in_stock"
             />
             <label for="out-of-stock">Out of Stock</label>
@@ -72,11 +72,6 @@
             try{
                 const response = await productApi.getProductByID(this.id);
                 this.product = response.data;
-                this.name = this.product.name;
-                this.buying_price = this.product.buying_price;
-                this.category = this.product.category;
-                this.quantity = this.product.quantity;
-                this.in_stock = this.product.in_stock;
                 console.log(response.data);
             }catch(error){
                 console.error('Error fetching supplier', error);
@@ -95,17 +90,18 @@
                 category: this.category,
                 in_stock: this.in_stock
             }
+            console.log(updatedProduct)
             console.log(updatedProduct.quantity + " " + updatedProduct.in_stock)
 
             if(updatedProduct.quantity < 0){
                 alert(" ERROR: Quantity of product must be greater than or equal to 0")
-            }else if(!updatedProduct.in_stock && updatedProduct.quantity > 0){
+            }else if(!updatedProduct.in_stock && updatedProduct.quantity != 0){
                 alert("ERROR: Out of stock must have a quantity of O")
             }else if(updatedProduct.in_stock && updatedProduct.quantity <= 0){
                 alert("ERROR: In stock products CANNOT have a quantity of 0")
             }else if(updatedProduct.buying_price <= 0){
                 alert("ERROR: Price of product must be greater than 0")
-            }else if((this.product.name === updatedProduct.name) && (this.product.quantity === updatedProduct.quantity) && (this.product.buying_price === updatedProduct.buying_price) && (this.product.category === updatedProduct.buying_price) && (this.product.in_stock === updatedProduct.in_stock)){
+            }else if((this.product.name === updatedProduct.name) && (this.product.quantity === updatedProduct.quantity) && (this.product.buying_price === updatedProduct.buying_price) && (this.product.category === updatedProduct.category) && (this.product.in_stock === updatedProduct.in_stock)){
                     alert("Bad request: Updated product has identical fields to old product, Please input new values to update the product");
             }else{
                     console.log("Entered else statement")
