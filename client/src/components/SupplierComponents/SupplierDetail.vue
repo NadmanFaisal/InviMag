@@ -123,6 +123,7 @@ export default{
                     id: productID,
                     name: product.name,
                     price: product.selling_price,
+                    category: product.category,
                     quantity: inputQuantity,
                     supplierID: supplierId
                 });
