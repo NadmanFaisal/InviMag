@@ -41,6 +41,7 @@ export default {
     }
   },
   mounted() {
+    // Fetches the business owner ID once the page loads
     const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
     if (businessOwner && businessOwner.id) {
       this.userId = businessOwner.id
@@ -63,6 +64,8 @@ export default {
     }
   },
   methods: {
+
+    // Allows users to update their name and email through PATCH
     async updateBusinessOwner() {
       if (!this.userId) return
 
@@ -75,7 +78,7 @@ export default {
         await axios.patch(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`, updatedData)
         alert('Your details have been updated successfully!')
 
-        // Notify other clients about the name change
+        // Notifies other clients about the name change so that the name changes in other form instantly
         if (this.ws && this.ws.readyState === WebSocket.OPEN) {
           this.ws.send(JSON.stringify({ event: 'updateName', data: { name: this.name } }))
         }
