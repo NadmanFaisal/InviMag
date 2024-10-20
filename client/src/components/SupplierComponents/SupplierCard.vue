@@ -5,13 +5,16 @@
                 <b-col class="supplier-title">{{ supplier.name }}
                     <span class = "location-style">Location: {{ supplier.location_of_origin }}</span><br>
                     <span class = "supplier-description">{{ supplier.description }}</span><br>
-                    <button @click="gotoSupplierDetail" class="detail-button">View Supplier Details</button>
+                    <button @click="goToSupplierDetail" class="detail-button">View Supplier Details</button><br>
+                    <button @click.stop="blockSupplier" class="block-button">Block Supplier</button>
                 </b-col>
             </b-col>
     </b-col>
 </template>
 <script>
 import supplierimage from '../SupplierComponents/Images/purple-user-icon.png'
+import { supplierApi } from '../../api/SupplierApi'; 
+
 export default {
     name: 'SupplierCard',
     data(){
@@ -28,7 +31,23 @@ export default {
     methods:{
         goToSupplierDetail(){
             this.$router.push({name: 'SupplierDetail', params: {id: this.supplier._id, supplier: this.supplier}})
-        }
+        },
+
+        async blockSupplier() {
+            const confirmBlock = confirm(`Are you sure you want to block ${this.supplier.name}?`);
+        if(confirmBlock){
+      try {
+        // Call your API to delete the supplier
+        await supplierApi.deleteSupplierByID(this.supplier._id) // Ensure your API has this method
+        // Emit an event to the parent component to remove this supplier from the list
+        this.$emit('supplierBlocked', this.supplier._id);
+      } catch (error) {
+        console.error('Error blocking supplier:', error);
+      }
+    }else{
+        console.log("Supplier Blocking cancelled")
+    }
+    }
     }
 }
 </script>
@@ -112,6 +131,25 @@ export default {
     padding: 10px;
     height: 40px;
     width: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.block-button{
+    background-color: Red;
+    color: white;
+    font-family: "Istok Web";
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    padding: 10px;
+    height: 40px;
+    width: 200px;
 }
 
 @media (max-width: 768px) {
@@ -134,9 +172,8 @@ export default {
     }
 
     .supplier-description{
-        font-size: 12px;              /* Reduced font size */
-        margin: 0;                    /* Remove default margin */
-        padding: 5px 0;               /* Compact padding */
+        font-size: 10px;                        
+        padding: 5px 0;              
         color: gray;
         font-family: "Istok Web";
         line-height: 1.2;  
@@ -145,6 +182,11 @@ export default {
     .detail-button{
         font-size: 12px;
         width:150px
+    }
+
+    .block-button{
+        font-size: 12px;
+        width: 150px;
     }
 }
 </style>
