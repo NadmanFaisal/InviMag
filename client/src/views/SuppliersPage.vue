@@ -120,7 +120,7 @@ export default {
 }
 .search-bar {
   display: flex;
-  width: 80%;              
+  width: 95%;              
   margin-left: auto;      
   margin-right: auto;  
   align-items: center;      
@@ -131,7 +131,6 @@ export default {
 
 .b-input-group {
   justify-content: center;
-  width: 712px;
   margin: 0 auto;
 }
 .bi-search {
@@ -144,6 +143,8 @@ export default {
   .supplier-page-style{
     margin-left: 0;
   }
+
+  
   
 }
 
