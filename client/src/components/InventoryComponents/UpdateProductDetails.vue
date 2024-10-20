@@ -72,6 +72,11 @@
             try{
                 const response = await productApi.getProductByID(this.id);
                 this.product = response.data;
+                this.name = this.product.name;
+                this.buying_price = this.product.buying_price;
+                this.category = this.product.category;
+                this.quantity = this.product.quantity;
+                this.in_stock = this.product.in_stock;
                 console.log(response.data);
             }catch(error){
                 console.error('Error fetching supplier', error);
@@ -90,12 +95,13 @@
                 category: this.category,
                 in_stock: this.in_stock
             }
+            console.log(updatedProduct.quantity + " " + updatedProduct.in_stock)
 
             if(updatedProduct.quantity < 0){
                 alert(" ERROR: Quantity of product must be greater than or equal to 0")
-            }else if(!updatedProduct.in_stock && updatedProduct.quantity != 0){
+            }else if(!updatedProduct.in_stock && updatedProduct.quantity > 0){
                 alert("ERROR: Out of stock must have a quantity of O")
-            }else if(updatedProduct.in_stock && updatedProduct.quantity === 0){
+            }else if(updatedProduct.in_stock && updatedProduct.quantity <= 0){
                 alert("ERROR: In stock products CANNOT have a quantity of 0")
             }else if(updatedProduct.buying_price <= 0){
                 alert("ERROR: Price of product must be greater than 0")
