@@ -181,15 +181,15 @@ exports.updateProductByIB = async (req, res, next) => {
 
         if (!req.body.name) {
             return res.status(400).json({ message: 'Bad Request: Name cannot be empty' });
-        } else if (!req.body.quantity) {
+        } else if (req.body.quantity === undefined || req.body.quantity === null) {
             return res.status(400).json({ message: 'Bad Request: quantity cannnot be empty' });
         }else if(!req.body.buying_price){
             return res.status(400).json({ message: 'Bad Request: buying_price cannot be empty' });
-        }else if(!req.body.selling_price){
+        }else if(req.body.selling_price === undefined || req.body.selling_price === null){
             return res.status(400).json({ message: 'Bad Request: selling_price cannot be empty' });
         } else if(!req.body.category){
             return res.status(400).json({ message: 'Bad Request: category cannot be empty' });
-        }else if(req.body.in_stock === null){
+        }else if(req.body.in_stock === null || req.body.in_stock === undefined){
             return res.status(400).json({ message: 'Bad Request: in_stock cannot be empty' });
         }
 
@@ -221,7 +221,7 @@ exports.partialUpdateProduct = async (req, res, next) => {
         // Creating a reference to an updated product
         const updated_product ={
             name: req.body.name || products.name,
-            quantity: (req.body.quantity !== undefined ? req.body.quantity : products.quantity),
+            quantity: req.body.quantity || products.quantity,
             buying_price: req.body.buying_price || products.buying_price,
             selling_price : req.body.selling_price || products.selling_price,
             category : req.body.category || products.category,

@@ -31,7 +31,7 @@ export const productApi = {
   },
   // to update (put) product by id
   updateProductById(id, updatedProduct) {
-    return Api.get(`/Products/${id}`, updatedProduct)
+    return Api.put(`/Products/${id}`, updatedProduct)
   },
   // to delete product by id
   deleteProductById(id) {
