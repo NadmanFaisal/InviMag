@@ -221,7 +221,7 @@ exports.partialUpdateProduct = async (req, res, next) => {
         // Creating a reference to an updated product
         const updated_product ={
             name: req.body.name || products.name,
-            quantity: req.body.quantity || products.quantity,
+            quantity: (req.body.quantity !== undefined ? req.body.quantity : products.quantity),
             buying_price: req.body.buying_price || products.buying_price,
             selling_price : req.body.selling_price || products.selling_price,
             category : req.body.category || products.category,
