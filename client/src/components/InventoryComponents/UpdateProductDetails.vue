@@ -80,9 +80,7 @@
         },
 
         async updateProductDetails(){
-        if(!this.in_stock && this.quantity > 0){
-                alert("Out of stock product MUST have a quantity of 0")
-        }else{    
+           
             try{
             const updatedProduct = {
                 name: this.name,
@@ -93,20 +91,25 @@
                 in_stock: this.in_stock
             }
 
-            
-                if((this.product.name === updatedProduct.name) && (this.product.quantity === updatedProduct.quantity) && (this.product.buying_price === updatedProduct.buying_price) && (this.product.category === updatedProduct.buying_price) && (this.product.in_stock === updatedProduct.in_stock)){
-                    alert("Bad request: Updated product has identical fields, Please input new values to update the product");
-                }else{
+            if(updatedProduct.quantity < 0){
+                alert(" ERROR: Quantity of product must be greater than or equal to 0")
+            }else if(!updatedProduct.in_stock && updatedProduct.quantity != 0){
+                alert("ERROR: Out of stock must have a quantity of O")
+            }else if(updatedProduct.in_stock && updatedProduct.quantity === 0){
+                alert("ERROR: In stock products CANNOT have a quantity of 0")
+            }else if(updatedProduct.buying_price <= 0){
+                alert("ERROR: Price of product must be greater than 0")
+            }else if((this.product.name === updatedProduct.name) && (this.product.quantity === updatedProduct.quantity) && (this.product.buying_price === updatedProduct.buying_price) && (this.product.category === updatedProduct.buying_price) && (this.product.in_stock === updatedProduct.in_stock)){
+                    alert("Bad request: Updated product has identical fields to old product, Please input new values to update the product");
+            }else{
+                    console.log("Entered else statement")
                     const response = await productApi.updateProductById(this.id, updatedProduct);
                     alert('Product SucessFully Updated', response.data)
                     console.log('Product SucessFully Updated', response.data)
-
                 }
-
             }catch(error){
                 console.error('Error fetching supplier', error);
             }
-        }
         }
     }
   }
@@ -115,13 +118,16 @@
   <style scoped>
   .product-details {
     margin-bottom: 20px;
+    justify-content: center;
+
 }
 
 .input-field {
     background-color: #f0f8ff; /* Light blue background */
     border: 1px solid #37f; /* Border color */
     border-radius: 10px; /* Rounded corners */
-    padding: 10px; /* Padding inside the input */
+    margin-left: 10px;
+    padding: 20px; /* Padding inside the input */
     width: 50%; /* Full width */
     font-family: 'Istok Web', sans-serif; /* Font family */
     font-size: 16px; /* Font size */
