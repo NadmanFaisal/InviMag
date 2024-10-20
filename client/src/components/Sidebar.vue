@@ -3,7 +3,7 @@
 
     <!-- Company Name/Header Section -->
     <b-col cols="12" class="company-name-container">
-      <label for="company-name" class="company-name-label form-label">COMP NAME</label>
+      <label for="company-name" class="company-name-label form-label">InvMag</label>
     </b-col>
 
     <!-- Top Navigation Section -->

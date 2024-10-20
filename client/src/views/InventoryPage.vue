@@ -5,7 +5,7 @@
     <b-col :cols = "10" class = "top-container-style ">
 
     <!--This is the Header where the business Owners company name will be placed-->
-    <h1 class = "companyHeader">Company Name</h1>
+    <h1 class = "companyHeader">InvMag</h1>
 
     <!--This is the containers that display total, in-stock, and out-of-stock products-->
     <b-row :cols = "10"  class = "productCountContainer justify-content-center">

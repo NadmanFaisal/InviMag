@@ -4,10 +4,10 @@
       <b-container fluid>
         <b-row>
           <b-col cols="12" class="company-info">
-            <div class="company-name">Company Name</div>
-            <div class="company-motto">ADSDAS DCCS DFSDF VDFS
-              DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
-            <div class="company-description">ADSDAS DCCS DFSDF VDFS SDFDS SDFSFD S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
+            <div class="company-name">InvMag</div>
+            <div class="company-motto">
+              "To manage is to do things right!"</div>
+            <div class="company-description">We in InvMag bring you the ability to oversee, manage and control all your products available to you. We also cover the ability to buy products from other suppliers as well as log all purchased products you have bought within our platform.</div>
           </b-col>
         </b-row>
       </b-container>
@@ -51,8 +51,8 @@
                 </div>
 
                 <div class="check-box-group">
-                  <input type="checkbox" id="rememberMe" v-model="rememberMe" class="checkbox" />
-                  <label for="rememberMe">Remember me</label>
+                  <span>Don't have an account?&nbsp;</span>
+                  <router-link to="/signup">Create one</router-link>
                 </div>
 
                 <BButton type="submit" class="login-submit-button">Log In</BButton>
@@ -99,6 +99,7 @@ export default {
           alert(`Login successful! Welcome back ${businessOwnerName}!`)
         }, 500)
         this.$router.push('/')
+        // eslint-disable-next-line prefer-const
         let basket = []
 
         // Stores the business owners details in local storage
@@ -253,6 +254,8 @@ label[for="email"], label[for="password"] {
 
 .check-box-group {
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 25px;
 }
 
@@ -266,23 +269,6 @@ input {
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 16px;
   outline: none;
-}
-
-.checkbox {
-  width: 14px;
-  height: 13px;
-  flex-shrink: 0;
-  margin-right: 5px;
-}
-
-label[for="rememberMe"] {
-  color: #939393;
-  text-align: center;
-  font-family: "Istok Web";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
 }
 
 button.login-submit-button {
