@@ -51,7 +51,8 @@
                 </div>
 
                 <div class="check-box-group">
-
+                  <span>Don't have an account? </span>
+                  
                 </div>
 
                 <BButton type="submit" class="login-submit-button">Log In</BButton>
