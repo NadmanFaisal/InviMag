@@ -52,7 +52,7 @@
 
                 <div class="check-box-group">
                   <span>Don't have an account? </span>
-                  
+                  <router-link to="/signup">Create one</router-link>
                 </div>
 
                 <BButton type="submit" class="login-submit-button">Log In</BButton>
