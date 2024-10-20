@@ -267,12 +267,6 @@ input {
   outline: none;
 }
 
-.checkbox {
-  width: 14px;
-  height: 13px;
-  flex-shrink: 0;
-  margin-right: 5px;
-}
 
 label[for="rememberMe"] {
   color: #939393;
