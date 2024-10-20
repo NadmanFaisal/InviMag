@@ -93,6 +93,9 @@ export default {
         params: { id: supplier._id }
       });
       },
+      removeSupplier(supplierId) {
+      this.filteredSuppliers = this.filteredSuppliers.filter(supplier => supplier._id !== supplierId);
+    },
 
 
     },
