@@ -71,9 +71,9 @@ export default{
         products:{
             deep: true,
             handler(newProducts){
-                newProducts.forEach((product) =>{
+                newProducts.forEach((product, index) =>{
                     if(product.quantity === 0){
-                        this.deleteProduct(product.id);
+                        this.deleteProduct(product.id, index);
                     }
                 })
             }
@@ -142,6 +142,9 @@ export default{
             }
                 localStorage.setItem(`basket`, JSON.stringify(basket));
                 alert(`${inputQuantity} ${product.name} have been added to the basket`)
+                if (product.quantity === 0) {
+                    this.deleteProduct(product._id, this.products.indexOf(product)); // Pass the index for removal
+                }
         }
 
         }catch(error){
@@ -150,13 +153,15 @@ export default{
     }
     },
 
-    async deleteProduct(productID){
+    async deleteProduct(productID, index){
         try {
+
             const response = await productApi.deleteProductById(productID);
-            alert("Product")
+            alert("Product has been deleted successfully")
+            this.products.splice(index, 1);
 
         } catch (error) {
-            
+            console.error('Error deleting product', error);   
         }
 
 

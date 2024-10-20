@@ -35,7 +35,7 @@ export const productApi = {
   },
   // to delete product by id
   deleteProductById(id) {
-    return Api.get(`/Products/${id}`)
+    return Api.delete(`/Products/${id}`)
   }
 
 }
