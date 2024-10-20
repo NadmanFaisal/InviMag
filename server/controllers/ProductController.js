@@ -226,7 +226,8 @@ exports.partialUpdateProduct = async (req, res, next) => {
             selling_price : req.body.selling_price || products.selling_price,
             category : req.body.category || products.category,
             in_stock : req.body.in_stock || products.in_stock,
-            business_owner : req.body.businessOwner || products.businessOwner
+            business_owner : req.body.businessOwner || products.businessOwner,
+            order_history: req.body.orderHistory || products.orderHistory
         };
         
         const new_products = await Product.findByIdAndUpdate(productID, updated_product, {new: true}); // assigning the old product reference to the new updated product
