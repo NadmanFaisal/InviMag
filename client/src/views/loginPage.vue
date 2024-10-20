@@ -267,17 +267,6 @@ input {
   outline: none;
 }
 
-
-label[for="rememberMe"] {
-  color: #939393;
-  text-align: center;
-  font-family: "Istok Web";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
 button.login-submit-button {
   width: 80%;
   height: 59px;
