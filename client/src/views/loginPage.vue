@@ -5,9 +5,9 @@
         <b-row>
           <b-col cols="12" class="company-info">
             <div class="company-name">Company Name</div>
-            <div class="company-motto">ADSDAS DCCS DFSDF VDFS
-              DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
-            <div class="company-description">ADSDAS DCCS DFSDF VDFS SDFDS SDFSFD S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD ADSDAS DCCS DFSDF VDFS DFSDFDS SDFSFDSFSD SD SFDGDSF S DF SDF SDFD</div>
+            <div class="company-motto">
+              "To manage is to do things right!"</div>
+            <div class="company-description">We in COMPANY NAME bring you the ability to oversee, manage and control all your products available to you. We also cover the ability to buy products from other suppliers as well as log all purchased products you have bought within our platform.</div>
           </b-col>
         </b-row>
       </b-container>
