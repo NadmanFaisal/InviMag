@@ -51,8 +51,7 @@
                 </div>
 
                 <div class="check-box-group">
-                  <input type="checkbox" id="rememberMe" v-model="rememberMe" class="checkbox" />
-                  <label for="rememberMe">Remember me</label>
+
                 </div>
 
                 <BButton type="submit" class="login-submit-button">Log In</BButton>
