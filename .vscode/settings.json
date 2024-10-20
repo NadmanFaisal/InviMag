@@ -5,7 +5,7 @@
         "vetur": "✌"
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": "explicit"
     },
     "vetur.validation.script": true,
     "vetur.validation.template": true,

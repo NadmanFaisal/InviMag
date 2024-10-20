@@ -4,19 +4,19 @@
       <div class="product-details">
         <div>
           <label>Name</label>
-          <input type="text" v-model="name" class="input-field"/>
+          <input type="text" v-model="product.name" class="input-field"/>
         </div>
         <div>
           <label>Quantity</label>
-          <input type="number" v-model="quantity" class="input-field"/>
+          <input type="number" v-model="product.quantity" class="input-field"/>
         </div>
         <div>
           <label>Price</label>
-          <input type="number" v-model="buying_price" class="input-field"/>
+          <input type="number" v-model="product.buying_price" class="input-field"/>
         </div>
         <div>
           <label>Category</label>
-          <input type="text" v-model="category" class="input-field"/>
+          <input type="text" v-model="product.category" class="input-field"/>
         </div>
         <div>
           <label>Status</label>
@@ -24,15 +24,15 @@
             <input
               type="radio"
               id="in-stock"
-              value="true"
-              v-model="in_stock"
+              :value="true"
+              v-model="product.in_stock"
             />
             <label for="in-stock">In Stock</label><br>
             <input
               type="radio"
               id="out-of-stock"
-              value="false"
-              v-model="in_stock"
+              :value="false"
+              v-model="product.in_stock"
             />
             <label for="out-of-stock">Out of Stock</label>
           </div>
@@ -72,6 +72,11 @@
             try{
                 const response = await productApi.getProductByID(this.id);
                 this.product = response.data;
+                this.name = this.product.name;
+                this.quantity = this.product.quantity;
+                this.buying_price = this.product.buying_price;
+                this.category = this.product.category;
+                this.in_stock = this.product.in_stock;
                 console.log(response.data);
             }catch(error){
                 console.error('Error fetching supplier', error);
@@ -83,29 +88,29 @@
            
             try{
             const updatedProduct = {
-                name: this.name,
-                quantity: this.quantity,
-                buying_price: this.buying_price,
+                name: this.product.name,
+                quantity: this.product.quantity,
+                buying_price: this.product.buying_price,
                 selling_price: "0",
-                category: this.category,
-                in_stock: this.in_stock
+                category: this.product.category,
+                in_stock: this.product.in_stock
             }
+            console.log(updatedProduct)
+            console.log(updatedProduct.quantity + " " + updatedProduct.in_stock)
 
             if(updatedProduct.quantity < 0){
                 alert(" ERROR: Quantity of product must be greater than or equal to 0")
             }else if(!updatedProduct.in_stock && updatedProduct.quantity != 0){
                 alert("ERROR: Out of stock must have a quantity of O")
-            }else if(updatedProduct.in_stock && updatedProduct.quantity === 0){
+            }else if(updatedProduct.in_stock && updatedProduct.quantity <= 0){
                 alert("ERROR: In stock products CANNOT have a quantity of 0")
             }else if(updatedProduct.buying_price <= 0){
                 alert("ERROR: Price of product must be greater than 0")
-            }else if((this.product.name === updatedProduct.name) && (this.product.quantity === updatedProduct.quantity) && (this.product.buying_price === updatedProduct.buying_price) && (this.product.category === updatedProduct.buying_price) && (this.product.in_stock === updatedProduct.in_stock)){
-                    alert("Bad request: Updated product has identical fields to old product, Please input new values to update the product");
             }else{
                     console.log("Entered else statement")
                     const response = await productApi.updateProductById(this.id, updatedProduct);
-                    alert('Product SucessFully Updated', response.data)
-                    console.log('Product SucessFully Updated', response.data)
+                    alert('Product SucessFully Updated')
+                    console.log('Product SucessFully Updated', updatedProduct)
                 }
             }catch(error){
                 console.error('Error fetching supplier', error);

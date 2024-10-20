@@ -5,7 +5,7 @@
         <h1 class="supplier-title-font">{{supplier.name}}</h1>
             <!-- Display other supplier details -->
         <b-col v-if="products && products.length">
-            <h2>Products I sell</h2>
+            <h2 class="supplier-title-font">Products I sell</h2>
             <ul>
             <b-col v-for="product in products" :key="product._id">
                 <li class="productDisplay">
@@ -136,11 +136,8 @@ export default{
             console.error('Error fetching supplier and products:', error);
         }
     }
-    }
-
+    },
   },
-
-    
 }
 </script>
 
@@ -169,7 +166,7 @@ export default{
     width: 100%;
     height: auto; 
     padding: 20px;
-    margin: 10px 0;
+    margin: 20px 0;
     border-radius: 10px;
     background: #FFF;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
@@ -223,8 +220,8 @@ export default{
 }
 
 .supplier-image {
-    width: 250px;                  /* Adjust the width of the image */
-    height: 250px;                 /* Adjust the height of the image */
+    width: auto;                  /* Adjust the width of the image */
+    height: auto;                 /* Adjust the height of the image */
     object-fit: cover;            /* Keeps the aspect ratio of the image */
     padding: 15px;
     justify-content: center;
@@ -250,18 +247,26 @@ export default{
 }
 
 @media (max-width: 768px) {
+
+    
+    .supplier-image{
+       margin-left: 16.666667%;
+    }
+    .supplier-title-font{
+        font-size: 30px;
+        margin-left: 16.666667%;
+    }
     .supplier-detail-style{
         margin-left: 0;
-        padding-left: 16.66666667%;
         padding-right: 0%;
         align-items: center;
         justify-content: center;
     }
 
     .productDisplay{
-        margin: 5px auto;
+        margin-bottom: 30px;
         padding: 10px;
-        width: 90%;
+        width: 120%;
     }
     .attributeDisplayContainer{
         justify-content: center;

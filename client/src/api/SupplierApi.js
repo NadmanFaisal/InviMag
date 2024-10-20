@@ -23,6 +23,10 @@ export const supplierApi = {
   // to get all suppliers
   getSupplierProducts(supplierId) {
     return Api.get(`/suppliers/${supplierId}/Products`)
+  },
+
+  deleteSupplierByID(supplierID){
+    return Api.delete(`/suppliers/${supplierID}`)
   }
 
 }
