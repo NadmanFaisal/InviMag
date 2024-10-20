@@ -7,7 +7,7 @@
             <div class="company-name">InvMag</div>
             <div class="company-motto">
               "To manage is to do things right!"</div>
-            <div class="company-description">We in COMPANY NAME bring you the ability to oversee, manage and control all your products available to you. We also cover the ability to buy products from other suppliers as well as log all purchased products you have bought within our platform.</div>
+            <div class="company-description">We in InvMag bring you the ability to oversee, manage and control all your products available to you. We also cover the ability to buy products from other suppliers as well as log all purchased products you have bought within our platform.</div>
           </b-col>
         </b-row>
       </b-container>
@@ -99,6 +99,7 @@ export default {
           alert(`Login successful! Welcome back ${businessOwnerName}!`)
         }, 500)
         this.$router.push('/')
+        // eslint-disable-next-line prefer-const
         let basket = []
 
         // Stores the business owners details in local storage
