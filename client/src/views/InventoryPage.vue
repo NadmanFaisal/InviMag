@@ -52,7 +52,6 @@ import { productApi } from '@/api/ProductApi'
 import ProductCard from '../components/InventoryComponents/ProductCard.vue'
 
 export default {
-  components: { ProductCard },
   name: 'inventoryPage',
   components: {
     ProductCard // Register the ProductComponent
@@ -82,10 +81,14 @@ export default {
     },
 
     toggleDropdown() {
+      // eslint-disable-next-line no-unused-vars
       const dropdownElement = document.getElementById('dropdown-content')
+      // eslint-disable-next-line no-undef
       if (dropdownContent.style.display === 'block') {
+        // eslint-disable-next-line no-undef
         dropdownContent.style.display = 'none'
       } else {
+        // eslint-disable-next-line no-undef
         dropdownContent.style.display = 'block'
       }
     },

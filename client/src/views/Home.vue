@@ -12,7 +12,7 @@
 
             <b-row class="mt-4">
               <b-col lg="6" md="12" class="mb-3">
-                <ProductDetails />
+                <AmountSpentOnOrders />
               </b-col>
 
               <b-col lg="6" md="12" class="mb-3">
@@ -22,11 +22,11 @@
 
             <b-row>
               <b-col lg="6" md="12" class="mb-3">
-                <CostlyProducts />
+                <ProductsInBasket />
               </b-col>
 
               <b-col lg="6" md="12" class="mb-3">
-                <PopularProducts />
+                <TotalInventoryProducts />
               </b-col>
             </b-row>
           </b-col>

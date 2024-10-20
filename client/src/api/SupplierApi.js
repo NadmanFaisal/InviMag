@@ -1,24 +1,24 @@
-import { Api } from '../Api';
+import { Api } from '../Api'
 
-  export const supplierApi = {
-    createProduct(newSupplier){
-        return Api.post('/suppliers', newSupplier);
-    },
-    
-    getAllSuppliers(){
-        return Api.get('/suppliers/');
-    },
+export const supplierApi = {
+  createProduct(newSupplier) {
+    return Api.post('/suppliers', newSupplier)
+  },
 
-    getAllSuppliersByName(supplierName){
-        return Api.get(`/suppliers/search/?name=${supplierName}`);
-    },
+  getAllSuppliers() {
+    return Api.get('/suppliers/')
+  },
 
-    getSupplierByID(supplierId){
-        return Api.get(`/suppliers/${supplierId}`);
-    },
+  getAllSuppliersByName(supplierName) {
+    return Api.get(`/suppliers/search/?name=${supplierName}`)
+  },
 
-    getSupplierProducts(supplierId){
-        return Api.get(`/suppliers/${supplierId}/Products`);
-    }
+  getSupplierByID(supplierId) {
+    return Api.get(`/suppliers/${supplierId}`)
+  },
+
+  getSupplierProducts(supplierId) {
+    return Api.get(`/suppliers/${supplierId}/Products`)
+  }
 
 }
