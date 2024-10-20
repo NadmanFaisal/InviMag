@@ -1,21 +1,24 @@
 <template>
-    <li class="productDisplay">
-      <p class="productTitle">Name: {{ product.name }}</p>
-      <div class="attributeDisplayContainer">
-        <div class="attributeDisplayWidget">
+    <b-col :cols="12">
+    <li class="productDisplay product-card-style">
+      <p class="productTitle">{{ product.name }}</p>
+      <b-col class="attributeDisplayContainer">
+        <b-col>
           <p class="attributeLabel">Quantity</p>
           <p class="attributeValue">{{ product.quantity }} Units</p>
-        </div>
-        <div class="attributeDisplayWidget">
-          <p class="attributeLabel">Buying Price</p>
-          <p class="attributeValue">{{ product.buying_price }}</p>
-        </div>
-        <div class="attributeDisplayWidget">
-          <p class="attributeLabel">Selling Price</p>
-          <p class="attributeValue">{{ product.selling_price }}</p>
-        </div>
-      </div>
+        </b-col>
+        <b-col>
+          <p class="attributeLabel">Price</p>
+          <p class="attributeValue">${{ product.buying_price }}</p>
+        </b-col>
+        <b-col>
+          <p class="attributeLabel">Category</p>
+          <p class="attributeValue">{{ product.category }}</p>
+        </b-col>
+      </b-col>
+      <button type="button" @click="goToUpdateProductsPage" class="update-product-button">Update Product details</button>
     </li>
+    </b-col>
 </template>
 
 <script>
@@ -26,55 +29,65 @@ export default {
       type: Object,
       required: true
     }
+  },
+  data() {
+    return {
+      isModalVisible: false
+    }
+  },
+  methods: {
+
+    goToUpdateProductsPage() {
+      this.$router.push({ name: 'UpdateProductDetails', params: { id: this.product._id, product: this.product } })
+    }
+
   }
+
 }
 </script>
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
 
+.product-card-style{
+    font-family: "Istok Web";
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-right: auto;
+    justify-content: center;
+}
+
 .productDisplay {
-    width: 100%;
-    height: auto; /* Allow height to adjust based on content */
-    padding: 20px;
-    margin: 10px 0;
+    margin-bottom: 40px;
+    width: 100%; /* Allow it to use full width */
+    height: auto;
+    padding: 35px;
     border-radius: 10px;
     background: #FFF;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
 }
 
 .attributeDisplayContainer {
     display: flex;
-    justify-content: space-between; /* Spacing between widgets */
+    justify-content: space-between; /* Distribute space evenly between each attribute */
+    align-items: center; /* Center vertically */
     margin-top: 20px;
-}
-
-.attributeDisplayWidget {
-    width: 130px;
-    height: 130px;
-    border-radius: 20px;
-    background: #FFF;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+    text-align: center;
+    width: 100%; /* Ensure it takes the full width */
 }
 
 .attributeLabel {
     font-family: "Istok Web";
-    font-size: 15px;
+    font-size: 25px;
     font-weight: 700;
     text-align: center;
 }
 
 .attributeValue {
     font-family: "Istok Web";
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
     text-align: center;
     color: grey;
@@ -85,27 +98,45 @@ export default {
     color: black;
     text-align: left;
     font-family: "Istok Web";
-    font-size: 15px;
     font-weight: 700;
     line-height: 1.5;
 }
 
 .productTitle {
-    align-self: stretch;
-    color: var(--sds-color-text-default-default);
-    font-family: var(--sds-typography-heading-font-family);
-    font-size: var(--sds-typography-heading-size-base);
-    font-style: normal;
-    font-weight: var(--sds-typography-heading-font-weight);
-    line-height: 120%; /* 28.8px */
-    letter-spacing: -0.48px;
+    font-size: 35px;
+    font-family: "Istok Web";
+    font-weight: bold;
+    color: black;
+
+}
+
+.update-product-button{
+    font-family: "Istok Web";
+    background-color: #37F;
+    color: white;
+    font-weight: bold;
+    border-color: #37F;
+    border-radius: 10px;
 }
 
 @media (max-width: 768px) {
-    .productDisplay{
-        margin: 0 auto;
-        width: 100%; /* Take full width on small screens */
+    .productDisplay {
+      margin-bottom: 15px; /* Less margin for smaller screens */
+      flex-basis: calc(50% - 10px); /* Two cards per row */
+      padding: 10px;
     }
+
+    .attributeFont, .attributeLabel{
+        font-size: 15px;
+    }
+    .attributeValue{
+        font-size: 15px;
+    }
+
+    .productTitle{
+        font-size: 20px;
+    }
+
 }
 
 </style>
