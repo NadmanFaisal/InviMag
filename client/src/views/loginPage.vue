@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="check-box-group">
-                  <span>Don't have an account? </span>
+                  <span>Don't have an account?&nbsp;</span>
                   <router-link to="/signup">Create one</router-link>
                 </div>
 
