@@ -97,8 +97,8 @@ export default {
 
     async addToBasket(productID) {
       const inputQuantity = Number(this.inputQuantities[productID])
-      if (inputQuantity === 0) {
-        alert('Please Provide an input quantity')
+      if (inputQuantity <= 0 || inputQuantity % 1 !== 0) {
+        alert('Please Provide a valid input quantity')
       } else {
         const basket = JSON.parse(localStorage.getItem('basket')) || []
         const supplierId = this.id

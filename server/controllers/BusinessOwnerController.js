@@ -258,16 +258,19 @@ exports.getProductsByBusinessOwnerID = async (req, res, next) => {
     const sortField = req.query.sort || 'buying_price'; // Default sort by 'buying_price'
 
     try {
-        const businessOwner = await BusinessOwner.findById(id).populate({
-            path: 'products',
-            options: { sort: { [sortField]: 1 } } // Dynamically sort by the requested field
-        });
-        
+        // First, retrieve the business owner and populate products
+        const businessOwner = await BusinessOwner.findById(id).populate('products');
+
         if (!businessOwner) {
             return res.status(404).json({ message: 'Business owner not found' });
         }
 
-        res.status(200).json({ products: businessOwner.products });
+        // Sort the products array manually based on the sortField
+        const sortedProducts = businessOwner.products.sort((a, b) => {
+            return a[sortField] - b[sortField];
+        });
+
+        res.status(200).json({ products: sortedProducts });
 
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while retrieving the products' });
