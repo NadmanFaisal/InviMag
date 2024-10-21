@@ -134,15 +134,15 @@ export default {
 }
 
 .input-field {
-  background-color: #f0f8ff; /* Light blue background */
-  border: 1px solid #37f; /* Border color */
-  border-radius: 10px; /* Rounded corners */
+  background-color: #f0f8ff;
+  border: 1px solid #37f;
+  border-radius: 10px;
   margin-left: 10px;
-  padding: 20px; /* Padding inside the input */
-  width: 50%; /* Full width */
-  font-family: 'Istok Web', sans-serif; /* Font family */
-  font-size: 16px; /* Font size */
-  margin-bottom: 10px; /* Space between inputs */
+  padding: 20px;
+  width: 50%;
+  font-family: 'Istok Web', sans-serif;
+  font-size: 16px;
+  margin-bottom: 10px;
   justify-content: center;
 }
 
@@ -153,7 +153,7 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-family: 'Istok Web', sans-serif; /* Font family for button */
+  font-family: 'Istok Web', sans-serif;
   font-weight: bold;
 }
 
