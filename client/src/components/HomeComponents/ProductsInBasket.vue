@@ -27,6 +27,7 @@ export default {
     this.getProductsInBasket()
   },
   methods: {
+    // gets length of basket (localStorage for adding items to virtual basket)
     async getProductsInBasket() {
       const basket = JSON.parse(localStorage.getItem('basket')) || []
       this.productsInBasket = basket.length
