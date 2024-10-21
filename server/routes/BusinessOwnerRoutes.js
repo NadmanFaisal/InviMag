@@ -12,11 +12,11 @@ router.delete('/BusinessOwners/', businessOwnerController.deleteAllBusinessOwner
 router.delete('/BusinessOwners/:id', businessOwnerController.deleteBusinessOwnerByID);
 router.put('/BusinessOwners/:id', businessOwnerController.updateBusinessOwnerByID);
 router.patch('/BusinessOwners/:id', businessOwnerController.partialUpdateBusinessOwner);
-router.post('/login', businessOwnerController.loginBusinessOwner);
+router.post('/BusinessOwners/login', businessOwnerController.loginBusinessOwner);
 router.get('/BusinessOwners/:id/orderHistories', businessOwnerController.getOrderHistories);
 router.post('/BusinessOwners/:id/products', businessOwnerController.addProductToBusinessOwner);
 router.get('/BusinessOwners/:id/products', businessOwnerController.getProductsByBusinessOwnerID);
-router.get('/BusinessOwners/:id/products/orderByBuyingPrice', businessOwnerController.getProductsByBusinessOwnerAndSortByBuyingPrice);
-router.get('/BusinessOwners/:id/products/orderByQuantity', businessOwnerController.getProductsByBusinessOwnerAndSortByQuantity);
+//router.get('/BusinessOwners/:id/products/orderByBuyingPrice', businessOwnerController.getProductsByBusinessOwnerAndSortByBuyingPrice);
+//router.get('/BusinessOwners/:id/products/orderByQuantity', businessOwnerController.getProductsByBusinessOwnerAndSortByQuantity);
 
 module.exports = router;
