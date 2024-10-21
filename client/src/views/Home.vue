@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-container fluid>
+      <!-- uses b-row and b-col to display the information based on a BootStrap's rows and columns-->
       <b-row class="min-vh-100">
         <b-row>
           <b-col cols="2" class="empty-left-section">
