@@ -10,7 +10,7 @@ router.get('/Products/orderByQuantity', productController.getAllProductsByQuanti
 router.get('/Products/:id', productController.getProductByID);
 router.delete('/Products/', productController.deleteAllProducts);
 router.delete('/Products/:id', productController.deleteProductByID);
-router.put('/Products/:id', productController.updateProductByIB);
+router.put('/Products/:id', productController.updateProductByID);
 router.patch('/Products/:id', productController.partialUpdateProduct);
 
 module.exports = router;

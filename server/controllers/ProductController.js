@@ -172,7 +172,7 @@ exports.deleteProductByID = async (req, res, next) => {
 }
 
 
-exports.updateProductByIB = async (req, res, next) => {
+exports.updateProductByID = async (req, res, next) => {
     try {
         const id = req.params.id;
         const {name, quantity, buying_price, selling_price, category, in_stock} = req.body;

@@ -30,7 +30,7 @@ const router = createRouter({
 
 async function isAuthenticated() {
   try {
-    const response = await Api.get('http://localhost:3000/v1/api/check-auth')
+    const response = await Api.get('http://localhost:3000/v1/api/BusinessOwners/check-auth')
     return response.status === 200
   } catch (error) {
     return false
