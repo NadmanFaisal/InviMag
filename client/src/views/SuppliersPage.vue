@@ -37,7 +37,7 @@
           <b-col
             v-for="supplier in filteredSuppliers"
             :key="supplier._id"
-            @click.native="goToSupplierDetail(supplier)"
+            
           >
             <SupplierCard :supplier="supplier"></SupplierCard>
           </b-col>
@@ -71,7 +71,7 @@ export default {
     this.fetchSuppliers()
   },
   methods: {
-    async fetchSuppliers() {
+    async fetchSuppliers() { //This method handles fetching the all the suppliers the exist in the system
       try {
         const response = await supplierApi.getAllSuppliers()
         this.suppliers = response.data.suppliers
@@ -81,7 +81,7 @@ export default {
       }
     },
 
-    filterSuppliers() {
+    filterSuppliers() { // This method handles filtering all the suppliers based on the name inputted in the search query
       const query = this.searchQuery.trim().toLowerCase()
       if (!query) {
         this.filteredSuppliers = this.suppliers
@@ -97,13 +97,7 @@ export default {
       }
     },
 
-    goToSupplierDetail(supplier) {
-      this.$router.push({
-        name: 'SupplierDetail',
-        params: { id: supplier._id }
-      })
-    },
-    removeSupplier(supplierId) {
+    removeSupplier(supplierId) { //This is the method that removes the blocked supplier from being visible in the UI after the supplier has been deleted from the database
       this.filteredSuppliers = this.filteredSuppliers.filter(
         (supplier) => supplier._id !== supplierId
       )

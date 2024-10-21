@@ -76,7 +76,7 @@ export default {
   },
 
   methods: {
-    async fetchSupplierDetails() {
+    async fetchSupplierDetails() { // This method fetches the supplier and all the attributes for the supplier
       try {
         const response = await supplierApi.getSupplierByID(this.id)
         this.supplier = response.data
@@ -85,7 +85,7 @@ export default {
       }
     },
 
-    async fetchSupplierProducts() {
+    async fetchSupplierProducts() { // This method fetches all the products owned by the suplier
       try {
         const response = await supplierApi.getSupplierProducts(this.id)
         this.products = response.data.products
@@ -95,9 +95,9 @@ export default {
       }
     },
 
-    async addToBasket(productID) {
+    async addToBasket(productID) {  // This method handle the logic of adding products to a basket which are stored in the local storage
       const inputQuantity = Number(this.inputQuantities[productID])
-      if (inputQuantity <= 0 || inputQuantity % 1 !== 0) {
+      if (inputQuantity <= 0 || inputQuantity % 1 !== 0) { //This method takes care of exception cases where users can input invalid quantity values
         alert('Please Provide a valid input quantity')
       } else {
         const basket = JSON.parse(localStorage.getItem('basket')) || []
@@ -107,14 +107,14 @@ export default {
           const product = response.data
           const avaiableQuantity = Number(response.data.quantity)
 
-          const existingProductInBasket = basket.find(
+          const existingProductInBasket = basket.find(  // This method also handles logic for multiple add to basket button presses on the the same product, to enusre that the total amount ordered by the user is not greater than the total in stock quantity for the supplier
             (item) => item.id === productID
           )
           const totalQuantityInBasket =
             (existingProductInBasket ? existingProductInBasket.quantity : 0) +
             inputQuantity
 
-          if (totalQuantityInBasket > avaiableQuantity) {
+          if (totalQuantityInBasket > avaiableQuantity) { 
             alert(
               `Input Quantity ${inputQuantity} cannot be greater than the total quantity of products ${avaiableQuantity}`
             )
@@ -132,7 +132,7 @@ export default {
                 supplierID: supplierId
               })
             }
-            localStorage.setItem('basket', JSON.stringify(basket))
+            localStorage.setItem('basket', JSON.stringify(basket))   //Adds  the product to the basket and also sends the supplier ID of the supplier it belongs to
             alert(
               `${inputQuantity} ${product.name} have been added to the basket`
             )

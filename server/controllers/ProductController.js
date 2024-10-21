@@ -13,7 +13,7 @@ exports.createProduct = async (req, res, next ) => {
         business_owner: req.body.business_owner,
         order_history: req.body.order_history
     });
-    
+    // Handling all the possible BAD REQUEST exceoption cases to ensure that product has all fields when created
     if(!product.name || product.name === ''){
         return res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
     }

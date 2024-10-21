@@ -37,7 +37,7 @@ export default {
   },
   methods: {
 
-    goToUpdateProductsPage() {
+    goToUpdateProductsPage() { //This method handles the logic of navigating to the update products page when clicking the update product page butto
       this.$router.push({ name: 'UpdateProductDetails', params: { id: this.product._id, product: this.product } })
     }
 

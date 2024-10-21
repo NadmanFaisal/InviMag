@@ -37,22 +37,21 @@ export default {
     }
   },
   methods: {
-    goToSupplierDetail() {
+    goToSupplierDetail() { //this method creates a supplier page for each invidivual supplier and also passes in the required props to the supplier detial component (supplier ID)
       this.$router.push({
         name: 'SupplierDetail',
         params: { id: this.supplier._id, supplier: this.supplier }
       })
     },
 
-    async blockSupplier() {
+    async blockSupplier() {  // This method takes care of blocking a supplier if the user clicks the block button
       const confirmBlock = confirm(
         `Are you sure you want to block ${this.supplier.name}?`
       )
       if (confirmBlock) {
         try {
-          // Call your API to delete the supplier
-          await supplierApi.deleteSupplierByID(this.supplier._id) // Ensure your API has this method
-          // Emit an event to the parent component to remove this supplier from the list
+          await supplierApi.deleteSupplierByID(this.supplier._id)
+          // It Emits an event to the parent component to remove this supplier from the list
           this.$emit('supplierBlocked', this.supplier._id)
         } catch (error) {
           console.error('Error blocking supplier:', error)

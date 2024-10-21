@@ -73,7 +73,7 @@ export default {
   },
 
   methods: {
-    async fetchProductDetails() {
+    async fetchProductDetails() { //this method fecthes the products fields and displays them in each of the input boxes
       try {
         const response = await productApi.getProductByID(this.id)
         this.product = response.data
@@ -88,7 +88,7 @@ export default {
       }
     },
 
-    async updateProductDetails() {
+    async updateProductDetails() { // this method handles the logic for udpating the product using the PUT HTTP request
       try {
         const updatedProduct = {
           name: this.product.name,
@@ -101,7 +101,7 @@ export default {
         console.log(updatedProduct)
         console.log(updatedProduct.quantity + ' ' + updatedProduct.in_stock)
 
-        if (updatedProduct.quantity < 0) {
+        if (updatedProduct.quantity < 0) { // If statements for handling exception cases logic when the user inputs illogical values
           alert(
             ' ERROR: Quantity of product must be greater than or equal to 0'
           )
