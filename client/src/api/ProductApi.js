@@ -17,7 +17,7 @@ export const productApi = {
   getProductByID(id) {
     return Api.get(`/Products/${id}`)
   },
-  
+
   // to update (put) product by id
   updateProductById(id, updatedProduct) {
     return Api.put(`/Products/${id}`, updatedProduct)
