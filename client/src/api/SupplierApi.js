@@ -25,7 +25,7 @@ export const supplierApi = {
     return Api.get(`/suppliers/${supplierId}/Products`)
   },
 
-  deleteSupplierByID(supplierID){
+  deleteSupplierByID(supplierID) {
     return Api.delete(`/suppliers/${supplierID}`)
   }
 
