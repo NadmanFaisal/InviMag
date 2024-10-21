@@ -62,18 +62,20 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-Our system is an inventory mangement system that can be used by organisations like: grocery stores, fashion brands, and electronic stores. The main idea behind our system is to help these organisation keep track of all of their inventory (what all products they have in stock), and for these organisations to be directly connected to the suppliers who provide them with their inventory. Our system will allow for inventory to be displayed and to be sorted based on various different attibutes like: price, quantity, date of purchase, etc. Our system will also be able to list suppliers and all the products that each supplier sells.
+Our system is an inventory mangement system that can be used by organisations like: grocery stores, fashion brands, and electronic stores. The main idea behind our system is to help these organisation keep track of all of their inventory (what all products they have in stock), and for these organisations to be directly connected to the suppliers who provide them with their inventory.
 
-Our advanced feature would be a smart suggestor that looks at a resources that are currently in the organisations inventory and uses sorting and comparions to find other suppliers that offer the same resource for a cheaper value, hence helping the organisation cut on their cost in a smart manner. 
+Our system will allow for inventory to be displayed and to be sorted based on various different attributes like: price and quantity. Our system will also be able to list suppliers and all the products that each supplier sells as well as order from the suppliers. It will also allow business owners to change their basic information like the name, email and password as well as update their budget. 
+
+Finally, the system will be able to access their order histories as well as delete all the order histories.
 
 
 
 ### Pages
 
-* Home: The home page can be setup using the dashboard design pattern and it can display important statistics about the business, like the total cost of their inventory, or about products that are almost running out of stock, or a list showing the top selling products.
-* Suppliers: The suppliers page can have a list of suppliers and it display important information about the supplier like, they kind of industry they are in or their country of origin etc.
-* Products: A page that contains a list of all the products and which suppliers sell those products. It will also consist of important attributes of these products like their price, manufacture date, the country they are manufactured in etc. 
-* Settings: A page that allows the user to change their passwords and username
+* Home: The home page displays important statistics about the business, like the total cost of their inventory, or about products that are almost running out of stock, or how much products they have in their basket.
+* Suppliers: The suppliers page can have a list of suppliers and it displays important information about the supplier as well as their products in where the business owner can buy their products from.
+* Products: A page that contains a list of all the products owned by the business owner. It will also consist of important attributes of these products like their quantity, buying price and selling price. Business Owners can also update the product info to sync with what they have sold in their physical store.
+* Settings: A page that allows the user to change their passwords, email and username. It also allows the user to update their budget based on what their current budget is.
 
 
 
@@ -86,6 +88,8 @@ Our advanced feature would be a smart suggestor that looks at a resources that a
 
 ![Teaser](./images/teaser.png)
 ## API Proposal
+
+**NOTE (October 21): We have decided to not implement the API Proposal due to the lack of resources we had in order to implement the API before the project's deadline.**
 
 We are thinking of implementing the Currency Exchange API. This will allow each business owner to see their relevant price based on their geolocation. This ensures that the business owner is able to understand the value of his product and adjust precisely on how much of his local currency he would like to spend.
 
