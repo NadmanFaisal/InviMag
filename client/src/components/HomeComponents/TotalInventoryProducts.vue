@@ -29,6 +29,7 @@ export default {
     this.getTotalInventoryProducts()
   },
   methods: {
+    // gets each product and counts all quantites of each product to display all number of products in inventory.
     async getTotalInventoryProducts() {
       const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
       const productIds = response.data.products
