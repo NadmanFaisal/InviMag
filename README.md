@@ -99,5 +99,5 @@ Frontend: We will have a new attribute called preferred currency which the busin
 
 Backend: The implementation of this API in the backend will involve adding new attributes to the business owner entity (country of origin and preferred currency). We will also need to do advanced filtering such that when we get a list of products, all the price-related attributes need to be converted to the preferred currency of the business owner.
 
-.
+
 Link for the Currency Exchange API: https://www.exchangerate-api.com/
