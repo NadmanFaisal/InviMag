@@ -11,6 +11,7 @@ import SuppliersPage from './views/SuppliersPage.vue'
 import SupplierDetail from './components/SupplierComponents/SupplierDetail.vue'
 import UpdateProductDetails from './components/InventoryComponents/UpdateProductDetails.vue'
 
+// we can specify what pages requires authentication (being logged in), so that unauthorized users cant access it
 const routes = [
   { path: '/', name: 'home', component: Home, meta: { requiresAuth: true } },
   { path: '/login', name: 'login', component: LogIn, meta: { requiresAuth: false } },
@@ -28,6 +29,7 @@ const router = createRouter({
   routes
 })
 
+// checks authentication for user, important to allow users to enter authenticated pages
 async function isAuthenticated() {
   try {
     const response = await Api.get('http://localhost:3000/v1/api/BusinessOwners/check-auth')
