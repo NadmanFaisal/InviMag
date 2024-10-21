@@ -3,6 +3,7 @@
       <b-container fluid>
         <b-row class="justify-content-center">
           <b-col xs="12" md="10" class="mb-3">
+            <!-- User name input -->
             <label class="signup-label" for="username">Username</label>
             <b-form-input
               id="username"
@@ -11,7 +12,7 @@
               class="signup-input"
             ></b-form-input>
           </b-col>
-
+          <!-- Email input -->
           <b-col xs="12" md="10" class="mb-3">
             <label class="signup-label" for="email">Email</label>
             <b-form-input
@@ -22,7 +23,7 @@
               class="signup-input"
             ></b-form-input>
           </b-col>
-
+          <!-- Password input -->
           <b-col xs="12" md="10" class="mb-3">
             <label class="signup-label" for="password">Password</label>
             <b-form-input
@@ -61,6 +62,7 @@ export default {
     }
   },
   methods: {
+    // emit values to parent class, which is the SignUpPage.vue
     handleSubmit() {
       this.$emit('submit', {
         username: this.localUsername,

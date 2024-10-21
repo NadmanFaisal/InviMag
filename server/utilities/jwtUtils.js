@@ -33,29 +33,9 @@ const clearTokenCookie = (res) => {
   res.clearCookie('auth_token');
 };
 
-/*
-
-Keep for later purposes
-
-const authenticateToken = (req, res, next) => {
-  const token = req.cookies.auth_token;
-  if (!token) {
-      return res.status(401).json({ message: 'Authentication required' });
-  }
-
-  try {
-      const decoded = verifyToken(token); // verifies validity of token
-      req.user = decoded; // re-attach user info to the request
-  } catch (error) {
-      return res.status(403).json({ message: 'Invalid or expired token' });
-  }
-};
-*/
-
 module.exports = {
   generateToken,
   verifyToken,
   setTokenCookie,
   clearTokenCookie,
-  // authenticateToken
 };

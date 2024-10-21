@@ -71,7 +71,7 @@ export default {
 
   methods: {
 
-    async fetchProducts() {
+    async fetchProducts() { // This methods fecthes all the products owned by the business owner
       const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
       try {
         const response = await businessOwnerApi.getBusinessOwnerProducts(businessOwner.id)
@@ -81,11 +81,11 @@ export default {
       }
     },
 
-    toggleDropdown() {
+    toggleDropdown() { // this method takes care of toggling the dropdown on and off
       this.isDropdownOpen = !this.isDropdownOpen
     },
 
-    async sortByBuyingPrice() {
+    async sortByBuyingPrice() { // this method handle get the product and sorting it based on buying price in ascending order
       const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
       try {
         const response = await businessOwnerApi.getAllProductsByBuyingPrice(businessOwner.id)
@@ -96,7 +96,7 @@ export default {
       this.isDropdownOpen = false
     },
 
-    async sortByQuantity() {
+    async sortByQuantity() { // this method fetches the products and orders them based on quantity in ascending order 
       const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
       try {
         const response = await businessOwnerApi.getAllProductsByQuantity(businessOwner.id)
@@ -107,7 +107,7 @@ export default {
       this.isDropdownOpen = false
     }
   },
-  computed: {
+  computed: { // these computed properties just count the number of total, in stock, and out of stock products
     totalProducts() {
       return this.products.length
     },

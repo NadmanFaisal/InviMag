@@ -1,11 +1,11 @@
 {
 	"info": {
-		"_postman_id": "a07d624d-ea61-478e-97e8-5505c1baddcd",
+		"_postman_id": "4b3c5ca1-1555-45bb-bede-96f21caa67bd",
 		"name": "server",
 		"description": "server tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38198193",
-		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38198193-a07d624d-ea61-478e-97e8-5505c1baddcd?action=share&source=collection_link&creator=38198193"
+		"_exporter_id": "38197131",
+		"_collection_link": "https://group-17-6237.postman.co/workspace/group-17~bdbeca54-b002-4940-8dd5-87fb4210180a/collection/38197131-4b3c5ca1-1555-45bb-bede-96f21caa67bd?action=share&source=collection_link&creator=38197131"
 	},
 	"item": [
 		{
@@ -47,7 +47,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"S\",\r\n    \"email\": \"test1@a.s\",\r\n    \"password\": \"129\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Nadman's Father\",\r\n    \"email\": \"faaiisal@gmail.com\",\r\n    \"password\": \"nadmanfaisal\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,6 +64,83 @@
 						"api",
 						"businessOwners",
 						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/businessOwners/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"faaiisal@gmail.com\",\n    \"password\": \"nadmanfaisal\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/v1/api/businessOwners/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"businessOwners",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /v1/api/businessOwners/check-auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/businessOwners/check-auth",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"businessOwners",
+						"check-auth"
 					]
 				}
 			},
@@ -310,6 +387,40 @@
 						"businessOwners",
 						"{{business_owner_ID}}",
 						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /v1/api/businessOwners/logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/v1/api/businessOwners/logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1",
+						"api",
+						"businessOwners",
+						"logout"
 					]
 				}
 			},

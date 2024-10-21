@@ -22,6 +22,8 @@
 
   <b-col cols="12" class="order-history-container">
 
+    <!-- The basket container wont appear unless the basket has more than one product -->
+
     <b-col cols=11 class="basket-container" v-if="basket.length > 0">
 
       <b-col cols="4" class="product-container">
@@ -29,6 +31,8 @@
         <b-col cols="12" class="order-id-label-container">
           <label class="order-id-label form-label">Order ID: </label>
         </b-col>
+
+        <!-- Displays name of products for all the products in the basket -->
 
         <b-col cols="12" class="product-name-container" v-for="product in basket" :key="product._id">
           <label class="product-name-label form-label">{{ product.name }}</label>
@@ -42,6 +46,8 @@
           <label class="price-label form-label">Price </label>
         </b-col>
 
+        <!-- Displays price of products for all the products in the basket -->
+
         <b-col cols="12" class="product-price-container" v-for="product in basket" :key="product._id">
           <label class="product-price-label form-label">{{ product.price }}</label>
         </b-col>
@@ -53,6 +59,8 @@
         <b-col cols="12" class="quantity-label-container">
           <label class="quantity-label form-label">QTY</label>
         </b-col>
+
+        <!-- Displays quantity of products for all the products in the basket -->
 
         <b-col cols="12" class="product-name-container" v-for="product in basket" :key="product._id">
           <label class="product-name-label form-label">{{ product.quantity }}</label>
@@ -83,6 +91,8 @@
 
     </b-col>
 
+    <!-- For each order history, creates this section -->
+
     <b-col cols="11" v-for="orderHistory in orderHistories" :key="orderHistory._id" class="order-card">
 
       <b-col cols="4" class="product-container">
@@ -90,6 +100,8 @@
         <b-col cols="12" class="order-id-label-container">
           <label class="order-id-label form-label">Order ID: {{ orderHistory._id }}</label>
         </b-col>
+
+        <!-- Displays product name for each product in a order history -->
 
         <b-col cols="12" class="product-name-container" v-for="product in orderHistory.products" :key="product._id">
           <label class="product-name-label form-label">{{ product.name }}</label>
@@ -114,6 +126,8 @@
         <b-col cols="12" class="quantity-label-container">
           <label class="quantity-label form-label">QTY</label>
         </b-col>
+
+        <!-- Displays product quantity for each product in a order history -->
 
         <b-col cols="12" class="product-quantity-container" v-for="product in orderHistory.products" :key="product._id">
           <label class="product-quantity-label form-label">{{ product.quantity }}</label>
@@ -168,9 +182,11 @@ export default {
     }
   },
   mounted() {
+    // Fetches the business owner and its ID from the local storage for later use
     const businessOwner = JSON.parse(localStorage.getItem('businessOwner'))
     this.basket = JSON.parse(localStorage.getItem('basket'))
 
+    // When the page loads for the first time, gets the order histories and the basket if there is anything in basket
     if (businessOwner && businessOwner.id) {
       this.userId = businessOwner.id
       this.fetchOrderHistories()
@@ -178,6 +194,7 @@ export default {
     }
   },
   methods: {
+    // Fetches all the order histories in a particular business owner
     async fetchOrderHistories() {
       try {
         const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/orderHistories?sort_date=${this.sortBy}`)
@@ -186,10 +203,12 @@ export default {
         console.error('Error fetching order histories:', error)
       }
     },
+    // Sorts the orderHistories according to newest or oldest date of creation
     setSort(sortAlgorithm) {
       this.sortBy = sortAlgorithm
       this.fetchOrderHistories()
     },
+    // Deletes the basket and all of its products and deletes it from local storage
     async deleteBasket() {
       const deleteBasket = window.confirm('Are you sure you want to delete the basket? This action cannot be undone.')
       if (deleteBasket) {
@@ -197,6 +216,7 @@ export default {
         localStorage.setItem('basket', JSON.stringify([]))
       }
     },
+    // Iterates through all the products and calculates the total
     getBasketSubtotal() {
       this.basketSubtotal = this.basket.reduce((total, product) => {
         const productQuantity = product.quantity || 0
@@ -204,6 +224,7 @@ export default {
         return total + (productQuantity * productPrice)
       }, 0)
     },
+    // Creates a new order history
     async createOrderHistory() {
       const orderHistoryData = {
         businessOwner: this.userId,
@@ -215,6 +236,7 @@ export default {
         const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
         const currentBudget = response.data.total_budget
 
+        // Does not allow creation of order history if budget is low
         if (currentBudget < this.basketSubtotal) {
           alert('Insufficient budget! You cannot buy everything in the basket right now.')
           return
@@ -226,9 +248,15 @@ export default {
 
       try {
         const response = await axios.post('http://localhost:3000/v1/api/orderHistories', orderHistoryData)
+
+        // Adds the new order history in the orderHistories list
         this.orderHistories.push(response.data.orderHistories)
         this.orderHistoryId = response.data._id
+
+        // Will create products to add to the order history just created
         this.createProducts()
+
+        // Will update the total budget of the business owner after the creation of order history
         this.updateBusinessOwner()
         alert('Thank you for buying!')
       } catch (error) {
@@ -253,7 +281,7 @@ export default {
             orderHistory: this.orderHistoryId,
             in_stock: true
           }
-
+          // Fetches the original product to change the quantity displayed within the supplier
           const originalProduct = await axios.get(`http://localhost:3000/v1/api/Products/${product.id}`)
           const newQuantity = originalProduct.data.quantity - product.quantity
           const updatedProduct = {
@@ -261,6 +289,7 @@ export default {
           }
           await axios.patch(`http://localhost:3000/v1/api/Products/${product.id}`, updatedProduct)
 
+          // Creates the products in the basket for this specific business owner
           const response = await axios.post(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}/products`, productData)
           console.log('Product added successfully:', response.data)
         } catch (error) {
@@ -268,9 +297,11 @@ export default {
         }
       }
 
+      // Resets the basket after creation of the order histories and the products
       localStorage.setItem('basket', JSON.stringify([]))
       this.basket = []
     },
+    // Updates the total budget of the business owner
     async updateBusinessOwner() {
       if (!this.userId) return
 
@@ -287,6 +318,7 @@ export default {
         console.log('Could not update your total budget. Please try again.')
       }
     },
+    // Allows the user to delete all the order histories.
     async deleteAllOrderHistories() {
       if (this.orderHistories.length < 1) {
         alert('There are no order histories to delete!')

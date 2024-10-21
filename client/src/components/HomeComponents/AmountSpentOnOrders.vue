@@ -1,3 +1,13 @@
+<!--
+This code includes the HTML and CSS of the Amount Spent on Orders.
+Methods include:
+
+getOrdersValue(): gets OrderHistories from Business owner ID and gets the total_price for each
+orer history then business owner has.
+
+LocalStorage accessed here to get the businessOwner id information.
+-->
+
 <template>
     <b-card class="mb-3 amount-spent-on-orders-card">
      <div class="content-wrapper">

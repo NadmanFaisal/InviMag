@@ -17,18 +17,7 @@ export const productApi = {
   getProductByID(id) {
     return Api.get(`/Products/${id}`)
   },
-  // to get all product sorted by buying price
-  getAllProductsByBuyingPrice(sort_order) {
-    return Api.get('/Products/orderByBuyingPrice', sort_order)
-  },
-  // to get all product sorted by selling price
-  getAllProductsBySellingPrice(sort_order) {
-    return Api.get('/Products/orderBySellingPrice', sort_order)
-  },
-  // to get all product sorted by quantity
-  getAllProductsByQuantity(sort_order) {
-    return Api.get('/Products/orderByQuantity', sort_order)
-  },
+
   // to update (put) product by id
   updateProductById(id, updatedProduct) {
     return Api.put(`/Products/${id}`, updatedProduct)

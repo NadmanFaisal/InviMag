@@ -36,6 +36,7 @@ export default {
     this.getInventoryValue()
   },
   methods: {
+    // gets inventory value by multiplying the quantity with buying price(so if 1 apple cost 10 sek, 10 of them cost 100 sek)
     async getInventoryValue() {
       const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
       const productIds = response.data.products

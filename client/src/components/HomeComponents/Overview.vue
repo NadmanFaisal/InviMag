@@ -49,7 +49,7 @@ export default {
     }
   },
   computed: {
-    formattedBudget() {
+    formattedBudget() { // store as a locale String so that it appears as commas
       return this.total_budget.toLocaleString()
     }
   },
@@ -62,6 +62,7 @@ export default {
     }
   },
   methods: {
+    // gets user total budget
     async displayUserTotalBudget() {
       try {
         const response = await Api.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)
@@ -71,6 +72,7 @@ export default {
         alert('Could not get your total budget. Please try again.')
       }
     },
+    // gets quantity of each product and updates counter for inStock, almostSoldOut and outOfStock depending on conditions.
     async getTotalInventoryProducts() {
       try {
         const response = await Api.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)

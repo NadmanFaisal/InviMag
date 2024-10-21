@@ -252,60 +252,31 @@ exports.getBusinessOwnerByID = async (req, res) => {
     }
 }
 
+
 exports.getProductsByBusinessOwnerID = async (req, res, next) => {
-    const id = req.params.id
-    try{
-        const businessOwner = await BusinessOwner.findById(id).populate('products')
+    const id = req.params.id;
+    const sortField = req.query.sort || 'buying_price'; // Default sort by 'buying_price'
 
-        if(!businessOwner){
-            return res.status(404).json({message: 'Did not find Business Owner'});
+    try {
+        // First, retrieve the business owner and populate products
+        const businessOwner = await BusinessOwner.findById(id).populate('products');
+
+        if (!businessOwner) {
+            return res.status(404).json({ message: 'Business owner not found' });
         }
 
-        res.status(200).json({'products': businessOwner.products});
+        // Sort the products array manually based on the sortField
+        const sortedProducts = businessOwner.products.sort((a, b) => {
+            return a[sortField] - b[sortField];
+        });
 
-    }catch(error){
-        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' });
+        res.status(200).json({ products: sortedProducts });
+
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while retrieving the products' });
         next(error);
     }
-}
-
-exports.getProductsByBusinessOwnerAndSortByBuyingPrice = async (req, res, next) => {
-    const id = req.params.id
-    try{
-        const businessOwner = await BusinessOwner.findById(id).populate('products').sort({buying_price: 1})
-        if(!businessOwner){
-            return res.status(404).json({message: 'Did not find Business Owner'})
-        }
-
-        const sortedProducts = businessOwner.products.sort((a, b) => a.buying_price - b.buying_price)
-        
-        res.status(200).json({'products': sortedProducts})
-
-    }catch(error){
-        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' })
-        next(error);
-    }
-
-}
-
-exports.getProductsByBusinessOwnerAndSortByQuantity = async (req, res, next) => {
-    const id = req.params.id
-    try{
-        const businessOwner = await BusinessOwner.findById(id).populate('products')
-        if(!businessOwner){
-            return res.status(404).json({message: 'Did not find Business Owner'})
-        }
-        
-        const sortedProducts = businessOwner.products.sort((a, b) => a.quantity - b.quantity)
-
-        res.status(200).json({'products': sortedProducts})
-
-    }catch(error){
-        res.status(500).json({ error: 'An error occurred while retreiving the products of a specific business owner' })
-        next(error);
-    }
-
-}
+};
 
 
 // Will delete business owner according to its id

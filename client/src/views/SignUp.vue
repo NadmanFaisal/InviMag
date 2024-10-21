@@ -4,6 +4,7 @@
         <b-row class="justify-content-center align-items-center w-100">
           <b-col md="8" class="signup-blue-container d-flex justify-content-center align-items-center">
 
+            <!-- Navigable Login/SignUp page-->
             <b-col class="login-signup-button-container">
               <BButton type="button" class="login-button" @click="goToLoginPage()">Log In</BButton>
               <BButton type="button" class="signup-button" @click="goToSignupPage()">Sign up</BButton>
@@ -12,6 +13,7 @@
             <b-col class="white-container-signup p-4">
               <h1 class="signup-title mb-4">Sign Up</h1>
 
+              <!-- the whole SignUpForm -->
               <SignUpForm
                 :username="username"
                 :email="email"
@@ -19,6 +21,7 @@
                 @submit="submitSignUp"
               />
 
+              <!-- checks for error message response -->
               <p
                 v-if="message"
                 :class="{
@@ -54,6 +57,7 @@ export default {
     }
   },
   methods: {
+    // post the email, name and password of the businessOwner and creates a new one in backend
     async submitSignUp({ username, email, password }) {
       try {
         await Api.post('http://localhost:3000/v1/api/BusinessOwners/signup', {
@@ -61,6 +65,7 @@ export default {
           email,
           password
         })
+        // waits a while to display the Sign Up Successful message to user until we move him to login
         setTimeout(() => {
           this.$router.push('/login')
         }, 2000)
@@ -70,6 +75,7 @@ export default {
       }
     },
 
+    // goes to login page
     goToLoginPage() {
       this.$router.push('/login')
     }

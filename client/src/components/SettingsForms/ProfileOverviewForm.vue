@@ -29,6 +29,7 @@ export default {
     }
   },
   mounted() {
+    // Initializes web socket as soon as the page loads.
     this.ws = new WebSocket('ws://localhost:8080')
 
     this.ws.onopen = () => {
@@ -37,6 +38,8 @@ export default {
 
     this.ws.onmessage = (message) => {
       const data = JSON.parse(message.data)
+
+      // Checks for notification in nameUpdated connection, and changes the name
       if (data.event === 'nameUpdated') {
         this.displayUserName()
       }
@@ -58,6 +61,8 @@ export default {
     }
   },
   methods: {
+
+    // Displays the user name of the businessOwner
     async displayUserName() {
       try {
         const response = await axios.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)

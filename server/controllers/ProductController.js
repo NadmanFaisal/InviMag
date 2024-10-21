@@ -13,7 +13,7 @@ exports.createProduct = async (req, res, next ) => {
         business_owner: req.body.business_owner,
         order_history: req.body.order_history
     });
-    
+    // Handling all the possible BAD REQUEST exceoption cases to ensure that product has all fields when created
     if(!product.name || product.name === ''){
         return res.status(400).json({ error: 'Bad Request, name field cannot be empty'});
     }
@@ -67,61 +67,6 @@ exports.getAllProducts =  async (req, res, next) =>  {
 
 }
 
-exports.getAllProductsByBuyingPrice = async (req, res, next) => {
-    let sortOrder = req.body.sort_order;
-    if(!sortOrder){
-        sortOrder = 1;
-    }
-    try{
-        const products = await Product.find().sort({buying_price: sortOrder});
-        if(!products){
-            return res.status(404).json({"message" : "No products found"});
-        }
-        return res.status(200).json({"Products": products});
-
-    } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
-        next(error);
-    }
-}
-
-exports.getAllProductsBySellingPrice = async (req, res, next) => {
-    let sortOrder = req.body.sort_order;
-    if(!sortOrder){
-        sortOrder = 1;
-    }
-    try{
-        const products = await Product.find().sort({selling_price: sortOrder});
-        if(!products){
-            return res.status(404).json({"message" : "No products found"});
-        }
-        return res.status(200).json({"Products": products});
-
-    } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
-        next(error);
-    }
-}
-
-exports.getAllProductsByQuantity = async (req, res, next) => {
-    let sortOrder = req.body.sort_order;
-    if(!sortOrder){
-        sortOrder = 1;
-    }
-    try{
-        const products = await Product.find().sort({quantity: sortOrder});
-        if(!products){
-            return res.status(404).json({"message" : "No products found"});
-        }
-        return res.status(200).json({"Products": products});
-
-    } catch (error){
-        res.status(500).json({ error: 'An error occurred while fetching Products' });
-        next(error);
-    }
-}
-
-
 exports.getProductByID = async (req, res, next) => {
     const productID = req.params.id;
     try{
@@ -172,7 +117,7 @@ exports.deleteProductByID = async (req, res, next) => {
 }
 
 
-exports.updateProductByIB = async (req, res, next) => {
+exports.updateProductByID = async (req, res, next) => {
     try {
         const id = req.params.id;
         const {name, quantity, buying_price, selling_price, category, in_stock} = req.body;

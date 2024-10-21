@@ -28,6 +28,7 @@ export default {
     this.displayUserName()
   },
   methods: {
+    // gets name of the user from the businessOwner
     async displayUserName() {
       try {
         const response = await Api.get(`http://localhost:3000/v1/api/BusinessOwners/${this.userId}`)

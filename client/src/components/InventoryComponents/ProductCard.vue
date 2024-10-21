@@ -37,7 +37,7 @@ export default {
   },
   methods: {
 
-    goToUpdateProductsPage() {
+    goToUpdateProductsPage() { //This method handles the logic of navigating to the update products page when clicking the update product page butto
       this.$router.push({ name: 'UpdateProductDetails', params: { id: this.product._id, product: this.product } })
     }
 
@@ -60,7 +60,7 @@ export default {
 
 .productDisplay {
     margin-bottom: 40px;
-    width: 100%; /* Allow it to use full width */
+    width: 100%;
     height: auto;
     padding: 35px;
     border-radius: 10px;
@@ -71,11 +71,11 @@ export default {
 
 .attributeDisplayContainer {
     display: flex;
-    justify-content: space-between; /* Distribute space evenly between each attribute */
-    align-items: center; /* Center vertically */
+    justify-content: space-between;
+    align-items: center;
     margin-top: 20px;
     text-align: center;
-    width: 100%; /* Ensure it takes the full width */
+    width: 100%;
 }
 
 .attributeLabel {
@@ -121,8 +121,8 @@ export default {
 
 @media (max-width: 768px) {
     .productDisplay {
-      margin-bottom: 15px; /* Less margin for smaller screens */
-      flex-basis: calc(50% - 10px); /* Two cards per row */
+      margin-bottom: 15px;
+      flex-basis: calc(50% - 10px);
       padding: 10px;
     }
 

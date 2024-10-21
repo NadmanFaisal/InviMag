@@ -35,19 +35,3 @@ module.exports = {
     hashPassword,
     comparePassword
 };
-
-
-/* Use this if you want to comparePasswords in your LogIn Screen (aka your
-server/BusinessOwnerController file with the loginBusinessOwner request)
-
-const {comparePassword} = require('../utilities/Authentication');
-
-const isPasswordValid = await comparePassword(req.body.password, businessOwner.password);
-
-if (!isPasswordValid) {
-    return res.status(401).json({ message: 'Invalid password' });
-}
-
-make sure before this to do a check on the email if it exists in db
-
-*/

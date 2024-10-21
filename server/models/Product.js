@@ -6,8 +6,8 @@ const ProductSchema = new Schema({
 
     name: String,
     quantity: String,
-    buying_price: String,
-    selling_price: String,
+    buying_price: Number,
+    selling_price: Number,
     category: String,
     in_stock: Boolean,
     
