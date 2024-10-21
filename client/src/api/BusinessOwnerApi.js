@@ -7,10 +7,10 @@ export const businessOwnerApi = {
   },
 
   getAllProductsByBuyingPrice(id) {
-    return Api.get(`/BusinessOwners/${id}/products/orderByBuyingPrice`)
+    return Api.get(`/BusinessOwners/${id}/products?sort=buying_price`)
   },
   getAllProductsByQuantity(id) {
-    return Api.get(`/BusinessOwners/${id}/products/orderByQuantity`)
+    return Api.get(`/BusinessOwners/${id}/products?sort=quantity`)
   }
 
 }
